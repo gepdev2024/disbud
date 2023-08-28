@@ -1,0 +1,27 @@
+{
+  "menu": [
+    {
+      "name": "Data Master",
+      "icon": "menu-icon tf-icons bx bx-detail",
+      "slug": "data",
+      "submenu": [
+        {
+          "url": "objek-wisata",
+          "name": "Objek Wisata",
+          "slug": "data-objek-wisata"
+        },
+        {
+          "url": "foto",
+          "name": "Foto",
+          "slug": "data-foto"
+        }
+      ]
+    },
+    {
+      "url": "logout",
+      "icon": "menu-icon tf-icons bx bx-log-out",
+      "name": "Logout",
+      "slug": "logout"
+    }
+  ]
+}
