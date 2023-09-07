@@ -102,7 +102,7 @@
 
             var url = encodeURI("data:image/svg+xml," + svgrect).replace('#','%23');
             const myIcon = L.icon({
-                iconUrl: "storage/app/public/gambarPopup/"+item.gambar_popup,
+                iconUrl: "storage/gambarPopup/"+item.gambar_popup,
                 shadowUrl: url,
                 iconSize: [32, 32],
                 shadowSize: [50, 50],
