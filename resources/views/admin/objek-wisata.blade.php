@@ -74,7 +74,7 @@ $isNavbar = false;
                                         <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
                                                 data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}" alt="Avatar"
+                                                <img src="{{storage_path('app/public/gambarPopup/$item->gambar_popup')}}" alt="Avatar"
                                                     class="rounded-circle">
                                             </li>
                                         </ul>
