@@ -53,7 +53,7 @@ class KabupatenSeeder extends Seeder
         ]);
         Kabupaten::create([
             'id' =>364,
-            'nama' => 'Kabupaten Rokan Hilir',
+            'nama' => 'Kabupaten Rokan Hulu',
             
         ]);
         Kabupaten::create([

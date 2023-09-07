@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'AdHoc - Disbud')
+@section('title', 'AdHoc - Warisan Benda')
 <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
 <style>
     path.leaflet-interactive:focus {
@@ -28,9 +28,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar-ex-2">
             <div class="navbar-nav me-auto">
-                <a class="nav-item nav-link active" href="/">Home</a>
+                <a class="nav-item nav-link" href="/">Home</a>
                 <a class="nav-item nav-link" href="/WBB">WBB</a>
-                <a class="nav-item nav-link" href="/WBTB">WTB</a>
+                <a class="nav-item nav-link active" href="WBTB">WTB</a>
             </div>
 
             <span class="navbar-text">Peta Infografis Cagar Budaya Propinsi Riau</span>
@@ -54,9 +54,13 @@
 </div>
 
 <script src="{{ asset('leaflet/leaflet.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-    var kategoriBenda = [];
-    var kategoriTakBenda = [];
+    var keterampilan = [];
+    var seni = [];
+    var pengetahuan = [];
+    var tradisi = [];
+    var adat = [];
     var pekanbaru = [];
     var kuantanSingingi = [];
     var rokanHilir = [];
@@ -72,23 +76,39 @@
 
     function addMarkersToMap(data) {
         data.forEach(function (item) {
+            var svgCol = '';
+
+            switch (item.sub_kategori.nama){
+                case 'Keterampilan dan Kemahiran Kerajinan Tradisional':
+                    svgCol = '#0073e6'
+                    break;
+                case 'Seni Pertunjukan':
+                    svgCol = '#5928ed'
+                    break;
+                case 'Pengetahuan dan Kebiasaan Perilaku Mengenai Alam dan Semesta':
+                    svgCol ='#00bf7d'
+                    break;
+                case 'Tradisi Lisan dan Ekspresi':
+                    svgCol = '#b3c7f7'
+                    break;
+                case 'Adat Istiadat Masyarakat, Ritual, dan Perayaan-Perayaan':
+                    svgCol = '#89ce00'
+                    break;
+            }
+
+            var svgrect = `<svg cache-id='f947fb2af7bb488eb0df4d1e2adb27ab' id='e4wDYrPzlOT1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 324 375' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><rect width='324' height='324' rx='0' ry='0' transform='matrix(.370734 0.367312-.384489 0.388071 164.228181 130.255953)' fill='white' stroke-width='0'/><rect width='324' height='324' rx='20' ry='20' transform='translate(0 0.000001)' fill='${svgCol}' stroke-width='0'/></svg>`
+
+            var url = encodeURI("data:image/svg+xml," + svgrect).replace('#','%23');
             const myIcon = L.icon({
                 iconUrl: "storage/gambarPopup/"+item.gambar_popup,
-                shadowUrl: "leaflet/images/shadow.png",
-                iconSize: [30, 30],
+                shadowUrl: url,
+                iconSize: [32, 32],
                 shadowSize: [50, 50],
-                iconAnchor: [15, 55],
+                iconAnchor: [16, 55],
                 shadowAnchor: [25,60],
             });
 
-            
-
             const marker = L.marker([item.latitude, item.longitude], { icon: myIcon })
-            if(item.sub_kategori.kategori.nama === "Benda"){
-                kategoriBenda.push(marker);
-            }else{
-                kategoriTakBenda.push(marker);
-            }
 
             switch(item.kabupaten.nama){
                 case 'Kota Pekanbaru':
@@ -129,6 +149,24 @@
                     break;
             }
 
+            switch (item.sub_kategori.nama){
+                case 'Keterampilan dan Kemahiran Kerajinan Tradisional':
+                    keterampilan.push(marker);
+                    break;
+                case 'Seni Pertunjukan':
+                    seni.push(marker);
+                    break;
+                case 'Pengetahuan dan Kebiasaan Perilaku Mengenai Alam dan Semesta':
+                    pengetahuan.push(marker);
+                    break;
+                case 'Tradisi Lisan dan Ekspresi':
+                    tradisi.push(marker);
+                    break;
+                case 'Adat Istiadat Masyarakat, Ritual, dan Perayaan-Perayaan':
+                    adat.push(marker);
+                    break;
+            }
+
             marker.on('click', () => markerOnClick(item));
         });
     }
@@ -136,8 +174,6 @@
     // Call the function to add markers with your generated data
     const data = @json($data);
     addMarkersToMap(data);
-    var grupBenda = L.layerGroup(kategoriBenda);
-    var grupTakBenda = L.layerGroup(kategoriTakBenda);
     var grupPekanbaru = L.layerGroup(pekanbaru);
     var grupKuantanSingingi = L.layerGroup(kuantanSingingi)
     var grupRokanHilir = L.layerGroup(rokanHilir)
@@ -150,6 +186,11 @@
     var grupBengkalis = L.layerGroup(bengkalis)
     var grupMeranti = L.layerGroup(meranti)
     var grupIndragiriHilir = L.layerGroup(indragiriHilir)
+    var grupKeterampilan = L.layerGroup(keterampilan)
+    var grupSeni = L.layerGroup(seni)
+    var grupPengetahuan = L.layerGroup(pengetahuan)
+    var grupTradisi = L.layerGroup(tradisi)
+    var grupAdat = L.layerGroup(adat)
 
     var map = L.map('map',{
             dragging: false,
@@ -157,9 +198,11 @@
             scrollWheelZoom: false,
             doubleClickZoom: false,
             keyboard: false,
-            layers: [grupBenda],
+        }
+        )
+        .setView([0.5933, 101.7068], 8, false);
 
-        }).setView([0.5933, 101.7068], 8, false);
+    
 
     L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -301,8 +344,8 @@
             ).addTo(map);
         });
 
-    var baseLayers = {'Rusak':grupBenda, 'Tidak Rusak':grupTakBenda};
-    L.control.layers(baseLayers, {
+
+    L.control.layers({}, {
             'Kota Pekanbaru': grupPekanbaru, 
             'Kabupaten Kuantan Singingi': grupKuantanSingingi,
             'Kabupaten Rokan Hilir': grupRokanHilir,
@@ -314,22 +357,37 @@
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
-        }, { collapsed: false }).addTo(map);
+        }, { collapsed: false}).addTo(map);
 
-        map.addLayer(grupPekanbaru);
-        map.addLayer(grupKuantanSingingi);
-        map.addLayer(grupRokanHilir);
-        map.addLayer(grupDumai);
-        map.addLayer(grupPelalawan);
-        map.addLayer(grupSiak);
-        map.addLayer(grupKampar);
-        map.addLayer(grupRokanHulu);
-        map.addLayer(grupBengkalis);
-        map.addLayer(grupMeranti);
-        map.addLayer(grupIndragiriHilir);
+        L.control.layers({}, {
+            'Keterampilan dan Kemahiran Kerajinan Tradisional': grupKeterampilan, 
+            'Seni Pertunjukan': grupSeni,
+            'Pengetahuan dan Kebiasaan Perilaku Mengenai Alam dan Semesta': grupPengetahuan,
+            'Tradisi Lisan dan Ekspresi': grupTradisi,
+            'Adat Istiadat Masyarakat, Ritual, dan Perayaan-Perayaan': grupAdat,
+        }, { collapsed: false, position: 'bottomright'}).addTo(map);
 
 
-        function markerOnClick(data) {
+
+    map.addLayer(grupPekanbaru);
+    map.addLayer(grupKuantanSingingi);
+    map.addLayer(grupRokanHilir);
+    map.addLayer(grupDumai);
+    map.addLayer(grupPelalawan);
+    map.addLayer(grupSiak);
+    map.addLayer(grupKampar);
+    map.addLayer(grupRokanHulu);
+    map.addLayer(grupBengkalis);
+    map.addLayer(grupMeranti);
+    map.addLayer(grupIndragiriHilir);
+    map.addLayer(grupKeterampilan);
+    map.addLayer(grupSeni);
+    map.addLayer(grupPengetahuan);
+    map.addLayer(grupTradisi);
+    map.addLayer(grupAdat);
+
+
+    function markerOnClick(data) {
         let fotosHtml = ''
         let carouselIndex = '';
         let carouselFull = '';
@@ -405,7 +463,13 @@
 			
 		var text = L.DomUtil.create('div');
 		text.id = "info_text";
-		text.innerHTML = "<strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/>"
+		text.innerHTML = `
+            <div><span style='background-color:#0073e6; color:#0073e6'>tet</span> Bangunan</div>
+            <div><span style='background-color:#5928ed; color:#5928ed'>tet</span> Benda</div>
+            <div><span style='background-color:#00bf7d; color:#00bf7d'>tet</span> Situs</div>
+            <div><span style='background-color:#b3c7f7; color:#b3c7f7'>tet</span> Struktur</div>
+            <div><span style='background-color:#89ce00; color:#89ce00'>tet</span> Kawasan</div>
+        `
         text.className = "bg-white p-3";
 		return text;
 		},

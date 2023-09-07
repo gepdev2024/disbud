@@ -16,8 +16,30 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        $data = ObjekWisata::with(['fotos','subKategori:id,nama,kategori_id','subKategori.kategori:id,nama','kabupaten:id,nama'])->get();
+        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])->get();
 
         return view('index', compact('data'));
+    }
+
+    public function benda()
+    {
+        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
+            ->whereHas('subKategori.kategori', function ($query) {
+                $query->where('nama', 'Benda');
+            })
+            ->get();
+
+        return view('visitor.benda', compact('data'));
+    }
+
+    public function takBenda()
+    {
+        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
+            ->whereHas('subKategori.kategori', function ($query) {
+                $query->where('nama', 'Tak Benda');
+            })
+            ->get();
+
+        return view('visitor.takBenda', compact('data'));
     }
 }

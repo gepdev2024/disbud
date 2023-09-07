@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'AdHoc - Disbud')
+@section('title', 'AdHoc - Warisan Benda')
 <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
 <style>
     path.leaflet-interactive:focus {
@@ -28,9 +28,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar-ex-2">
             <div class="navbar-nav me-auto">
-                <a class="nav-item nav-link active" href="/">Home</a>
-                <a class="nav-item nav-link" href="/WBB">WBB</a>
-                <a class="nav-item nav-link" href="/WBTB">WTB</a>
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link active" href="/WBB">WBB</a>
+                <a class="nav-item nav-link" href="WBTB">WTB</a>
             </div>
 
             <span class="navbar-text">Peta Infografis Cagar Budaya Propinsi Riau</span>
@@ -54,9 +54,15 @@
 </div>
 
 <script src="{{ asset('leaflet/leaflet.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-    var kategoriBenda = [];
-    var kategoriTakBenda = [];
+    var aktif = [];
+    var takAktif = [];
+    var bangunan = [];
+    var benda = [];
+    var situs = [];
+    var struktur = [];
+    var kawasan = [];
     var pekanbaru = [];
     var kuantanSingingi = [];
     var rokanHilir = [];
@@ -72,22 +78,44 @@
 
     function addMarkersToMap(data) {
         data.forEach(function (item) {
+            var svgCol = '';
+
+            switch (item.sub_kategori.nama){
+                case 'Bangunan':
+                    svgCol = '#0073e6'
+                    break;
+                case 'Benda':
+                    svgCol = '#5928ed'
+                    break;
+                case 'Situs':
+                    svgCol ='#00bf7d'
+                    break;
+                case 'Struktur':
+                    svgCol = '#b3c7f7'
+                    break;
+                case 'Kawasan':
+                    svgCol = '#89ce00'
+                    break;
+            }
+
+            var svgrect = `<svg cache-id='f947fb2af7bb488eb0df4d1e2adb27ab' id='e4wDYrPzlOT1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 324 375' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><rect width='324' height='324' rx='0' ry='0' transform='matrix(.370734 0.367312-.384489 0.388071 164.228181 130.255953)' fill='white' stroke-width='0'/><rect width='324' height='324' rx='20' ry='20' transform='translate(0 0.000001)' fill='${svgCol}' stroke-width='0'/></svg>`
+
+            var url = encodeURI("data:image/svg+xml," + svgrect).replace('#','%23');
             const myIcon = L.icon({
                 iconUrl: "storage/gambarPopup/"+item.gambar_popup,
-                shadowUrl: "leaflet/images/shadow.png",
-                iconSize: [30, 30],
+                shadowUrl: url,
+                iconSize: [32, 32],
                 shadowSize: [50, 50],
-                iconAnchor: [15, 55],
+                iconAnchor: [16, 55],
                 shadowAnchor: [25,60],
             });
 
-            
-
             const marker = L.marker([item.latitude, item.longitude], { icon: myIcon })
-            if(item.sub_kategori.kategori.nama === "Benda"){
-                kategoriBenda.push(marker);
+            if(item.status === "Rusak"){
+                aktif.push(marker);
+                takAktif.push(marker);
             }else{
-                kategoriTakBenda.push(marker);
+                takAktif.push(marker);
             }
 
             switch(item.kabupaten.nama){
@@ -129,6 +157,24 @@
                     break;
             }
 
+            switch (item.sub_kategori.nama){
+                case 'Bangunan':
+                    bangunan.push(marker);
+                    break;
+                case 'Benda':
+                    benda.push(marker);
+                    break;
+                case 'Situs':
+                    situs.push(marker);
+                    break;
+                case 'Struktur':
+                    struktur.push(marker);
+                    break;
+                case 'Kawasan':
+                    kawasan.push(marker);
+                    break;
+            }
+
             marker.on('click', () => markerOnClick(item));
         });
     }
@@ -136,8 +182,8 @@
     // Call the function to add markers with your generated data
     const data = @json($data);
     addMarkersToMap(data);
-    var grupBenda = L.layerGroup(kategoriBenda);
-    var grupTakBenda = L.layerGroup(kategoriTakBenda);
+    var grupaktif = L.layerGroup(aktif);
+    var grupTakAktif = L.layerGroup(takAktif);
     var grupPekanbaru = L.layerGroup(pekanbaru);
     var grupKuantanSingingi = L.layerGroup(kuantanSingingi)
     var grupRokanHilir = L.layerGroup(rokanHilir)
@@ -150,6 +196,11 @@
     var grupBengkalis = L.layerGroup(bengkalis)
     var grupMeranti = L.layerGroup(meranti)
     var grupIndragiriHilir = L.layerGroup(indragiriHilir)
+    var grupBenda = L.layerGroup(benda)
+    var grupSitus = L.layerGroup(situs)
+    var grupBangunan = L.layerGroup(bangunan)
+    var grupKawasan = L.layerGroup(kawasan)
+    var grupStruktur = L.layerGroup(struktur)
 
     var map = L.map('map',{
             dragging: false,
@@ -157,9 +208,12 @@
             scrollWheelZoom: false,
             doubleClickZoom: false,
             keyboard: false,
-            layers: [grupBenda],
+            layers: [grupTakAktif]
+        }
+        )
+        .setView([0.5933, 101.7068], 8, false);
 
-        }).setView([0.5933, 101.7068], 8, false);
+    
 
     L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -301,7 +355,8 @@
             ).addTo(map);
         });
 
-    var baseLayers = {'Rusak':grupBenda, 'Tidak Rusak':grupTakBenda};
+    var baseLayers = {'Aktif':grupaktif, 'Tidak Aktif':grupTakAktif};
+
     L.control.layers(baseLayers, {
             'Kota Pekanbaru': grupPekanbaru, 
             'Kabupaten Kuantan Singingi': grupKuantanSingingi,
@@ -314,22 +369,39 @@
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
-        }, { collapsed: false }).addTo(map);
+        }, { collapsed: false}).addTo(map);
+        $('<h6 class="mb-0 text-dark" id="mapTitle">Indikasi Kerusakan</h6>').insertBefore('div.leaflet-control-layers-base');
+        
 
-        map.addLayer(grupPekanbaru);
-        map.addLayer(grupKuantanSingingi);
-        map.addLayer(grupRokanHilir);
-        map.addLayer(grupDumai);
-        map.addLayer(grupPelalawan);
-        map.addLayer(grupSiak);
-        map.addLayer(grupKampar);
-        map.addLayer(grupRokanHulu);
-        map.addLayer(grupBengkalis);
-        map.addLayer(grupMeranti);
-        map.addLayer(grupIndragiriHilir);
+        L.control.layers({}, {
+            'Bangunan': grupBangunan, 
+            'Benda': grupBenda,
+            'Situs': grupSitus,
+            'Struktur': grupStruktur,
+            'Kawasan': grupKawasan,
+        }, { collapsed: false, position: 'topleft'}).addTo(map);
 
 
-        function markerOnClick(data) {
+
+    map.addLayer(grupPekanbaru);
+    map.addLayer(grupKuantanSingingi);
+    map.addLayer(grupRokanHilir);
+    map.addLayer(grupDumai);
+    map.addLayer(grupPelalawan);
+    map.addLayer(grupSiak);
+    map.addLayer(grupKampar);
+    map.addLayer(grupRokanHulu);
+    map.addLayer(grupBengkalis);
+    map.addLayer(grupMeranti);
+    map.addLayer(grupIndragiriHilir);
+    map.addLayer(grupBangunan);
+    map.addLayer(grupBenda);
+    map.addLayer(grupSitus);
+    map.addLayer(grupStruktur);
+    map.addLayer(grupKawasan);
+
+
+    function markerOnClick(data) {
         let fotosHtml = ''
         let carouselIndex = '';
         let carouselFull = '';
@@ -405,7 +477,13 @@
 			
 		var text = L.DomUtil.create('div');
 		text.id = "info_text";
-		text.innerHTML = "<strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/>"
+		text.innerHTML = `
+            <div><span style='background-color:#0073e6; color:#0073e6'>tet</span> Bangunan</div>
+            <div><span style='background-color:#5928ed; color:#5928ed'>tet</span> Benda</div>
+            <div><span style='background-color:#00bf7d; color:#00bf7d'>tet</span> Situs</div>
+            <div><span style='background-color:#b3c7f7; color:#b3c7f7'>tet</span> Struktur</div>
+            <div><span style='background-color:#89ce00; color:#89ce00'>tet</span> Kawasan</div>
+        `
         text.className = "bg-white p-3";
 		return text;
 		},

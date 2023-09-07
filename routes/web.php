@@ -18,7 +18,9 @@ $controller_path = 'App\Http\Controllers';
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Main Page Route
-    Route::get('/', 'VisitorController@index')->name('VisitorPage');
+    Route::get('/', 'VisitorController@benda')->name('VisitorPage');
+    Route::get('/WBB', 'VisitorController@benda')->name('VisitorPage');
+    Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
 
     // auth
     Route::get('login',  'LoginController@show');
