@@ -6,6 +6,7 @@ $isNavbar = false;
 
 @section('title', 'Objek Wisata')
 
+
 @section('content')
 
 <h4 class="fw-bold py-3 mb-4">
@@ -41,6 +42,7 @@ $isNavbar = false;
                     </div>
                 </div>
                 <div class="card-body">
+
                     @if (sizeof($benda) > 0)
                     <div class="table-responsive text-nowrap">
                         <table class="table">
@@ -62,7 +64,7 @@ $isNavbar = false;
                                 @foreach ($benda as $item)
                                 <tr>
                                     <td>{{$item->nama}}</td>
-                                    <td class="d-inline-block text-truncate" style="max-width: 300px;">
+                                    <td class="text-truncate" style="max-width: 300px;">
                                         {{$item->deskripsi}}</td>
                                     <td>{{$item->kabupaten}}</td>
                                     <td>{{$item->sub_kategori}}</td>
@@ -71,11 +73,10 @@ $isNavbar = false;
                                     <td>{{$item->link_360}}</td>
                                     <td>{{$item->status}}</td>
                                     <td>
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}" alt="Avatar"
-                                                    class="rounded-circle">
+                                        <ul class="list-unstyled align-items-center">
+                                            <li class="avatar avatar-xs">
+                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}"
+                                                    alt="Avatar" class="rounded-circle">
                                             </li>
                                         </ul>
                                     </td>
@@ -115,7 +116,8 @@ $isNavbar = false;
                 <div class="row">
                     <h5 class="card-header col-10">Data Objek Wisata Tak Benda</h5>
                     <div class="col-2 pt-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFormTB">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#addFormTB">
                             Tambah Data
                         </button>
                     </div>
@@ -141,7 +143,7 @@ $isNavbar = false;
                                 @foreach ($takbenda as $item)
                                 <tr>
                                     <td>{{$item->nama}}</td>
-                                    <td class="d-inline-block text-truncate" style="max-width: 300px;">
+                                    <td class="text-truncate" style="max-width: 300px;">
                                         {{$item->deskripsi}}</td>
                                     <td>{{$item->kabupaten}}</td>
                                     <td>{{$item->sub_kategori}}</td>
@@ -152,8 +154,8 @@ $isNavbar = false;
                                         <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
                                                 data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}" alt="Avatar"
-                                                    class="rounded-circle">
+                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}"
+                                                    alt="Avatar" class="rounded-circle">
                                             </li>
                                         </ul>
                                     </td>
@@ -245,6 +247,8 @@ $isNavbar = false;
                             </select>
                         </div>
                     </div>
+
+
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Latitude</label>
@@ -256,7 +260,9 @@ $isNavbar = false;
                             <input name="longitude" required type="text" id="emailBasic" class="form-control"
                                 placeholder="Longitude">
                         </div>
+
                     </div>
+            
                     <div class="row">
                         <div class="col input-group mb-3">
                             <input name="foto" required type="file" class="form-control" id="inputGroupFile02">
@@ -460,7 +466,6 @@ $isNavbar = false;
     </div>
 </div>
 
-
 <script>
     const editModal = document.getElementById('editForm')
     if (editModal) {
@@ -490,4 +495,7 @@ $isNavbar = false;
         })
     }
 </script>
+
+
+
 @endsection

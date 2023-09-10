@@ -21,7 +21,10 @@
 @section('content')
 <nav class="navbar navbar-example navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">AdHoc</a>
+        <a class="navbar-brand" href="/">
+            <img width="25" src="{{asset('assets/img/logo.png')}}" alt="">
+
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
             aria-controls="navbar-ex-2" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -425,9 +428,9 @@
             }
             
             fotosHtml += '">' +
-                '<img class="d-block w-100" src="storage/foto/'+foto.url+'" alt="Slide" />' +
+                '<img class="d-block w-100 bd-placeholder-img object-fit-fill" height="400" width="500" src="storage/foto/'+foto.url+'" alt="Slide" />' +
                 '<div class="carousel-caption d-none d-md-block">' +
-                    '<h3 class="text-light bg-dark">'+foto.nama+'</h3>' +
+                    '<h3 style="--bs-bg-opacity: .75;" class="text-light bg-dark">'+foto.nama+'</h3>' +
                 '</div>' +
             '</div>';
         });

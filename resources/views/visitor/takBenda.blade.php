@@ -21,7 +21,9 @@
 @section('content')
 <nav class="navbar navbar-example navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">AdHoc</a>
+        <a class="navbar-brand" href="/">
+            <img width="25" src="{{asset('assets/img/logo.png')}}" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
             aria-controls="navbar-ex-2" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -360,12 +362,12 @@
         }, { collapsed: false}).addTo(map);
 
         L.control.layers({}, {
-            'Keterampilan dan Kemahiran Kerajinan Tradisional': grupKeterampilan, 
-            'Seni Pertunjukan': grupSeni,
-            'Pengetahuan dan Kebiasaan Perilaku Mengenai Alam dan Semesta': grupPengetahuan,
-            'Tradisi Lisan dan Ekspresi': grupTradisi,
-            'Adat Istiadat Masyarakat, Ritual, dan Perayaan-Perayaan': grupAdat,
-        }, { collapsed: false, position: 'bottomright'}).addTo(map);
+            '<span style="background-color:#0073e6; color:#0073e6">tet</span> Keterampilan dan Kemahiran Kerajinan Tradisional': grupKeterampilan, 
+            '<span style="background-color:#5928ed; color:#5928ed">tet</span> Seni Pertunjukan': grupSeni,
+            '<span style="background-color:#00bf7d; color:#00bf7d">tet</span> Pengetahuan dan Kebiasaan Perilaku Mengenai Alam dan Semesta': grupPengetahuan,
+            '<span style="background-color:#b3c7f7; color:#b3c7f7">tet</span> Tradisi Lisan dan Ekspresi': grupTradisi,
+            '<span style="background-color:#89ce00; color:#89ce00">tet</span> Adat Istiadat Masyarakat, Ritual, dan Perayaan-Perayaan': grupAdat,
+        }, { collapsed: false, position: 'bottomleft'}).addTo(map);
 
 
 
@@ -411,9 +413,9 @@
             }
             
             fotosHtml += '">' +
-                '<img class="d-block w-100" src="storage/foto/'+foto.url+'" alt="Slide" />' +
+                '<img class="d-block w-100 bd-placeholder-img object-fit-fill" height="400" width="500" src="storage/foto/'+foto.url+'" alt="Slide" />' +
                 '<div class="carousel-caption d-none d-md-block">' +
-                    '<h3 class="text-light bg-dark">'+foto.nama+'</h3>' +
+                    '<h3 style="--bs-bg-opacity: .75;" class="text-light bg-dark">'+foto.nama+'</h3>' +
                 '</div>' +
             '</div>';
         });
@@ -458,28 +460,6 @@
         e.preventDefault();
     }
 
-    L.Control.textbox = L.Control.extend({
-		onAdd: function(map) {
-			
-		var text = L.DomUtil.create('div');
-		text.id = "info_text";
-		text.innerHTML = `
-            <div><span style='background-color:#0073e6; color:#0073e6'>tet</span> Bangunan</div>
-            <div><span style='background-color:#5928ed; color:#5928ed'>tet</span> Benda</div>
-            <div><span style='background-color:#00bf7d; color:#00bf7d'>tet</span> Situs</div>
-            <div><span style='background-color:#b3c7f7; color:#b3c7f7'>tet</span> Struktur</div>
-            <div><span style='background-color:#89ce00; color:#89ce00'>tet</span> Kawasan</div>
-        `
-        text.className = "bg-white p-3";
-		return text;
-		},
-
-		onRemove: function(map) {
-			// Nothing to do here
-		}
-	});
-	L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
-	L.control.textbox({ position: 'bottomleft' }).addTo(map);
 
 </script>
 @endsection

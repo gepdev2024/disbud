@@ -17,7 +17,7 @@
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
-              <span class="app-brand-text demo text-body fw-bolder">AdHoc</span>
+              <img width="50" src="{{asset('assets/img/logo.png')}}" alt="">
             </a>
           </div>
           <!-- /Logo -->
@@ -26,8 +26,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" id="email" name="email"
-                placeholder="Enter your email" autofocus>
+              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
               @if ($errors->has('username'))
               <span class="text-danger text-left">{{ $errors->first('username') }}</span>
               @endif
