@@ -56,7 +56,7 @@ $isNavbar = false;
                                 {{$foto->nama}}
                             </td>
                             <td>
-                                <img  class="bd-placeholder-img object-fit-fill" height="200" width="300" src="{{'storage/foto/'.$foto->url}}">
+                                <img  class="bd-placeholder-img object-fit-cover" height="100" width="150" src="{{'storage/foto/'.$foto->url}}">
                             </td>
                             <td>
                                 <a onclick="return confirm('Apakah anda yakin ingin menghapus data?')"

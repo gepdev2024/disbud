@@ -413,7 +413,7 @@
             }
             
             fotosHtml += '">' +
-                '<img class="d-block w-100 bd-placeholder-img object-fit-fill" height="400" width="500" src="storage/foto/'+foto.url+'" alt="Slide" />' +
+                '<img class="d-block w-100 bd-placeholder-img object-fit-cover" height="400" width="500" src="storage/foto/'+foto.url+'" alt="Slide" />' +
                 '<div class="carousel-caption d-none d-md-block">' +
                     '<h3 style="--bs-bg-opacity: .75;" class="text-light bg-dark">'+foto.nama+'</h3>' +
                 '</div>' +
