@@ -359,7 +359,7 @@
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
-        }, { collapsed: false}).addTo(map);
+        }, { collapsed: false, position:'topleft'}).addTo(map);
 
         L.control.layers({}, {
             '<span style="background-color:#0073e6; color:#0073e6">tet</span> Keterampilan dan Kemahiran Kerajinan Tradisional': grupKeterampilan, 

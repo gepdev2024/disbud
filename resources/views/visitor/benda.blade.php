@@ -372,17 +372,17 @@
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
-        }, { collapsed: false}).addTo(map);
+        }, { collapsed: false, position:'topleft'}).addTo(map);
         $('<h6 class="mb-0 text-dark" id="mapTitle">Indikasi Kerusakan</h6>').insertBefore('div.leaflet-control-layers-base');
         
 
         L.control.layers({}, {
-            'Bangunan': grupBangunan, 
-            'Benda': grupBenda,
-            'Situs': grupSitus,
-            'Struktur': grupStruktur,
-            'Kawasan': grupKawasan,
-        }, { collapsed: false, position: 'topleft'}).addTo(map);
+            '<span style="background-color:#0073e6; color:#0073e6">tet</span> Bangunan': grupBangunan, 
+            '<span style="background-color:#5928ed; color:#5928ed">tet</span> Benda': grupBenda,
+            '<span style="background-color:#00bf7d; color:#00bf7d">tet</span> Situs': grupSitus,
+            '<span style="background-color:#b3c7f7; color:#b3c7f7">tet</span> Struktur': grupStruktur,
+            '<span style="background-color:#89ce00; color:#89ce00">tet</span> Kawasan': grupKawasan,
+        }, { collapsed: false, position: 'bottomleft'}).addTo(map);
 
 
 
@@ -475,28 +475,6 @@
         e.preventDefault();
     }
 
-    L.Control.textbox = L.Control.extend({
-		onAdd: function(map) {
-			
-		var text = L.DomUtil.create('div');
-		text.id = "info_text";
-		text.innerHTML = `
-            <div><span style='background-color:#0073e6; color:#0073e6'>tet</span> Bangunan</div>
-            <div><span style='background-color:#5928ed; color:#5928ed'>tet</span> Benda</div>
-            <div><span style='background-color:#00bf7d; color:#00bf7d'>tet</span> Situs</div>
-            <div><span style='background-color:#b3c7f7; color:#b3c7f7'>tet</span> Struktur</div>
-            <div><span style='background-color:#89ce00; color:#89ce00'>tet</span> Kawasan</div>
-        `
-        text.className = "bg-white p-3";
-		return text;
-		},
-
-		onRemove: function(map) {
-			// Nothing to do here
-		}
-	});
-	L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
-	L.control.textbox({ position: 'bottomleft' }).addTo(map);
-
+   
 </script>
 @endsection
