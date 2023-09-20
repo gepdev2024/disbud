@@ -38,384 +38,69 @@
     </div>
 </nav>
 
-
-<div id="map" style="height: 100vh;"></div>
-
-<div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
+<main>
+    <!-- Hero Section -->
+    <section class="hero bg-dark text-light text-center py-5">
+        <div class="container">
+            <h1>Selamat Datang</h1>
+            <p></p>
+            <a href="#start" class="btn btn-light btn-lg">Learn More</a>
         </div>
-    </div>
-</div>
+    </section>
 
-<script src="{{ asset('leaflet/leaflet.js') }}"></script>
-<script>
-    var kategoriBenda = [];
-    var kategoriTakBenda = [];
-    var pekanbaru = [];
-    var kuantanSingingi = [];
-    var rokanHilir = [];
-    var dumai = [];
-    var pelalawan = [];
-    var siak = [];
-    var kampar = [];
-    var rokanHulu = [];
-    var indragiriHulu = [];
-    var bengkalis = [];
-    var meranti = [];
-    var indragiriHilir = [];
+    <!-- About Section -->
+    <section class=" py-5" id="start">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Apa Yang Dimaksud WBB ?</h2>
+                    <p style="text-align:justify">
+                        Warisan Budaya Benda adalah warisan budaya yang bisa diindera dengan
+                        mata dan tangan, misalnya berbagai artefak atau situs yang ada di sekitar kita. Termasuk di
+                        dalamnya adalah candi-candi dan arsitektur kuno lainnya, sebilah keris, gerabah/keramik, sebuah
+                        kawasan, dan lain-lain. Warisan Budaya Benda atau biasa dikenal dengan Cagar Budaya terbagi
+                        menjadi beberapa kategori diantaranya yaitu : 1. Benda 2. Bangunan 3. Struktur 4. Situs 5.
+                        Kawasan Pada sistem ini terdapat menu analisa spasial berupa Daerah Potensi Kerusakan, dimana
+                        jika terdapat jumlah item > 2 maka daerah tersebut dinyatakan berpotensi kerusakan Warisan
+                        Budaya Benda
+                    </p>
+                </div>
+                <div class="col-md-6 text-center">
+                    <!-- You can add an image here -->
+                    <i style="font-size: 400px" class=" bx bx-building-house"></i>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function addMarkersToMap(data) {
-        data.forEach(function (item) {
-            const myIcon = L.icon({
-                iconUrl: "storage/gambarPopup/"+item.gambar_popup,
-                shadowUrl: "leaflet/images/shadow.png",
-                iconSize: [30, 30],
-                shadowSize: [50, 50],
-                iconAnchor: [15, 55],
-                shadowAnchor: [25,60],
-            });
+    <!-- Services Section -->
+    <section class=" bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <i style="font-size: 400px" class=" bx bx-palette"></i>
+                </div>
+                <div class="col-md-6">
+                    <h2>Apa Yang Dimaksud WBTB ?</h2>
+                    <p style="text-align:justify">
+                        Warisan Budaya Tak Benda (WBTB) adalah berbagai praktik, representasi, ekspresi, pengetahuan,
+                        keterampilan, instrumen, obyek, artefak, dan ruang-ruang budaya yang terkait. Dalam beberapa
+                        kasus, masyarakat, kelompok, atau seseorang juga dapat menjadi bagian dari warisan budaya tak
+                        benda. Warisan budaya tak benda diwariskan dari generasi ke generasi, yang akhirnya diciptakan
+                        kembali oleh masyarakat dan suatu kelompok. Selain itu, warisan budaya tak benda memberikan rasa
+                        identitas yang berkelanjutan, untuk menghargai perbedaan budaya dan kreativitas manusia. Warisan
+                        Budaya Tak Benda diklasifikasikan menjadi beberapa jenis / domain diantaranya yaitu : 1.
+                        Keterampilan dan Kemahiran Kerajinan Tradisional 2. Seni Pertunjukan 3. Pengetahuan dan
+                        Kebiasaan Perilaku Mengenai Alam Semesta 4. Tradisi Lisan dan Ekspresi 5. Adat Istiadat
+                        Masyarakat, Ritual dan Perayaan-Perayaan Pada menu WBTB di sistem kali ini terdapat analisa
+                        spasial untuk menentukan Top List Kota / Kabupaten berdasarkan jenis domainnya. Jumlah item WBTB
+                        hingga saat ini (2022) yaitu 64 item, dimana tiap tahunnya akan dilaksanakan verifikasi item
+                        secara nasional untuk menentukan item warisan budaya tak benda pada suatu daerah.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
-            
-
-            const marker = L.marker([item.latitude, item.longitude], { icon: myIcon })
-            if(item.sub_kategori.kategori.nama === "Benda"){
-                kategoriBenda.push(marker);
-            }else{
-                kategoriTakBenda.push(marker);
-            }
-
-            switch(item.kabupaten.nama){
-                case 'Kota Pekanbaru':
-                    pekanbaru.push(marker);
-                    break;
-                case 'Kabupaten Kuantan Singingi':
-                    kuantanSingingi.push(marker);
-                    break;
-                case 'Kabupaten Rokan Hilir':
-                    rokanHilir.push(marker);
-                    break;
-                case 'Kota Dumai':
-                    dumai.push(marker);
-                    break;
-                case 'Kabupaten Pelalawan':
-                    pelalawan.push(marker);
-                    break;
-                case 'Kabupaten Siak':
-                    siak.push(marker);
-                    break;
-                case 'Kabupaten Kampar':
-                    kampar.push(marker);
-                    break;
-                case 'Kabupaten Rokan Hulu':
-                    rokanHulu.push(marker);
-                    break;
-                case 'Kabupaten Bengkalis':
-                    bengkalis.push(marker);
-                    break;
-                case 'Kabupaten Meranti':
-                    meranti.push(marker);
-                    break;
-                case 'Kabupaten Indragiri Hilir':
-                    indragiriHilir.push(marker);
-                    break;
-                case 'Kabupaten Indragiri Hulu':
-                    indragiriHulu.push(marker);
-                    break;
-            }
-
-            marker.on('click', () => markerOnClick(item));
-        });
-    }
-
-    // Call the function to add markers with your generated data
-    const data = @json($data);
-    addMarkersToMap(data);
-    var grupBenda = L.layerGroup(kategoriBenda);
-    var grupTakBenda = L.layerGroup(kategoriTakBenda);
-    var grupPekanbaru = L.layerGroup(pekanbaru);
-    var grupKuantanSingingi = L.layerGroup(kuantanSingingi)
-    var grupRokanHilir = L.layerGroup(rokanHilir)
-    var grupDumai = L.layerGroup(dumai)
-    var grupPelalawan = L.layerGroup(pelalawan)
-    var grupSiak = L.layerGroup(siak)
-    var grupKampar = L.layerGroup(kampar)
-    var grupRokanHulu = L.layerGroup(rokanHulu)
-    var grupIndragiriHulu = L.layerGroup(indragiriHulu)
-    var grupBengkalis = L.layerGroup(bengkalis)
-    var grupMeranti = L.layerGroup(meranti)
-    var grupIndragiriHilir = L.layerGroup(indragiriHilir)
-
-    var map = L.map('map',{
-            dragging: false,
-            zoomControl: false,
-            scrollWheelZoom: false,
-            doubleClickZoom: false,
-            keyboard: false,
-            layers: [grupBenda],
-
-        }).setView([0.5933, 101.7068], 8, false);
-
-    L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    }).addTo(map);
-
-    function onEachFeature(feature, layer) {
-        //bind click
-        layer.bindTooltip(feature.properties.Kabupaten_,{
-            direction:'center',
-            className: 'countryLabel',
-
-        })
-        layer.on('mouseover', function () {
-            this.setStyle({
-                "fillOpacity": 1,
-            });
-        });
-        layer.on('mouseout', function () {
-            this.setStyle({
-                "fillOpacity": .7,
-            });
-        });
-    }
-
-    fetch("{{ asset('Prov_Riau.geojson') }}")
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data,{    
-                onEachFeature: onEachFeature,
-                style: function(feature){
-                    switch(feature.properties.Kabupaten_){
-                        case 'Kota PEKANBARU':
-                            return {
-                                color:"#fcd89c",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'KUANTAN SINGINGI':
-                            return {
-                                color:"#ffaec9",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'ROKAN HILIR':
-                            return {
-                                color:"#b97a57",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'Kota DUMAI':
-                            return {
-                                color:"#7092be",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'PELALAWAN':
-                            return {
-                                color:"#f37076",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'SIAK':
-                            return {
-                                color:"#18b1f3",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'KAMPAR':
-                            return {
-                                color:"#c8bfe7",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'ROKAN HULU':
-                            return {
-                                color:"#d782c8",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'INDRAGIRI HULU':
-                            return {
-                                color:"#f3f78a",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'MANDAU':
-                            return {
-                                color:"#c8ecf4",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'BENGKALIS':
-                            return {
-                                color:"#a09e9a",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'MERANTI':
-                            return {
-                                color:"#646464",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-                        case 'INDRAGIRI HILIR':
-                            return {
-                                color:"#7092be",
-                                opacity:"1",
-                                stroke:"",
-                                "fillOpacity": .7,
-                            };
-                            break;
-
-                    }
-                }
-            }
-            ).addTo(map);
-        });
-
-    var baseLayers = {'Rusak':grupBenda, 'Tidak Rusak':grupTakBenda};
-    L.control.layers(baseLayers, {
-            'Kota Pekanbaru': grupPekanbaru, 
-            'Kabupaten Kuantan Singingi': grupKuantanSingingi,
-            'Kabupaten Rokan Hilir': grupRokanHilir,
-            'Kota Dumai': grupDumai,
-            'Kabupaten Pelalawan': grupPelalawan,
-            'Kabupaten Siak': grupSiak,
-            'Kabupaten Kampar': grupKampar,
-            'Kabupaten Rokan Hulu': grupRokanHulu,
-            'Kabupaten Bengkalis': grupBengkalis,
-            'Kabupaten Meranti': grupMeranti,
-            'Kabupaten Indragiri Hilir': grupIndragiriHilir
-        }, { collapsed: false }).addTo(map);
-
-        map.addLayer(grupPekanbaru);
-        map.addLayer(grupKuantanSingingi);
-        map.addLayer(grupRokanHilir);
-        map.addLayer(grupDumai);
-        map.addLayer(grupPelalawan);
-        map.addLayer(grupSiak);
-        map.addLayer(grupKampar);
-        map.addLayer(grupRokanHulu);
-        map.addLayer(grupBengkalis);
-        map.addLayer(grupMeranti);
-        map.addLayer(grupIndragiriHilir);
-
-
-        function markerOnClick(data) {
-        let fotosHtml = ''
-        let carouselIndex = '';
-        let carouselFull = '';
-
-        data.fotos.forEach((foto, index) => {
-            carouselIndex += '<li data-bs-target="#carouselExample" data-bs-slide-to="' + index + '"';
-            
-            if (index === 0) {
-                carouselIndex += ' class="active"';
-            }
-            
-            carouselIndex += '></li>';
-        });
-
-
-        data.fotos.forEach((foto, index) => {
-            fotosHtml += '<div class="carousel-item';
-            
-            if (index === 0) {
-                fotosHtml += ' active';
-            }
-            
-            fotosHtml += '">' +
-                '<img class="d-block w-100" src="storage/foto/'+foto.url+'" alt="Slide" />' +
-                '<div class="carousel-caption d-none d-md-block">' +
-                    '<h3 class="text-light bg-dark">'+foto.nama+'</h3>' +
-                '</div>' +
-            '</div>';
-        });
-
-        
-        if(data.fotos.length > 0){
-            carouselFull += '<div id="carouselExample" class="carousel carousel-dark slide mb-4" data-bs-ride="carousel">'+
-                        '<ol class="carousel-indicators">'+
-                            carouselIndex+
-                        '</ol>'+
-                        '<div class="carousel-inner">'+
-                            fotosHtml+
-                        '</div>'+
-                        '<a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">'+
-                            '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
-                            '<span class="visually-hidden">Previous</span>'+
-                        '</a>'+
-                        '<a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">'+
-                            '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
-                            '<span class="visually-hidden">Next</span>'+
-                        '</a>'+
-                    '</div>'
-        }
-
-
-        $(".modal-content").html(
-            '<div class="modal-header">'+
-                '<h5 class="modal-title" id="exampleModalLabel1">'+data.nama+'</h5>' +
-                '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'+
-            '</div>'+
-            '<div class="card">'+
-                '<div class="card-body">'+
-                    carouselFull+
-                    '<p class="card-text" style="text-align:justify">'+data.deskripsi+'</p>'+
-                '</div>'+
-            '</div>'+
-            '<div class="modal-footer">'+
-                '<a href='+data.link_360+' target="_blank" type="button" class="btn btn-primary">Tampilan 360</a>'+
-            '</div>'
-            );
-        $('#basicModal').modal('show');
-        e.preventDefault();
-    }
-
-    L.Control.textbox = L.Control.extend({
-		onAdd: function(map) {
-			
-		var text = L.DomUtil.create('div');
-		text.id = "info_text";
-		text.innerHTML = "<strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/><strong>text here</strong><br/>"
-        text.className = "bg-white p-3";
-		return text;
-		},
-
-		onRemove: function(map) {
-			// Nothing to do here
-		}
-	});
-	L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
-	L.control.textbox({ position: 'bottomleft' }).addTo(map);
-
-</script>
 @endsection

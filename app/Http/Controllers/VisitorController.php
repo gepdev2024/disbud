@@ -16,9 +16,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])->get();
-
-        return view('index', compact('data'));
+        return view('index');
     }
 
     public function benda()
