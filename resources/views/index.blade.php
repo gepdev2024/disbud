@@ -21,7 +21,9 @@
 @section('content')
 <nav class="navbar navbar-example navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">AdHoc</a>
+        <a class="navbar-brand" href="/">
+            <img width="25" src="{{asset('assets/img/logo.png')}}" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
             aria-controls="navbar-ex-2" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

@@ -356,6 +356,7 @@
             'Kabupaten Siak': grupSiak,
             'Kabupaten Kampar': grupKampar,
             'Kabupaten Rokan Hulu': grupRokanHulu,
+            'Kabupaten Indragiri Hulu': grupIndragiriHulu,
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
@@ -379,6 +380,7 @@
     map.addLayer(grupSiak);
     map.addLayer(grupKampar);
     map.addLayer(grupRokanHulu);
+    map.addLayer(grupIndragiriHulu);
     map.addLayer(grupBengkalis);
     map.addLayer(grupMeranti);
     map.addLayer(grupIndragiriHilir);

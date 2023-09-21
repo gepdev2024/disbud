@@ -146,6 +146,9 @@
                 case 'Kabupaten Rokan Hulu':
                     rokanHulu.push(marker);
                     break;
+                case 'Kabupaten Indragiri Hulu':
+                    indragiriHulu.push(marker);
+                    break;
                 case 'Kabupaten Bengkalis':
                     bengkalis.push(marker);
                     break;
@@ -154,9 +157,6 @@
                     break;
                 case 'Kabupaten Indragiri Hilir':
                     indragiriHilir.push(marker);
-                    break;
-                case 'Kabupaten Indragiri Hulu':
-                    indragiriHulu.push(marker);
                     break;
             }
 
@@ -369,6 +369,7 @@
             'Kabupaten Siak': grupSiak,
             'Kabupaten Kampar': grupKampar,
             'Kabupaten Rokan Hulu': grupRokanHulu,
+            'Kabupaten Indragiri Hulu': grupIndragiriHulu,
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
@@ -394,6 +395,7 @@
     map.addLayer(grupSiak);
     map.addLayer(grupKampar);
     map.addLayer(grupRokanHulu);
+    map.addLayer(grupIndragiriHulu);
     map.addLayer(grupBengkalis);
     map.addLayer(grupMeranti);
     map.addLayer(grupIndragiriHilir);
