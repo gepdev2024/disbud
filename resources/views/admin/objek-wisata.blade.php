@@ -6,6 +6,13 @@ $isNavbar = false;
 
 @section('title', 'Objek Wisata')
 
+<link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
+
+<script src="{{asset('assets/js/ui-modals.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+
 
 @section('content')
 
@@ -252,18 +259,20 @@ $isNavbar = false;
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Latitude</label>
-                            <input name="latitude" required type="text" id="emailBasic" class="form-control"
-                                placeholder="Latitude">
+                            <input onchange="setMarker()" name="latitude" required type="text" id="latitude"
+                                class="form-control" placeholder="Latitude">
                         </div>
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Longitude</label>
-                            <input name="longitude" required type="text" id="emailBasic" class="form-control"
-                                placeholder="Longitude">
+                            <input onchange="setMarker()" name="longitude" required type="text" id="longitude"
+                                class="form-control" placeholder="Longitude">
                         </div>
+                        <div id="mapAddBenda" style="height: 300px"></div>
+
 
                     </div>
-            
-                    <div class="row">
+
+                    <div class="row mt-4">
                         <div class="col input-group mb-3">
                             <input name="foto" required type="file" class="form-control" id="inputGroupFile02">
                             <label class="input-group-text" for="inputGroupFile02">Foto Popup</label>
@@ -434,14 +443,16 @@ $isNavbar = false;
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="latitude" class="form-label">Latitude</label>
-                            <input name="latitude" required type="text" id="latitude" class="form-control"
-                                placeholder="Latitude">
+                            <input onchange="setMarkerEdit()" name="latitude" required type="text" id="latitude"
+                                class="form-control" placeholder="Latitude">
                         </div>
                         <div class="col mb-3">
                             <label for="longitude" class="form-label">Longitude</label>
-                            <input name="longitude" required type="text" id="longitude" class="form-control"
-                                placeholder="Longitude">
+                            <input onchange="setMarkerEdit()" name="longitude" required type="text" id="longitude"
+                                class="form-control" placeholder="Longitude">
                         </div>
+                        <div id="mapEditBenda" class="mb-4" style="height: 300px"></div>
+
                     </div>
                     <div class="row">
                         <div class="col input-group mb-3">
@@ -466,10 +477,103 @@ $isNavbar = false;
     </div>
 </div>
 
+<script src="{{ asset('leaflet/leaflet.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <script>
+    var mapAddBenda = L.map('mapAddBenda',{
+            zoomControl: false,
+        }).setView([0.5933, 101.7068], 8, false);
+
+        L.control.zoom({
+            position: 'bottomright'
+        }).addTo(mapAddBenda);
+
+    var markerBenda = L.marker([0.5933, 101.7068], {draggable: true}).addTo(mapAddBenda);
+
+    function setMarker(){
+        markerBenda.setLatLng([ $("#latitude").val(), $("#longitude").val()]);
+    }
+
+    mapAddBenda.on('click', function(event){
+        const lat = mapAddBenda.mouseEventToLatLng(event.originalEvent).lat
+        const lng = mapAddBenda.mouseEventToLatLng(event.originalEvent).lng
+        markerBenda.setLatLng([lat, lng])
+        $("#latitude").val(lat);
+        $("#longitude").val(lng);
+    })
+
+    $("#latitude").val(0.5933);
+    $("#longitude").val(101.7068);
+
+    markerBenda.on('dragend', function(e) {
+        var position = markerBenda.getLatLng();
+        $("#latitude").val(position.lat);
+        $("#longitude").val(position.lng);
+    })
+    
+
+    L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    }).addTo(mapAddBenda);
+
+    $(document).ready(function(){
+        $('#addForm').on('shown.bs.modal', function(){
+            setTimeout(function() {
+                mapAddBenda.invalidateSize();
+            }, 300);
+        });
+    })
+</script>
+
+<script>
+    var mapEditBenda = L.map('mapEditBenda',{
+            zoomControl: false,
+        }).setView([0.5933, 101.7068], 8, false);
+
+        L.control.zoom({
+            position: 'bottomright'
+        }).addTo(mapEditBenda);
+
+    var markerEditBenda = L.marker([0.5933, 101.7068], {draggable: true}).addTo(mapEditBenda);
+
+    function setMarkerEdit(){
+        markerEditBenda.setLatLng([editModal.querySelector('#latitude').value, editModal.querySelector('#longitude').value]);
+    }
+
+    L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    }).addTo(mapEditBenda);
+
+
+    $(document).ready(function(){
+        $('#editForm').on('shown.bs.modal', function(){
+            setTimeout(function() {
+                mapEditBenda.invalidateSize();
+            }, 300);
+        });
+    })
+
     const editModal = document.getElementById('editForm')
-    if (editModal) {
-        editModal.addEventListener('show.bs.modal', event => {
+            if (editModal) {
+                editModal.addEventListener('show.bs.modal', event => {
+
+                mapEditBenda.on('click', function(event){
+                    const lat = mapEditBenda.mouseEventToLatLng(event.originalEvent).lat
+                    const lng = mapEditBenda.mouseEventToLatLng(event.originalEvent).lng
+                    markerEditBenda.setLatLng([lat, lng])
+                    editModal.querySelector('#latitude').value=lat
+                    editModal.querySelector('#longitude').value=lng
+                })
+
+                $("#latitude").val(0.5933);
+                $("#longitude").val(101.7068);
+
+                markerEditBenda.on('dragend', function(e) {
+                    var position = markerBenda.getLatLng();
+                    editModal.querySelector('#latitude').value=lat
+                    editModal.querySelector('#longitude').value=lng
+                })
             // event.relatedtarget menampilkan elemen mana yang digunakan saat diklik.
             const button = event.relatedTarget
             // data-data yang disimpan pada tombol edit dimasukkan ke dalam variabelnya masing-masing 
@@ -492,6 +596,8 @@ $isNavbar = false;
             editModal.querySelector('#latitude').value=latitude
             editModal.querySelector('#longitude').value=longitude
             editModal.querySelector('#link').value=link
+
+            markerEditBenda.setLatLng([ latitude, longitude ]);
         })
     }
 </script>

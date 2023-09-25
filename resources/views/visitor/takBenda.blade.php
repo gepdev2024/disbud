@@ -19,38 +19,40 @@
 </script>
 
 @section('content')
-<nav class="navbar navbar-example navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <img width="25" src="{{asset('assets/img/logo.png')}}" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
-            aria-controls="navbar-ex-2" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-ex-2">
-            <div class="navbar-nav me-auto">
-                <a class="nav-item nav-link" href="/">Home</a>
-                <a class="nav-item nav-link" href="/WBB">WBB</a>
-                <a class="nav-item nav-link active" href="WBTB">WTB</a>
-            </div>
+<div class="d-flex flex-column" style="height: 100vh;">
+    <nav class="navbar navbar-example navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img width="25" src="{{asset('assets/img/logo.png')}}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
+                aria-controls="navbar-ex-2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-ex-2">
+                <div class="navbar-nav me-auto">
+                    <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/WBB">WBB</a>
+                    <a class="nav-item nav-link active" href="WBTB">WTB</a>
+                </div>
 
-            <span class="navbar-text">Peta Infografis Cagar Budaya Propinsi Riau</span>
+                <span class="navbar-text">Peta Infografis Cagar Budaya Propinsi Riau</span>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
-<div id="map" style="height: 100vh;"></div>
+    <div id="map" class="h-100"></div>
 
-<div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
             </div>
-
         </div>
     </div>
 </div>
@@ -194,15 +196,11 @@
     var grupTradisi = L.layerGroup(tradisi)
     var grupAdat = L.layerGroup(adat)
 
-    var map = L.map('map',{
-            dragging: false,
-            zoomControl: false,
-            scrollWheelZoom: false,
-            doubleClickZoom: false,
-            keyboard: false,
-        }
-        )
-        .setView([0.5933, 101.7068], 8, false);
+    var map = L.map('map',{zoomControl: false}).setView([0.5933, 101.7068], 8, false);
+    
+    L.control.zoom({
+        position: 'bottomright'
+    }).addTo(map);
 
     
 
