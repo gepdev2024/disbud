@@ -18,13 +18,13 @@ class ObjekWisataController extends Controller
      */
     public function index()
     {
-        $takbenda = DB::table('objek_wisata')
-            ->join('sub_kategori', 'sub_kategori.id', '=', 'objek_wisata.sub_kategori_id')
-            ->join('kategori', 'kategori.id', '=', 'sub_kategori.kategori_id')
-            ->join('kabupaten', 'kabupaten.id', '=', 'objek_wisata.kabupaten_id')
-            ->where('kategori.nama', 'Tak Benda')
-            ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.deskripsi', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
-            ->get();
+        // $takbenda = DB::table('objek_wisata')
+        //     ->join('sub_kategori', 'sub_kategori.id', '=', 'objek_wisata.sub_kategori_id')
+        //     ->join('kategori', 'kategori.id', '=', 'sub_kategori.kategori_id')
+        //     ->join('kabupaten', 'kabupaten.id', '=', 'objek_wisata.kabupaten_id')
+        //     ->where('kategori.nama', 'Tak Benda')
+        //     ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.deskripsi', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
+        //     ->get();
         $benda = DB::table('objek_wisata')
             ->join('sub_kategori', 'sub_kategori.id', '=', 'objek_wisata.sub_kategori_id')
             ->join('kategori', 'kategori.id', '=', 'sub_kategori.kategori_id')
@@ -33,10 +33,10 @@ class ObjekWisataController extends Controller
             ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.deskripsi', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'objek_wisata.status', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
             ->get();
         $kategoriBenda=SubKategori::where('kategori_id','1')->get();
-        $kategoriTakbenda=SubKategori::where('kategori_id','2')->get();
+        // $kategoriTakbenda=SubKategori::where('kategori_id','2')->get();
         $kabupaten = Kabupaten::get(['id', 'nama']);
 
-        return view('admin.objek-wisata', compact(['kabupaten', 'benda','takbenda','kategoriBenda','kategoriTakbenda']));
+        return view('admin.objek-wisata', compact(['kabupaten', 'benda','kategoriBenda']));
     }
 
     /**
@@ -64,6 +64,7 @@ class ObjekWisataController extends Controller
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
+            'status_sk' => $request->statusSK,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'link_360' => $request->link,

@@ -19,10 +19,5 @@ class KategoriSeeder extends Seeder
             'id' => 1,
             'nama' => 'Benda'
         ]);
-
-        Kategori::create([
-            'id' => 2,
-            'nama' => 'Tak Benda'
-        ]);
     }
 }

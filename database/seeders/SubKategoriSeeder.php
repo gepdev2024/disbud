@@ -35,25 +35,5 @@ class SubKategoriSeeder extends Seeder
             'nama' => 'Kawasan',
             'kategori_id' => 1,
         ]);
-        SubKategori::create([
-            'nama' => 'Keterampilan dan Kemahiran Kerajinan Tradisional',
-            'kategori_id' => 2,
-        ]);
-        SubKategori::create([
-            'nama' => 'Seni Pertunjukan',
-            'kategori_id' => 2,
-        ]);
-        SubKategori::create([
-            'nama' => 'Pengetahuan dan Kebiasaan Perilaku Mengenai Alam dan Semesta',
-            'kategori_id' => 2,
-        ]);
-        SubKategori::create([
-            'nama' => 'Tradisi Lisan dan Ekspresi',
-            'kategori_id' => 2,
-        ]);
-        SubKategori::create([
-            'nama' => 'Adat Istiadat Masyarakat, Ritual, dan Perayaan-Perayaan',
-            'kategori_id' => 2,
-        ]);
     }
 }

@@ -65,6 +65,8 @@
 <script>
     var aktif = [];
     var takAktif = [];
+    var wbb = [];
+    var cbb = [];
     var bangunan = [];
     var benda = [];
     var situs = [];
@@ -124,6 +126,13 @@
             }else{
                 takAktif.push(marker);
             }
+
+            if(item.status_sk === "Belum"){
+                wbb.push(marker);
+            }else{
+                cbb.push(marker);
+            }
+
 
             switch(item.kabupaten.nama){
                 case 'Kota Pekanbaru':
@@ -191,6 +200,8 @@
     addMarkersToMap(data);
     var grupaktif = L.layerGroup(aktif);
     var grupTakAktif = L.layerGroup(takAktif);
+    var grupWbb = L.layerGroup(wbb);
+    var grupCbb = L.layerGroup(cbb);
     var grupPekanbaru = L.layerGroup(pekanbaru);
     var grupKuantanSingingi = L.layerGroup(kuantanSingingi)
     var grupRokanHilir = L.layerGroup(rokanHilir)
@@ -366,6 +377,8 @@
 
     var baseLayers = {'Aktif':grupaktif, 'Tidak Aktif':grupTakAktif};
 
+    var statusLayer = {'WBB': grupWbb, 'Cagar Budaya':grupCbb};
+
     L.control.layers(baseLayers, {
             'Kota Pekanbaru': grupPekanbaru, 
             'Kabupaten Kuantan Singingi': grupKuantanSingingi,
@@ -391,6 +404,8 @@
             '<span style="background-color:#89ce00; color:#89ce00">tet</span> Kawasan': grupKawasan,
         }, { collapsed: false, position: 'bottomleft'}).addTo(map);
 
+        L.control.layers({}, statusLayer, { collapsed: false, position: 'bottomleft'}).addTo(map);
+
 
 
     map.addLayer(grupPekanbaru);
@@ -410,6 +425,8 @@
     map.addLayer(grupSitus);
     map.addLayer(grupStruktur);
     map.addLayer(grupKawasan);
+    map.addLayer(grupWbb);
+    map.addLayer(grupCbb);
 
 
     function markerOnClick(data) {

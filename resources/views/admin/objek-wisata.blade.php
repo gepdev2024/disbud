@@ -20,19 +20,8 @@ $isNavbar = false;
     Objek Wisata
 </h4>
 
-<div class="nav-align-top mb-4">
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">Benda</button>
-        </li>
-        <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-profile"
-                aria-controls="navs-top-profile" aria-selected="false">Tak Benda</button>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+<div class="mb-4">
+        <div class="">
 
             <div class="card">
                 @if (session()->has('success'))
@@ -113,8 +102,8 @@ $isNavbar = false;
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-            <div class="card">
+        {{-- <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
+                <div class="card">
                 @if (session()->has('success'))
                 <div class="alert alert-primary">
                     {{ session()->get('success') }}
@@ -189,8 +178,8 @@ $isNavbar = false;
                     <h6 class="card-text">Data Objek Wisata Masih Kosong</h6>
                     @endif
                 </div>
-            </div>
-        </div>
+            </div> 
+        </div> --}}
     </div>
 </div>
 
@@ -227,6 +216,17 @@ $isNavbar = false;
                                 <option value="Terawat">Terawat</option>
                                 <option value="Utuh">Utuh</option>
                                 <option value="Rusak">Rusak</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="statusSK" class="form-label">Status SK</label>
+                            <select name="statusSK" required class="form-select" id="lokasi"
+                                aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="Terima">Diterima</option>
+                                <option value="Belum">Belum Diterima</option>
                             </select>
                         </div>
                     </div>
@@ -295,7 +295,7 @@ $isNavbar = false;
         </div>
     </div>
 </div>
-<div class="modal fade" id="addFormTB" tabindex="-1" aria-hidden="true">
+{{-- <div class="modal fade" id="addFormTB" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -377,7 +377,7 @@ $isNavbar = false;
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="modal fade" id="editForm" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
