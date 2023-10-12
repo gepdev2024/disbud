@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ObjekWisataController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
 
+Route::get('locale/{locale}', function($locale){
+    Session::put('locale', $locale);
+    return redirect()->back();
+});
+
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Main Page Route
     Route::get('/', 'VisitorController@index')->name('VisitorPage');
-    Route::get('/WBB', 'VisitorController@benda')->name('VisitorPage');
+    Route::get('/cagarBudaya', 'VisitorController@benda')->name('VisitorPage');
+    Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
     // Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
 
     // auth

@@ -24,29 +24,50 @@
 
 @section('content')
 <div class="d-flex flex-column" style="height: 100vh;">
-    <nav class="navbar navbar-example navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img width="25" src="{{asset('assets/img/logo.png')}}" alt="">
-
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
-                aria-controls="navbar-ex-2" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar  navbar-expand-lg navbar-light bg-primary justify-content-between">
+        <div class="container ">
+            <a class="navbar-brand" href="#">{{__('nav.judul')}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbar-ex-2">
-                <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link" href="/">Home</a>
-                    <a class="nav-item nav-link active" href="/WBB">WBB</a>
-                    <a class="nav-item nav-link" href="WBTB">WTB</a>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">{{__('nav.Beranda')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cagarBudaya">{{__('nav.cagarBudaya')}}</a>
+                    </li>
 
-                <span class="navbar-text">Peta Infografis Cagar Budaya Propinsi Riau</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nonCagarBudaya">{{__('nav.nonCagarBudaya')}}</a>
+                    </li>
+
+                </ul>
+
+
+
             </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{App::getlocale()}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end " style="min-width: 50px"
+                        aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="locale/id">id</a>
+                        <a class="dropdown-item" href="locale/en">en</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <div id="map" class="h-100"></div>
+    <div style="z-index: 0;" id="map" class="h-100"></div>
+
+    <input type="hidden" name="" id="lang" value={{Session::get('locale')}}>
 
     <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -61,10 +82,8 @@
     </div>
 </div>
 <script src="{{ asset('leaflet/leaflet.js') }}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
-    var aktif = [];
-    var takAktif = [];
     var wbb = [];
     var cbb = [];
     var bangunan = [];
@@ -84,6 +103,7 @@
     var bengkalis = [];
     var meranti = [];
     var indragiriHilir = [];
+    var allKab = [];
 
     function addMarkersToMap(data) {
         data.forEach(function (item) {
@@ -107,7 +127,7 @@
                     break;
             }
 
-            var svgrect = `<svg cache-id='f947fb2af7bb488eb0df4d1e2adb27ab' id='e4wDYrPzlOT1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 324 375' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><rect width='324' height='324' rx='0' ry='0' transform='matrix(.370734 0.367312-.384489 0.388071 164.228181 130.255953)' fill='white' stroke-width='0'/><rect width='324' height='324' rx='20' ry='20' transform='translate(0 0.000001)' fill='${svgCol}' stroke-width='0'/></svg>`
+            var svgrect = `<svg cache-id='f947fb2af7bb488eb0df4d1e2adb27ab' id='e4wDYrPzlOT1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 324 375' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><rect width='324' height='324' rx='0' ry='0' transform='matrix(.370734 0.367312-.384489 0.388071 164.328181 130.355953)' fill='white' stroke-width='0'/><rect width='324' height='324' rx='20' ry='20' transform='translate(0 0.000001)' fill='${svgCol}' stroke-width='0'/></svg>`
 
             var url = encodeURI("data:image/svg+xml," + svgrect).replace('#','%23');
             const myIcon = L.icon({
@@ -120,14 +140,7 @@
             });
 
             const marker = L.marker([item.latitude, item.longitude], { icon: myIcon })
-            if(item.status === "Rusak"){
-                aktif.push(marker);
-                takAktif.push(marker);
-            }else{
-                takAktif.push(marker);
-            }
-
-            if(item.status_sk === "Belum"){
+            if(item.status === "Belum"){
                 wbb.push(marker);
             }else{
                 cbb.push(marker);
@@ -137,39 +150,51 @@
             switch(item.kabupaten.nama){
                 case 'Kota Pekanbaru':
                     pekanbaru.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Kuantan Singingi':
                     kuantanSingingi.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Rokan Hilir':
                     rokanHilir.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kota Dumai':
                     dumai.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Pelalawan':
                     pelalawan.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Siak':
                     siak.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Kampar':
                     kampar.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Rokan Hulu':
                     rokanHulu.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Indragiri Hulu':
                     indragiriHulu.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Bengkalis':
                     bengkalis.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Meranti':
                     meranti.push(marker);
+                    allKab.push(marker);
                     break;
                 case 'Kabupaten Indragiri Hilir':
                     indragiriHilir.push(marker);
+                    allKab.push(marker);
                     break;
             }
 
@@ -198,10 +223,6 @@
     // Call the function to add markers with your generated data
     const data = @json($data);
     addMarkersToMap(data);
-    var grupaktif = L.layerGroup(aktif);
-    var grupTakAktif = L.layerGroup(takAktif);
-    var grupWbb = L.layerGroup(wbb);
-    var grupCbb = L.layerGroup(cbb);
     var grupPekanbaru = L.layerGroup(pekanbaru);
     var grupKuantanSingingi = L.layerGroup(kuantanSingingi)
     var grupRokanHilir = L.layerGroup(rokanHilir)
@@ -214,15 +235,17 @@
     var grupBengkalis = L.layerGroup(bengkalis)
     var grupMeranti = L.layerGroup(meranti)
     var grupIndragiriHilir = L.layerGroup(indragiriHilir)
+    var grupAllKab = L.layerGroup(allKab)
     var grupBenda = L.layerGroup(benda)
     var grupSitus = L.layerGroup(situs)
     var grupBangunan = L.layerGroup(bangunan)
     var grupKawasan = L.layerGroup(kawasan)
     var grupStruktur = L.layerGroup(struktur)
+    const lang = $("#lang").val();
+
 
     var map = L.map('map',{
-            zoomControl: false,
-            layers: [grupTakAktif]
+            zoomControl: false
         }
         )
         .setView([0.5933, 101.7068], 8, false);
@@ -236,6 +259,20 @@
     L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     }).addTo(map);
+
+    window.addEventListener('resize', function(event){
+    // get the width of the screen after the resize event
+    var width = document.documentElement.clientWidth;
+    // tablets are between 768 and 922 pixels wide
+    // phones are less than 768 pixels wide
+    if (width < 768) {
+        // set the zoom level to 10
+        map.setZoom(10);
+    }  else {
+        // set the zoom level to 8
+        map.setZoom(8);
+    }
+});
 
     function onEachFeature(feature, layer) {
         //bind click
@@ -253,7 +290,7 @@
         });
         layer.on('mouseout', function () {
             this.setStyle({
-                "fillOpacity": .7,
+                "fillOpacity": .3,
             });
         });
     }
@@ -267,9 +304,9 @@
                     switch(feature.properties.Kabupaten_){
                         case 'Kota PEKANBARU':
                             return {
-                                color:"#fcd89c",
+                                color:"#ffc09f",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'KUANTAN SINGINGI':
@@ -277,7 +314,7 @@
                                 color:"#ffaec9",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'ROKAN HILIR':
@@ -285,7 +322,7 @@
                                 color:"#b97a57",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'Kota DUMAI':
@@ -293,7 +330,7 @@
                                 color:"#7092be",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'PELALAWAN':
@@ -301,7 +338,7 @@
                                 color:"#f37076",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'SIAK':
@@ -309,7 +346,7 @@
                                 color:"#18b1f3",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'KAMPAR':
@@ -317,7 +354,7 @@
                                 color:"#c8bfe7",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'ROKAN HULU':
@@ -325,7 +362,7 @@
                                 color:"#d782c8",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'INDRAGIRI HULU':
@@ -333,7 +370,7 @@
                                 color:"#f3f78a",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'MANDAU':
@@ -341,15 +378,15 @@
                                 color:"#c8ecf4",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'BENGKALIS':
                             return {
-                                color:"#a09e9a",
+                                color:"#fb6f92",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'MERANTI':
@@ -357,15 +394,15 @@
                                 color:"#646464",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
                         case 'INDRAGIRI HILIR':
                             return {
-                                color:"#7092be",
+                                color:"#a7d489",
                                 opacity:"1",
                                 stroke:"",
-                                "fillOpacity": .7,
+                                "fillOpacity": .3,
                             };
                             break;
 
@@ -375,11 +412,9 @@
             ).addTo(map);
         });
 
-    var baseLayers = {'Aktif':grupaktif, 'Tidak Aktif':grupTakAktif};
 
-    var statusLayer = {'WBB': grupWbb, 'Cagar Budaya':grupCbb};
-
-    L.control.layers(baseLayers, {
+    L.control.layers({
+            'Semua': grupAllKab, 
             'Kota Pekanbaru': grupPekanbaru, 
             'Kabupaten Kuantan Singingi': grupKuantanSingingi,
             'Kabupaten Rokan Hilir': grupRokanHilir,
@@ -392,47 +427,29 @@
             'Kabupaten Bengkalis': grupBengkalis,
             'Kabupaten Meranti': grupMeranti,
             'Kabupaten Indragiri Hilir': grupIndragiriHilir
-        }, { collapsed: false, position:'topleft'}).addTo(map);
-        $('<h6 class="mb-0 text-dark" id="mapTitle">Indikasi Kerusakan</h6>').insertBefore('div.leaflet-control-layers-base');
-        
-
-        L.control.layers({}, {
+        }, {
             '<span style="background-color:#0073e6; color:#0073e6">tet</span> Bangunan': grupBangunan, 
             '<span style="background-color:#5928ed; color:#5928ed">tet</span> Benda': grupBenda,
             '<span style="background-color:#00bf7d; color:#00bf7d">tet</span> Situs': grupSitus,
             '<span style="background-color:#b3c7f7; color:#b3c7f7">tet</span> Struktur': grupStruktur,
             '<span style="background-color:#89ce00; color:#89ce00">tet</span> Kawasan': grupKawasan,
-        }, { collapsed: false, position: 'bottomleft'}).addTo(map);
+        }, { collapsed: false, position:'topleft'}).addTo(map);
+        $('<h6 class="mb-1 text-dark" id="mapTitle">Filter Kabupaten Kota dan Kategori</h6>').insertBefore('div.leaflet-control-layers-base');
+        
 
-        L.control.layers({}, statusLayer, { collapsed: false, position: 'bottomleft'}).addTo(map);
 
-
-
-    map.addLayer(grupPekanbaru);
-    map.addLayer(grupKuantanSingingi);
-    map.addLayer(grupRokanHilir);
-    map.addLayer(grupDumai);
-    map.addLayer(grupPelalawan);
-    map.addLayer(grupSiak);
-    map.addLayer(grupKampar);
-    map.addLayer(grupRokanHulu);
-    map.addLayer(grupIndragiriHulu);
-    map.addLayer(grupBengkalis);
-    map.addLayer(grupMeranti);
-    map.addLayer(grupIndragiriHilir);
+    map.addLayer(grupAllKab);
     map.addLayer(grupBangunan);
     map.addLayer(grupBenda);
     map.addLayer(grupSitus);
     map.addLayer(grupStruktur);
     map.addLayer(grupKawasan);
-    map.addLayer(grupWbb);
-    map.addLayer(grupCbb);
-
 
     function markerOnClick(data) {
         let fotosHtml = ''
         let carouselIndex = '';
         let carouselFull = '';
+        let deskripsi = '';
 
         data.fotos.forEach((foto, index) => {
             carouselIndex += '<li data-bs-target="#carouselExample" data-bs-slide-to="' + index + '"';
@@ -454,9 +471,6 @@
             
             fotosHtml += '">' +
                 '<img class="d-block w-100 bd-placeholder-img object-fit-cover" height="400" width="500" src="storage/foto/'+foto.url+'" alt="Slide" />' +
-                '<div class="carousel-caption d-none d-md-block">' +
-                    '<h3 style="--bs-bg-opacity: .75;" class="text-light bg-dark">'+foto.nama+'</h3>' +
-                '</div>' +
             '</div>';
         });
 
@@ -481,6 +495,13 @@
         }
 
 
+        if(lang === 'en'){
+            deskripsi = data.description;
+        }else{
+            deskripsi = data.deskripsi;
+        }
+
+
         $(".modal-content").html(
             '<div class="modal-header">'+
                 '<h5 class="modal-title" id="exampleModalLabel1">'+data.nama+'</h5>' +
@@ -489,15 +510,14 @@
             '<div class="card">'+
                 '<div class="card-body">'+
                     carouselFull+
-                    '<p class="card-text" style="text-align:justify">'+data.deskripsi+'</p>'+
+                    '<p class="card-text" style="text-align:justify">'+deskripsi+'</p>'+
                 '</div>'+
             '</div>'+
             '<div class="modal-footer">'+
-                '<a href='+data.link_360+' target="_blank" type="button" class="btn btn-primary">Tampilan 360</a>'+
+                '<a href='+data.link_360+' target="_blank" type="button" class="">Website Virtual Tour 360</a>'+
             '</div>'
             );
         $('#basicModal').modal('show');
-        e.preventDefault();
     }
 
    

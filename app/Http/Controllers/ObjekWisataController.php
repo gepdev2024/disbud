@@ -30,13 +30,13 @@ class ObjekWisataController extends Controller
             ->join('kategori', 'kategori.id', '=', 'sub_kategori.kategori_id')
             ->join('kabupaten', 'kabupaten.id', '=', 'objek_wisata.kabupaten_id')
             ->where('kategori.nama', 'Benda')
-            ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.deskripsi', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'objek_wisata.status', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
+            ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.deskripsi', 'objek_wisata.description', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'objek_wisata.status', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
             ->get();
-        $kategoriBenda=SubKategori::where('kategori_id','1')->get();
+        $kategoriBenda = SubKategori::where('kategori_id', '1')->get();
         // $kategoriTakbenda=SubKategori::where('kategori_id','2')->get();
         $kabupaten = Kabupaten::get(['id', 'nama']);
 
-        return view('admin.objek-wisata', compact(['kabupaten', 'benda','kategoriBenda']));
+        return view('admin.objek-wisata', compact(['kabupaten', 'benda', 'kategoriBenda']));
     }
 
     /**
@@ -63,8 +63,8 @@ class ObjekWisataController extends Controller
             'gambar_popup' => $gambar->hashName(),
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
+            'description' => $request->description,
             'status' => $request->status,
-            'status_sk' => $request->statusSK,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'link_360' => $request->link,
@@ -114,9 +114,11 @@ class ObjekWisataController extends Controller
             $objekWisata->update([
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
+                'description' => $request->description,
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
                 'link_360' => $request->link,
+                'status' => $request->status,
                 'kabupaten_id' => $request->lokasi,
             ]);
         } else {
@@ -127,9 +129,11 @@ class ObjekWisataController extends Controller
                 'gambar_popup' => $gambar->hashName(),
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
+                'description' => $request->description,
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
                 'link_360' => $request->link,
+                'status' => $request->status,
                 'kabupaten_id' => $request->lokasi,
             ]);
         }

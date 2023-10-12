@@ -11,7 +11,7 @@ class ObjekWisata extends Model
 
     protected $table = 'objek_wisata';
 
-    protected $fillable = ['nama', 'deskripsi', 'latitude', 'longitude', 'gambar_popup', 'link_360', 'status', 'status_sk', 'kabupaten_id', 'sub_kategori_id', 'created_at', 'updated_at'];
+    protected $fillable = ['nama', 'deskripsi', 'description', 'latitude', 'longitude', 'gambar_popup', 'link_360', 'status', 'kabupaten_id', 'sub_kategori_id', 'created_at', 'updated_at'];
 
     public function kabupaten(){
         return $this->belongsTo('App\Models\Kabupaten');

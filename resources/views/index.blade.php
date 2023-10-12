@@ -53,9 +53,9 @@
 </style>
 
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="#">My Awesome Landing Page</a>
+<nav class="navbar  navbar-expand-lg navbar-light bg-primary justify-content-between">
+    <div class="container ">
+        <a class="navbar-brand" href="#">{{__('nav.judul')}}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -63,13 +63,33 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">{{__('nav.Beranda')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/WBB">Peta</a>
+                    <a class="nav-link" href="/cagarBudaya">{{__('nav.cagarBudaya')}}</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/nonCagarBudaya">{{__('nav.nonCagarBudaya')}}</a>
+                </li>
+
             </ul>
+
+
+
         </div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{App::getlocale()}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-end " style="min-width: 50px" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="locale/id">id</a>
+                    <a class="dropdown-item" href="locale/en">en</a>
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
 
@@ -159,7 +179,7 @@
         <h2 class="text-center mb-4 text-primary">Contact Us</h2>
         <div class="row ">
             <div class="col-md-6 mx-auto">
-                <div class="contact-info bg-primary" >
+                <div class="contact-info bg-primary">
                     <h3>Contact Information</h3>
                     <p>Email: info@example.com</p>
                     <p>Phone: +1 (123) 456-7890</p>

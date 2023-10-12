@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('deskripsi');
+            $table->text('description');
             $table->longText('latitude');
             $table->longText('longitude');
             $table->string('gambar_popup');
             $table->string('link_360');
             $table->string('status');
-            $table->string('status_sk');
             $table->bigInteger('kabupaten_id')->unsigned();
             $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
             $table->bigInteger('sub_kategori_id')->unsigned();

@@ -21,166 +21,167 @@ $isNavbar = false;
 </h4>
 
 <div class="mb-4">
-        <div class="">
+    <div class="">
 
-            <div class="card">
-                @if (session()->has('success'))
-                <div class="alert alert-primary">
-                    {{ session()->get('success') }}
-                </div>
-                @endif
-                <div class="row">
-                    <h5 class="card-header col-10">Data Objek Wisata Benda</h5>
-                    <div class="col-2 pt-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addForm">
-                            Tambah Data
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-
-                    @if (sizeof($benda) > 0)
-                    <div class="table-responsive text-nowrap">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Deskripsi</th>
-                                    <th>Lokasi</th>
-                                    <th>Kategori</th>
-                                    <th>Latitude</th>
-                                    <th>Longitude</th>
-                                    <th>Link 360</th>
-                                    <th>Status Kondisi</th>
-                                    <th>gambar popup</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($benda as $item)
-                                <tr>
-                                    <td>{{$item->nama}}</td>
-                                    <td class="text-truncate" style="max-width: 300px;">
-                                        {{$item->deskripsi}}</td>
-                                    <td>{{$item->kabupaten}}</td>
-                                    <td>{{$item->sub_kategori}}</td>
-                                    <td>{{$item->latitude}}</td>
-                                    <td>{{$item->longitude}}</td>
-                                    <td>{{$item->link_360}}</td>
-                                    <td>{{$item->status}}</td>
-                                    <td>
-                                        <ul class="list-unstyled align-items-center">
-                                            <li class="avatar avatar-xs">
-                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}"
-                                                    alt="Avatar" class="rounded-circle">
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <a class="text-primary" href="" data-bs-toggle="modal"
-                                            data-bs-target="#editForm" data-bs-id="{{$item->id}}"
-                                            data-bs-nama="{{$item->nama}}" data-bs-deskripsi="{{$item->deskripsi}}"
-                                            data-bs-status="{{$item->status}}" data-bs-kategori="{{$item->idS}}"
-                                            data-bs-lokasi="{{$item->idK}}" data-bs-latitude="{{$item->latitude}}"
-                                            data-bs-longitude="{{$item->longitude}}"
-                                            data-bs-link="{{$item->link_360}}"><i class="bx bx-edit-alt me-2"></i>
-                                        </a>
-                                        |
-                                        <a class="text-danger"
-                                            onclick="return confirm('Apakah anda yakin ingin menghapus data?')"
-                                            href="objek-wisata/{{$item->id}}/delete"><i class="bx bx-trash me-2"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    @else
-                    <h6 class="card-text">Data Objek Wisata Masih Kosong</h6>
-                    @endif
+        <div class="card">
+            @if (session()->has('success'))
+            <div class="alert alert-primary">
+                {{ session()->get('success') }}
+            </div>
+            @endif
+            <div class="row">
+                <h5 class="card-header col-10">Data Objek Wisata Benda</h5>
+                <div class="col-2 pt-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addForm">
+                        Tambah Data
+                    </button>
                 </div>
             </div>
-        </div>
-        {{-- <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-                <div class="card">
-                @if (session()->has('success'))
-                <div class="alert alert-primary">
-                    {{ session()->get('success') }}
+            <div class="card-body">
+
+                @if (sizeof($benda) > 0)
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Deskripsi</th>
+                                <th>description</th>
+                                <th>Lokasi</th>
+                                <th>Kategori</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Link 360</th>
+                                <th>Status Kondisi</th>
+                                <th>gambar popup</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($benda as $item)
+                            <tr>
+                                <td>{{$item->nama}}</td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    {{$item->deskripsi}}</td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    {{$item->description}}</td>
+                                <td>{{$item->kabupaten}}</td>
+                                <td>{{$item->sub_kategori}}</td>
+                                <td>{{$item->latitude}}</td>
+                                <td>{{$item->longitude}}</td>
+                                <td>{{$item->link_360}}</td>
+                                <td>{{$item->status}}</td>
+                                <td>
+                                    <ul class="list-unstyled align-items-center">
+                                        <li class="avatar avatar-xs">
+                                            <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}"
+                                                alt="Avatar" class="rounded-circle">
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <a class="text-primary" href="" data-bs-toggle="modal" data-bs-target="#editForm"
+                                        data-bs-id="{{$item->id}}" data-bs-nama="{{$item->nama}}"
+                                        data-bs-deskripsi="{{$item->deskripsi}}" data-bs-status="{{$item->status}}"
+                                        data-bs-description="{{$item->description}}" data-bs-kategori="{{$item->idS}}"
+                                        data-bs-lokasi="{{$item->idK}}" data-bs-latitude="{{$item->latitude}}"
+                                        data-bs-longitude="{{$item->longitude}}" data-bs-link="{{$item->link_360}}"><i
+                                            class="bx bx-edit-alt me-2"></i>
+                                    </a>
+                                    |
+                                    <a class="text-danger"
+                                        onclick="return confirm('Apakah anda yakin ingin menghapus data?')"
+                                        href="objek-wisata/{{$item->id}}/delete"><i class="bx bx-trash me-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+                @else
+                <h6 class="card-text">Data Objek Wisata Masih Kosong</h6>
                 @endif
-                <div class="row">
-                    <h5 class="card-header col-10">Data Objek Wisata Tak Benda</h5>
-                    <div class="col-2 pt-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addFormTB">
-                            Tambah Data
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @if (sizeof($takbenda) > 0)
-                    <div class="table-responsive text-nowrap">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Deskripsi</th>
-                                    <th>Lokasi</th>
-                                    <th>Kategori</th>
-                                    <th>Latitude</th>
-                                    <th>Longitude</th>
-                                    <th>Link 360</th>
-                                    <th>gambar popup</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($takbenda as $item)
-                                <tr>
-                                    <td>{{$item->nama}}</td>
-                                    <td class="text-truncate" style="max-width: 300px;">
-                                        {{$item->deskripsi}}</td>
-                                    <td>{{$item->kabupaten}}</td>
-                                    <td>{{$item->sub_kategori}}</td>
-                                    <td>{{$item->latitude}}</td>
-                                    <td>{{$item->longitude}}</td>
-                                    <td>{{$item->link_360}}</td>
-                                    <td>
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}"
-                                                    alt="Avatar" class="rounded-circle">
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <a class="text-primary" href="" data-bs-toggle="modal"
-                                            data-bs-target="#editForm" data-bs-id="{{$item->id}}"
-                                            data-bs-nama="{{$item->nama}}" data-bs-deskripsi="{{$item->deskripsi}}"
-                                            data-bs-lokasi="{{$item->idK}}" data-bs-latitude="{{$item->latitude}}"
-                                            data-bs-longitude="{{$item->longitude}}"
-                                            data-bs-link="{{$item->link_360}}"><i class="bx bx-edit-alt me-2"></i>
-                                        </a>
-                                        |
-                                        <a class="text-danger"
-                                            onclick="return confirm('Apakah anda yakin ingin menghapus data?')"
-                                            href="objek-wisata/{{$item->id}}/delete"><i class="bx bx-trash me-2"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    @else
-                    <h6 class="card-text">Data Objek Wisata Masih Kosong</h6>
-                    @endif
-                </div>
-            </div> 
-        </div> --}}
+            </div>
+        </div>
     </div>
+    {{-- <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
+        <div class="card">
+            @if (session()->has('success'))
+            <div class="alert alert-primary">
+                {{ session()->get('success') }}
+            </div>
+            @endif
+            <div class="row">
+                <h5 class="card-header col-10">Data Objek Wisata Tak Benda</h5>
+                <div class="col-2 pt-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFormTB">
+                        Tambah Data
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (sizeof($takbenda) > 0)
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Deskripsi</th>
+                                <th>Lokasi</th>
+                                <th>Kategori</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Link 360</th>
+                                <th>gambar popup</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($takbenda as $item)
+                            <tr>
+                                <td>{{$item->nama}}</td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    {{$item->deskripsi}}</td>
+                                <td>{{$item->kabupaten}}</td>
+                                <td>{{$item->sub_kategori}}</td>
+                                <td>{{$item->latitude}}</td>
+                                <td>{{$item->longitude}}</td>
+                                <td>{{$item->link_360}}</td>
+                                <td>
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up">
+                                            <img src="{{asset('storage/gambarPopup/'.$item->gambar_popup)}}"
+                                                alt="Avatar" class="rounded-circle">
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <a class="text-primary" href="" data-bs-toggle="modal" data-bs-target="#editForm"
+                                        data-bs-id="{{$item->id}}" data-bs-nama="{{$item->nama}}"
+                                        data-bs-deskripsi="{{$item->deskripsi}}" data-bs-lokasi="{{$item->idK}}"
+                                        data-bs-latitude="{{$item->latitude}}" data-bs-longitude="{{$item->longitude}}"
+                                        data-bs-link="{{$item->link_360}}"><i class="bx bx-edit-alt me-2"></i>
+                                    </a>
+                                    |
+                                    <a class="text-danger"
+                                        onclick="return confirm('Apakah anda yakin ingin menghapus data?')"
+                                        href="objek-wisata/{{$item->id}}/delete"><i class="bx bx-trash me-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @else
+                <h6 class="card-text">Data Objek Wisata Masih Kosong</h6>
+                @endif
+            </div>
+        </div>
+    </div> --}}
+</div>
 </div>
 
 <div class="modal fade" id="addForm" tabindex="-1" aria-hidden="true">
@@ -209,24 +210,20 @@ $isNavbar = false;
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="status" class="form-label">Status Kondisi</label>
+                            <label for="emailBasic" class="form-label">Description</label>
+                            <textarea name="description" required type="text" id="emailBasic" class="form-control"
+                                placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    {{-- Ganti jadi radio button --}}
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="status" class="form-label">Status Cagar Budaya</label>
                             <select name="status" required class="form-select" id="lokasi"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
-                                <option value="Terawat">Terawat</option>
-                                <option value="Utuh">Utuh</option>
-                                <option value="Rusak">Rusak</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="statusSK" class="form-label">Status SK</label>
-                            <select name="statusSK" required class="form-select" id="lokasi"
-                                aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="Terima">Diterima</option>
-                                <option value="Belum">Belum Diterima</option>
+                                <option value="Terima">Cagar budaya</option>
+                                <option value="Belum">Bukan Cagar Budaya</option>
                             </select>
                         </div>
                     </div>
@@ -406,13 +403,20 @@ $isNavbar = false;
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="status" class="form-label">Status Kondisi</label>
+                            <label for="description" class="form-label">Description</label>
+                            <textarea name="description" required type="text" id="description" class="form-control"
+                                placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    {{-- ganti jadi radio button --}}
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="status" class="form-label">Status cagar budaya</label>
                             <select name="status" required class="form-select" id="status"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
-                                <option value="Terawat">Terawat</option>
-                                <option value="Utuh">Utuh</option>
-                                <option value="Rusak">Rusak</option>
+                                <option value="Terima">Cagar budaya</option>
+                                <option value="Belum">Bukan cagar budaya</option>
                             </select>
                         </div>
                     </div>
@@ -580,6 +584,7 @@ $isNavbar = false;
             const id = button.getAttribute('data-bs-id')
             const nama = button.getAttribute('data-bs-nama')
             const deskripsi = button.getAttribute('data-bs-deskripsi')
+            const description = button.getAttribute('data-bs-description')
             const lokasi = button.getAttribute('data-bs-lokasi')
             const kategori = button.getAttribute('data-bs-kategori')
             const status = button.getAttribute('data-bs-status')
@@ -590,6 +595,7 @@ $isNavbar = false;
             editModal.querySelector('#id').value=id
             editModal.querySelector('#nama').value=nama
             editModal.querySelector('#deskripsi').value=deskripsi
+            editModal.querySelector('#description').value=description
             editModal.querySelector('#lokasi').value=lokasi
             editModal.querySelector('#kategori').value=kategori
             editModal.querySelector('#status').value=status

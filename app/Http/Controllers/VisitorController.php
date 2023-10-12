@@ -6,6 +6,7 @@ use App\Models\Foto;
 use App\Models\Kabupaten;
 use App\Models\ObjekWisata;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class VisitorController extends Controller
 {
@@ -22,22 +23,18 @@ class VisitorController extends Controller
     public function benda()
     {
         $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
-            ->whereHas('subKategori.kategori', function ($query) {
-                $query->where('nama', 'Benda');
-            })
+            ->where('status', 'Terima')
             ->get();
 
         return view('visitor.benda', compact('data'));
     }
 
-    // public function takBenda()
-    // {
-    //     $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
-    //         ->whereHas('subKategori.kategori', function ($query) {
-    //             $query->where('nama', 'Tak Benda');
-    //         })
-    //         ->get();
+    public function takBenda()
+    {
+        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
+            ->where('status','Belum')
+            ->get();
 
-    //     return view('visitor.takBenda', compact('data'));
-    // }
+        return view('visitor.takBenda', compact('data'));
+    }
 }
