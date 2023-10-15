@@ -452,7 +452,7 @@ $isNavbar = false;
                         </div>
                         <div class="col mb-3">
                             <label for="longitude" class="form-label">Longitude</label>
-                            <input onchange="setMarkerEdit()" name="longitude" required type="text" id="longitude"
+                        <input onchange="setMarkerEdit()" name="longitude" required type="text" id="longitude"
                                 class="form-control" placeholder="Longitude">
                         </div>
                         <div id="mapEditBenda" class="mb-4" style="height: 300px"></div>
@@ -544,6 +544,11 @@ $isNavbar = false;
     function setMarkerEdit(){
         markerEditBenda.setLatLng([editModal.querySelector('#latitude').value, editModal.querySelector('#longitude').value]);
     }
+    markerEditBenda.on('dragend', function(e) {
+        var position = markerEditBenda.getLatLng();
+        $("#latitude").val(position.lat);
+        $("#longitude").val(position.lng);
+    })
 
     L.tileLayer('https://abcd.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',

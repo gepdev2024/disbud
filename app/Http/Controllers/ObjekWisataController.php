@@ -120,6 +120,7 @@ class ObjekWisataController extends Controller
                 'link_360' => $request->link,
                 'status' => $request->status,
                 'kabupaten_id' => $request->lokasi,
+                'sub_kategori_id' => $request->kategori,
             ]);
         } else {
             Storage::disk('local')->delete('public/gambarPopup/' . $objekWisata->gambar_popup);
@@ -135,6 +136,7 @@ class ObjekWisataController extends Controller
                 'link_360' => $request->link,
                 'status' => $request->status,
                 'kabupaten_id' => $request->lokasi,
+                'sub_kategori_id' => $request->kategori,
             ]);
         }
 

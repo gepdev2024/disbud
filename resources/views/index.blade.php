@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'AdHoc - Disbud')
+@section('title', __('nav.judul'))
 <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
 <style>
     /* Custom styles */
@@ -53,45 +53,8 @@
 </style>
 
 @section('content')
-<nav class="navbar  navbar-expand-lg navbar-light bg-primary justify-content-between">
-    <div class="container ">
-        <a class="navbar-brand" href="#">{{__('nav.judul')}}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">{{__('nav.Beranda')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cagarBudaya">{{__('nav.cagarBudaya')}}</a>
-                </li>
+@include('layouts/sections/navbar/nav')
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/nonCagarBudaya">{{__('nav.nonCagarBudaya')}}</a>
-                </li>
-
-            </ul>
-
-
-
-        </div>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    {{App::getlocale()}}
-                </a>
-                <div class="dropdown-menu dropdown-menu-end " style="min-width: 50px" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="locale/id">id</a>
-                    <a class="dropdown-item" href="locale/en">en</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
 
 <!-- Hero Section with Video Background -->
 <section class="hero-video">

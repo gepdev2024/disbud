@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Foto;
 use App\Models\Kabupaten;
 use App\Models\ObjekWisata;
+use App\Models\SubKategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -23,10 +24,12 @@ class VisitorController extends Controller
     public function benda()
     {
         $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
-            ->where('status', 'Terima')
             ->get();
 
-        return view('visitor.benda', compact('data'));
+        $kabupaten = Kabupaten::all();
+        $sub_kategori = SubKategori::all();
+
+        return view('visitor.benda', compact(['data','kabupaten','sub_kategori']));
     }
 
     public function takBenda()
