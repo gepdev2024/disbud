@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'AdHoc - Warisan Benda')
+@section('title', __('nav.judul').' - Peta')
 <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
 <style>
     path.leaflet-interactive:focus {
@@ -40,20 +40,20 @@
                 <div class="form-check px-3">
                     <input class="kategori" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
                     <label class="form-check-label" for={{$item->id}}>
-                        @switch($item->id)
-                        @case(1)
+                        @switch($item->nama)
+                        @case("Bangunan")
                         <span style="background-color:#0073e6; color:#0073e6">tet</span> Bangunan
                         @break
-                        @case(2)
+                        @case("Benda")
                         <span style="background-color:#5928ed; color:#5928ed">tet</span> Benda
                         @break
-                        @case(3)
+                        @case("Situs")
                         <span style="background-color:#00bf7d; color:#00bf7d">tet</span> Situs
                         @break
-                        @case(4)
+                        @case("Struktur")
                         <span style="background-color:#b3c7f7; color:#b3c7f7">tet</span> Struktur
                         @break
-                        @case(5)
+                        @case("Kawasan")
                         <span style="background-color:#89ce00; color:#89ce00">tet</span> Kawasan
                         @break
                         @endswitch
