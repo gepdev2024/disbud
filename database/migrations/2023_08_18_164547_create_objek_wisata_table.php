@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nama');
             $table->text('deskripsi');
             $table->text('description');
-            $table->longText('latitude');
-            $table->longText('longitude');
+            $table->longText('latitude')->nullable();
+            $table->longText('longitude')->nullable();
             $table->string('gambar_popup');
             $table->string('link_360');
             $table->string('status');

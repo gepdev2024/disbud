@@ -1,45 +1,37 @@
-<nav class="navbar  navbar-expand-lg navbar-light bg-primary justify-content-between">
-    <div class="container ">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li>
-                    <img width="30" src="{{asset('assets/img/logo.png')}}" alt="">
-                </li>
-                <li class="px-3"></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">{{__('nav.Beranda')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cagarBudaya">{{__('nav.cagarBudaya')}}</a>
-                </li>
+<!-- ======= Header ======= -->
+<header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
 
+        <h1 class="logo"><a href="/"><img width="100%" src="{{asset('assets/img/logo.png')}}" alt=""></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link " href="/">{{__("nav.Beranda")}}</a></li>
+                <li><a class="nav-link" href="/cagarBudaya">{{__("nav.cagarBudaya")}}</a></li>
+                @if ( App::getlocale()== 'id')
+                <li class="nav-item  rounded-circle d-flex justify-content-center align-items-center">
+                    <a class="rounded-circle active" href="locale/id"><img width="28" class="d-block  object-fit-cover"
+                            src="{{asset('assets/img/id.png')}}" /></a>
+                </li>
+                <li class="nav-item rounded-circle">
+                    <a class=" rounded-circle" href="locale/en"><img width="30" class="d-block  object-fit-cover"
+                            src="{{asset('assets/img/en.png')}}" /></a>
+                </li>
+                @else
+                <li class="nav-item rounded-circle d-flex justify-content-center align-items-center">
+                    <a class="rounded-circle" href="locale/id"><img width="28" class="d-block  object-fit-cover"
+                            src="{{asset('assets/img/id.png')}}" /></a>
+                </li>
+                <li class="nav-item rounded-circle">
+                    <a class="rounded-circle active" href="locale/en"><img width="30" class="d-block  object-fit-cover"
+                            src="{{asset('assets/img/en.png')}}" /></a>
+                </li>
+                @endif
             </ul>
-        </div>
-        <ul class="navbar-nav mr-auto">
-            @if ( App::getlocale()== 'id')
-            <li class="nav-item bg-white rounded-circle d-flex justify-content-center align-items-center">
-                <a class="bg-light rounded-circle" href="locale/id"><img width="28" class="d-block  object-fit-cover"
-                        src="{{asset('assets/img/id.png')}}" /></a>
-            </li>
-            <li class="nav-item mx-2 rounded-circle">
-                <a class="bg-light rounded-circle" href="locale/en"><img width="30" class="d-block  object-fit-cover"
-                        src="{{asset('assets/img/en.png')}}" /></a>
-            </li>
-            @else
-            <li class="nav-item rounded-circle d-flex justify-content-center align-items-center">
-                <a class="bg-light rounded-circle" href="locale/id"><img width="28" class="d-block  object-fit-cover"
-                        src="{{asset('assets/img/id.png')}}" /></a>
-            </li>
-            <li class="nav-item mx-2 bg-white rounded-circle">
-                <a class="bg-light rounded-circle" href="locale/en"><img width="30" class="d-block  object-fit-cover"
-                        src="{{asset('assets/img/en.png')}}" /></a>
-            </li>
-            @endif
-        </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
     </div>
-</nav>
+</header><!-- End Header -->

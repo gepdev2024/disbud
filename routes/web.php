@@ -23,6 +23,12 @@ Route::get('locale/{locale}', function($locale){
     return redirect()->back();
 });
 
+Route::get('objekWisata/{kota}', function($kota){
+    Session::put('kota', $kota);
+    return redirect('/cagarBudaya');
+});
+
+
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Main Page Route
     Route::get('/', 'VisitorController@index')->name('VisitorPage');

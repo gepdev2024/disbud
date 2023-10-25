@@ -2,6 +2,8 @@
 
 @section('title', __('nav.judul').' - Peta')
 <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
+<link rel="stylesheet" href="{{ asset('leaflet/MarkerCluster.css') }}" />
+<link rel="stylesheet" href="{{ asset('leaflet/MarkerCluster.Default.css') }}" />
 <style>
     path.leaflet-interactive:focus {
         outline: none;
@@ -17,23 +19,38 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 </script>
+<link href={{asset("assets/landingPage/css/style.css")}} rel="stylesheet">
+
 
 @section('content')
 <div class="d-flex flex-column" style="height: 100vh;">
     @include('layouts/sections/navbar/nav')
-    
+
+
 
     <div class="h-100 position-relative">
-        <div style="z-index: 10;" class="border m-2 bg-light d-flex flex-column position-absolute">
+        <div style="z-index: 10;" class="border mh-100 m-2 bg-light d-flex flex-column position-absolute overflow-auto">
             <div class="inputs py-2">
                 @foreach ($kabupaten as $item)
                 <div class="form-check px-3">
-                    <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
+                    @if (session()->has('kota'))
+                        @if ($item->id == session()->get('kota'))
+                            <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
+                        @else
+                            <input class="kabupaten" type="checkbox" value={{$item->id}} id={{$item->id}}>
+                        @endif
+                    @else
+                        <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
+                    @endif
                     <label class="form-check-label" for={{$item->id}}>
                         {{$item->nama}}
                     </label>
                 </div>
                 @endforeach
+                @php
+                    session()->forget('kota');
+                @endphp
+
             </div>
             <div class="inputs border-top py-2">
                 @foreach ($sub_kategori as $item)
@@ -61,9 +78,6 @@
                 </div>
                 @endforeach
             </div>
-        </div>
-
-        <div style="z-index: 10;" class="border end-0 m-2 bg-light d-flex flex-column position-absolute">
             <div class="inputs border-top py-2">
                 <div class="form-check px-3">
                     <input class="status" type="checkbox" checked="true" value="Terima" id="Terima">
@@ -98,6 +112,9 @@
     </div>
 </div>
 <script src="{{ asset('leaflet/leaflet.js') }}"></script>
+<script src="{{ asset('leaflet/leaflet.markercluster.js') }}"></script>
+<script src="{{ asset('leaflet/leaflet.markercluster-src.js') }}"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
     const objWisata = {
@@ -105,57 +122,60 @@
         "features": []
     };
     const data = @json($data);
-    console.log(data);
     const kabupaten = @json($kabupaten);
     const lang = $("#lang").val();
     let checkboxStates;
 
+    var markers = L.markerClusterGroup();
 
 
     data.forEach(function(item) {
         var svgCol = '';
+        console.log(item);
 
-        switch (item.sub_kategori.nama){
-            case 'Bangunan':
-                svgCol = '#0073e6'
-                break;
-            case 'Benda':
-                svgCol = '#5928ed'
-                break;
-            case 'Situs':
-                svgCol ='#00bf7d'
-                break;
-            case 'Struktur':
-                svgCol = '#b3c7f7'
-                break;
-            case 'Kawasan':
-                svgCol = '#89ce00'
-                break;
-        }
-
-        const newFeature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [item.longitude, item.latitude] // Replace with your actual coordinates from the database
-            },
-            "properties": {
-                "nama": item.nama,
-                "deskripsi": item.deskripsi,
-                "description": item.description,
-                "gambar_popup": item.gambar_popup,
-                "fotos": item.fotos,
-                "kabupaten": item.kabupaten,
-                "kabupaten_id": item.kabupaten_id,
-                "link_360": item.link_360,
-                "sub_kategori": item.sub_kategori,
-                "sub_kategori_id": item.sub_kategori_id,
-                "status": item.status,
-                "warna_kategori": svgCol,
+        if(item.latitude.length > 0 && item.longitude.length > 0){
+            switch (item.sub_kategori.nama){
+                case 'Bangunan':
+                    svgCol = '#0073e6'
+                    break;
+                case 'Benda':
+                    svgCol = '#5928ed'
+                    break;
+                case 'Situs':
+                    svgCol ='#00bf7d'
+                    break;
+                case 'Struktur':
+                    svgCol = '#b3c7f7'
+                    break;
+                case 'Kawasan':
+                    svgCol = '#89ce00'
+                    break;
             }
-        };
+
+            const newFeature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [item.longitude, item.latitude] // Replace with your actual coordinates from the database
+                },
+                "properties": {
+                    "nama": item.nama,
+                    "deskripsi": item.deskripsi,
+                    "description": item.description,
+                    "gambar_popup": item.gambar_popup,
+                    "fotos": item.fotos,
+                    "kabupaten": item.kabupaten,
+                    "kabupaten_id": item.kabupaten_id,
+                    "link_360": item.link_360,
+                    "sub_kategori": item.sub_kategori,
+                    "sub_kategori_id": item.sub_kategori_id,
+                    "status": item.status,
+                    "warna_kategori": svgCol,
+                }
+            };
 
         objWisata.features.push(newFeature);
+        }
     });
 
     var map = L.map('map',{
@@ -200,8 +220,10 @@
             });
 
             marker.on('click', () => markerOnClick(feature.properties));
+            markers.addLayer(marker);
 
-            return marker;
+
+            return markers;
         },
     }).addTo(map);
 
@@ -228,6 +250,7 @@
     for (let input of document.querySelectorAll('input')) {
         //Listen to 'change' event of all inputs
         input.onchange = (e) => {
+            markers.clearLayers()
             geojsonLayer.clearLayers()
             updateCheckboxStates()
             geojsonLayer.addData(objWisata)   
@@ -300,7 +323,10 @@
 
         $(".modal-content").html(
             '<div class="modal-header">'+
+                '<div>'+
                 '<h5 class="modal-title" id="exampleModalLabel1">'+data.nama+'</h5>' +
+                '<a href='+data.link_360+' target="_blank" type="button" class="">Website Virtual Tour 360</a>'+
+                '</div>'+
                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'+
             '</div>'+
             '<div class="card">'+
@@ -308,9 +334,6 @@
                     carouselFull+
                     '<p class="card-text" style="text-align:justify">'+deskripsi+'</p>'+
                 '</div>'+
-            '</div>'+
-            '<div class="modal-footer">'+
-                '<a href='+data.link_360+' target="_blank" type="button" class="">Website Virtual Tour 360</a>'+
             '</div>'
             );
         $('#basicModal').modal('show');
@@ -454,6 +477,7 @@
         layer.on('click', function () {
             $(".kabupaten").prop('checked', false)
             $("#"+feature.properties.ID).prop('checked', true)
+            markers.clearLayers()
             geojsonLayer.clearLayers()
             updateCheckboxStates()
             geojsonLayer.addData(objWisata)   

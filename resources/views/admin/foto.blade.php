@@ -6,6 +6,11 @@ $isNavbar = false;
 
 @section('title', 'Foto')
 
+<link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+
 @section('content')
 
 <h4 class="fw-bold py-3 mb-4">
@@ -24,59 +29,83 @@ $isNavbar = false;
         <h5 class="fw-bold card-header">Data Foto Objek Wisata</h5>
     </div>
     <div class="card-body">
-        @foreach ($data as $item)
-        <div class="row border py-3 align-middle" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseExample{{$item->id}}" aria-expanded="false" aria-controls="collapseExample">
-            <h6 class="col-9 fw-bold ">{{$item->nama}}</h6>
-            <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#addForm"
-                data-bs-objek_wisata_id="{{$item->id}}">
-                Tambah Foto
-            </button>
-            <div class="col-1 text-end ">
-                <i class=" menu-icon tf-icons bx bx-down-arrow"></i>
-            </div>
-        </div>
-        <div class="collapse" id="collapseExample{{$item->id}}">
-            <div class="d-grid d-sm-flex p-3">
-                @if (sizeof($item->fotos)>0)
-                <table class="table">
+        <table id="dataTable" class="display">
+            <thead>
+                <tr>
+                    <th>
+                        Objek Wisata
+                    </th>
+                    <th>
+                        Data Foto
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($data as $item)
 
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Foto</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($item->fotos as $foto)
+                <tr>
+                    <td>
+                        {{$item->nama}}
+                    </td>
+                    <td class="px-4">
+                        <div style="width: 500px" class="row border-bottom align-middle" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample{{$item->id}}"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            <div class="col-11 py-2">
+                                <button type="button" class="btn btn-primary " data-bs-toggle="modal"
+                                    data-bs-target="#addForm" data-bs-objek_wisata_id="{{$item->id}}">
+                                    Tambah Foto
+                                </button>
+                            </div>
+                            <div class="col-1 text-end ">
+                                <i class=" menu-icon tf-icons bx bx-down-arrow"></i>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseExample{{$item->id}}">
+                            <div class="d-grid d-sm-flex p-3">
+                                @if (sizeof($item->fotos)>0)
+                                <table class="table">
 
-                        <tr>
-                            <td>
-                                {{$foto->nama}}
-                            </td>
-                            <td>
-                                <img  class="bd-placeholder-img object-fit-cover" height="100" width="150" src="{{'storage/foto/'.$foto->url}}">
-                            </td>
-                            <td>
-                                <a onclick="return confirm('Apakah anda yakin ingin menghapus data?')"
-                                    href="foto/{{$foto->id}}/delete" class="text-danger">
-                                    hapus
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Foto</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($item->fotos as $foto)
 
-                    </tbody>
-                </table>
+                                        <tr>
+                                            <td>
+                                                {{$foto->nama}}
+                                            </td>
+                                            <td>
+                                                <img class="bd-placeholder-img object-fit-cover" height="100"
+                                                    width="150" src="{{'storage/foto/'.$foto->url}}">
+                                            </td>
+                                            <td>
+                                                <a onclick="return confirm('Apakah anda yakin ingin menghapus data?')"
+                                                    href="foto/{{$foto->id}}/delete" class="text-danger">
+                                                    <i class="bx bx-trash me-2"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
 
-                @else
-                <h6 class="card-text">Data foto belum ada</h6>
-                @endif
-            </div>
-        </div>
+                                    </tbody>
+                                </table>
 
-        @endforeach
+                                @else
+                                <h6 class="card-text">Data foto belum ada</h6>
+                                @endif
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -117,8 +146,14 @@ $isNavbar = false;
         </div>
     </div>
 </div>
+<script src="{{asset('DataTables/datatables.min.js')}}"></script>
+
+
 
 <script>
+    $('#dataTable').DataTable( {
+        responsive: true
+    } );
     const editModal = document.getElementById('addForm')
     if (editModal) {
         editModal.addEventListener('show.bs.modal', event => {
