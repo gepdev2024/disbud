@@ -1,7 +1,7 @@
 @extends('layouts/blankLayout')
 
 @section('title', __('nav.judul'))
-<link href={{asset("assets/landingPage/img/favicon.png")}} rel="icon">
+<link href={{asset("assets/landingPage/img/logo1.png")}} rel="icon">
 <link href={{asset("assets/landingPage/img/apple-touch-icon.png")}} rel="apple-touch-icon">
 
 <!-- Google Fonts -->
@@ -52,7 +52,7 @@
 
             <div class="row">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-                    <img src={{asset("assets/landingPage/img/about.jpg")}} class="img-fluid" alt="">
+                    <img src={{ asset('assets/img/logo1.png') }} class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up"
                     data-aos-delay="100">

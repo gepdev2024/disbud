@@ -31,9 +31,9 @@ $isNavbar = false;
                 {{ session()->get('success') }}
             </div>
             @endif
-            <div class="row">
-                <h5 class="card-header col-10">Data Objek Wisata Benda</h5>
-                <div class="col-2 pt-3">
+            <div class="row card-header">
+                <h5 class=" col-9">Data Objek Wisata Benda</h5>
+                <div class="col-3 d-flex justify-content-end">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addForm">
                         Tambah Data
                     </button>
@@ -66,9 +66,9 @@ $isNavbar = false;
                                 <td>{{$item->longitude}}</td>
                                 <td>
                                     @if ($item->status=="Terima")
-                                        Cagar Budaya
+                                    Cagar Budaya
                                     @else
-                                        Objek Diduga Cagar Budaya
+                                    Objek Diduga Cagar Budaya
                                     @endif
                                 </td>
                                 <td>
@@ -145,18 +145,18 @@ $isNavbar = false;
                     {{-- Ganti jadi radio button --}}
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="status" class="form-label">Status Cagar Budaya</label>
+                            <label for="status" class="form-label">Kategori</label>
                             <select name="status" required class="form-select" id="lokasi"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="Terima">Cagar budaya</option>
-                                <option value="Belum">Bukan Cagar Budaya</option>
+                                <option value="Belum">Objek Diduga Cagar Budaya</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="exampleFormControlSelect1" class="form-label">Kategori</label>
+                            <label for="exampleFormControlSelect1" class="form-label">Klasifikasi</label>
                             <select name="kategori" required class="form-select" id="exampleFormControlSelect1"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
@@ -172,7 +172,7 @@ $isNavbar = false;
                             <select name="lokasi" required class="form-select" id="exampleFormControlSelect1"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
-                                $@foreach ($kabupaten as $item)
+                                @foreach ($kabupaten as $item)
                                 <option value={{$item->id}}>{{$item->nama}}</option>
                                 @endforeach
                             </select>
@@ -254,18 +254,18 @@ $isNavbar = false;
                     {{-- ganti jadi radio button --}}
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="status" class="form-label">Status cagar budaya</label>
+                            <label for="status" class="form-label">Kategori</label>
                             <select name="status" required class="form-select" id="status"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="Terima">Cagar budaya</option>
-                                <option value="Belum">Bukan cagar budaya</option>
+                                <option value="Belum">Objek Diduga Cagar Budaya</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="exampleFormControlSelect1" class="form-label">Kategori</label>
+                            <label for="exampleFormControlSelect1" class="form-label">Klasifikasi</label>
                             <select name="kategori" required class="form-select" id="kategori"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
@@ -332,6 +332,10 @@ $isNavbar = false;
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 <script>
+    $('.summernote').summernote({
+            tabsize: 2,
+            height: 200
+    });
     $('#dataTable').DataTable( {
         responsive: true
     } );

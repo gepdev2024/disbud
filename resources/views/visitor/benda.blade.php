@@ -88,7 +88,7 @@
                 <div class="form-check px-3">
                     <input class="status" type="checkbox" checked="true" value="Belum" id="Belum">
                     <label class="form-check-label" for="Belum">
-                        Non Cagar Budaya
+                        Objek Diduga Cagar Budaya
                     </label>
                 </div>
             </div>
@@ -325,7 +325,7 @@
             '<div class="modal-header">'+
                 '<div>'+
                 '<h5 class="modal-title" id="exampleModalLabel1">'+data.nama+'</h5>' +
-                '<a href='+data.link_360+' target="_blank" type="button" class="">Website Virtual Tour 360</a>'+
+                '<a href='+data.link_360+' target="_blank" type="button" class=""><u>Website Virtual Tour 360</u></a>'+
                 '</div>'+
                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'+
             '</div>'+
