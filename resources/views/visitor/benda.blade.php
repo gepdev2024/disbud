@@ -34,13 +34,13 @@
                 @foreach ($kabupaten as $item)
                 <div class="form-check px-3">
                     @if (session()->has('kota'))
-                        @if ($item->id == session()->get('kota'))
-                            <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
-                        @else
-                            <input class="kabupaten" type="checkbox" value={{$item->id}} id={{$item->id}}>
-                        @endif
+                    @if ($item->id == session()->get('kota'))
+                    <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
                     @else
-                        <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
+                    <input class="kabupaten" type="checkbox" value={{$item->id}} id={{$item->id}}>
+                    @endif
+                    @else
+                    <input class="kabupaten" type="checkbox" checked="true" value={{$item->id}} id={{$item->id}}>
                     @endif
                     <label class="form-check-label" for={{$item->id}}>
                         {{$item->nama}}
@@ -48,7 +48,7 @@
                 </div>
                 @endforeach
                 @php
-                    session()->forget('kota');
+                session()->forget('kota');
                 @endphp
 
             </div>
@@ -265,10 +265,15 @@
     geojsonLayer.addData(objWisata);
 
     function markerOnClick(data) {
+        let link360 = '';
         let fotosHtml = ''
         let carouselIndex = '';
         let carouselFull = '';
         let deskripsi = '';
+
+        if(data.link_360.length > 2){
+            link360 ='<a href='+data.link_360+' target="_blank" type="button" class=""><u>Link Website Virtual Tour 360</u></a>';
+        }
 
         data.fotos.forEach((foto, index) => {
             carouselIndex += '<li data-bs-target="#carouselExample" data-bs-slide-to="' + index + '"';
@@ -323,9 +328,9 @@
 
         $(".modal-content").html(
             '<div class="modal-header">'+
-                '<div>'+
+                '<div class="w-100 d-flex justify-content-between">'+
                 '<h5 class="modal-title" id="exampleModalLabel1">'+data.nama+'</h5>' +
-                '<a href='+data.link_360+' target="_blank" type="button" class=""><u>Website Virtual Tour 360</u></a>'+
+                link360+
                 '</div>'+
                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'+
             '</div>'+
