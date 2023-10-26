@@ -21,7 +21,7 @@ return new class extends Migration
             $table->longText('latitude')->nullable();
             $table->longText('longitude')->nullable();
             $table->string('gambar_popup');
-            $table->string('link_360');
+            $table->string('link_360')->nullable();
             $table->string('status');
             $table->bigInteger('kabupaten_id')->unsigned();
             $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
