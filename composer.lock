@@ -534,7 +534,6 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
-<<<<<<< Updated upstream
         },
         {
             "name": "firebase/php-jwt",
@@ -598,8 +597,6 @@
                 "source": "https://github.com/firebase/php-jwt/tree/v6.9.0"
             },
             "time": "2023-10-05T00:24:42+00:00"
-=======
->>>>>>> Stashed changes
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -751,7 +748,6 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
-<<<<<<< Updated upstream
         },
         {
             "name": "google/analytics-data",
@@ -1100,8 +1096,6 @@
                 "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.24.4"
             },
             "time": "2023-10-04T17:22:47+00:00"
-=======
->>>>>>> Stashed changes
         },
         {
             "name": "graham-campbell/result-type",
@@ -3226,7 +3220,6 @@
             "time": "2023-02-25T19:38:58+00:00"
         },
         {
-<<<<<<< Updated upstream
             "name": "phpstan/phpdoc-parser",
             "version": "1.24.2",
             "source": {
@@ -3323,8 +3316,6 @@
             "time": "2021-02-03T23:26:27+00:00"
         },
         {
-=======
->>>>>>> Stashed changes
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
