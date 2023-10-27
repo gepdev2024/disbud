@@ -21,18 +21,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-
-        $report = Analytics::query()
-            ->setMetrics(
-                fn (Metrics $metrics) => $metrics
-                    ->active1DayUsers()
-                    ->active7DayUsers()
-                    ->active28DayUsers()
-            )
-            ->forPeriod(Period::defaultPeriod())
-            ->run();
-
-        return view('index', compact('report'));
+        return view('index');
     }
 
     public function benda()
