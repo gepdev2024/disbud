@@ -19,7 +19,7 @@ $isNavbar = false;
 @section('content')
 
 <h4 class="fw-bold py-3 mb-4">
-    Objek Wisata
+    Cagar Budaya
 </h4>
 
 <div class="mb-4">
@@ -32,7 +32,7 @@ $isNavbar = false;
             </div>
             @endif
             <div class="row card-header">
-                <h5 class=" col-9">Data Objek Wisata Benda</h5>
+                <h5 class=" col-9">Data Cagar Budaya</h5>
                 <div class="col-3 d-flex justify-content-end">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addForm">
                         Tambah Data

@@ -26,14 +26,14 @@ $isNavbar = false;
     @endif
 
     <div>
-        <h5 class="fw-bold card-header">Data Foto Objek Wisata</h5>
+        <h5 class="fw-bold card-header">Data Foto Cagar Budaya</h5>
     </div>
     <div class="card-body">
         <table id="dataTable" class="display">
             <thead>
                 <tr>
                     <th>
-                        Objek Wisata
+                        Cagar Budaya
                     </th>
                     <th>
                         Data Foto
