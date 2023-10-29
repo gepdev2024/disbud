@@ -18,4 +18,5 @@ return [
     "misi3" => "Menjadikan riau sebagai pusat bahasa dan seni budaya melayu di asia tenggara.",
     "misi4"=> "Menjadikan riau sebagai pusat sejarah, cagar budaya dan pengembangan permuseuman.",
     "misi5"=> "Menjadikan riau sebagai pusat sejarah, cagar budaya dan pengembangan permuseuman.",
+    "visitor"=> "Pengunjung Hari Ini",
 ];

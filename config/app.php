@@ -163,6 +163,7 @@ return [
     Illuminate\Translation\TranslationServiceProvider::class,
     Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
+    Sarfraznawaz2005\VisitLog\VisitLogServiceProvider::class,
 
     /*
          * Package Service Providers...
@@ -193,6 +194,7 @@ return [
 
   'aliases' => Facade::defaultAliases()->merge([
     // ...
+    'VisitLog' => Sarfraznawaz2005\VisitLog\Facades\VisitLog::class,
   ])->toArray(),
 
 ];
