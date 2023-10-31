@@ -157,7 +157,7 @@
                         <div class="icon-box w-100">
                             <div class="icon"><img width="40" src={{asset("assets/img/indragiri_hilir.jpg")}} alt="">
                             </div>
-                            <h4><a href="objekWisata/472">Indargiri Hilir</a></h4>
+                            <h4><a href="objekWisata/472">Indragiri Hilir</a></h4>
                             {{-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> --}}
                         </div>
                     </div>
