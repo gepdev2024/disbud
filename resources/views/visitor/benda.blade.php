@@ -109,7 +109,7 @@
     <input type="hidden" name="" id="lang" value={{Session::get('locale')}}>
 
     <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
@@ -303,7 +303,7 @@
             }
             
             fotosHtml += '">' +
-                '<img class="d-block w-100 bd-placeholder-img object-fit-cover" height="400" width="500" src="storage/foto/'+foto.url+'" alt="Slide" />' +
+                '<img class="d-block w-100 bd-placeholder-img object-fit-cover" src="storage/foto/'+foto.url+'" alt="Slide" />' +
             '</div>';
         });
 
