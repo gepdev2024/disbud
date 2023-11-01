@@ -13,6 +13,9 @@
         width: 1000px;
         overflow-y: scroll;
     }
+    p {
+        text-align: justify;
+    }
 </style>
 
 <script src="{{asset('assets/js/ui-modals.js')}}"></script>
@@ -346,7 +349,7 @@
             '<div class="card">'+
                 '<div class="card-body">'+
                     carouselFull+
-                    '<p class="card-text" style="text-align:justify">'+deskripsi+'</p>'+
+                    deskripsi+
                 '</div>'+
             '</div>'
             );
