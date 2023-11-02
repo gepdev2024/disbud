@@ -14,9 +14,9 @@ return [
     'visi1' => "Terwujudnya Dinas Kebudayaan Sebagai Pusat Pelestarian, Pendokumentasian dan Pengembangan Budaya Melayu guna memperkuat karakter dan jati diri bangsa menuju masyarakat berbudaya dan sejahtera, berbasis teknologi informasi dalam lingkup masyarakat Agamis.",
     "misi" => "Misi",
     "misi1" => "Mewujudkan pelestarian adat, nilai budaya dan masyarakatnya melalui inventarisasi dan pendokumentasian.",
-    "misi2" => "Menjadikan riau sebagai pusat bahasa dan seni budaya melayu di asia tenggara.",
-    "misi3" => "Menjadikan riau sebagai pusat bahasa dan seni budaya melayu di asia tenggara.",
-    "misi4"=> "Menjadikan riau sebagai pusat sejarah, cagar budaya dan pengembangan permuseuman.",
-    "misi5"=> "Menjadikan riau sebagai pusat sejarah, cagar budaya dan pengembangan permuseuman.",
+    "misi2" => "Menjadikan Riau sebagai pusat bahasa dan seni budaya melayu di asia tenggara.",
+    "misi3" => "Menjadikan diplomasi dan publikasi budaya melayu berbasis teknologi informasi.",
+    "misi4"=> "Menjadikan Riau sebagai pusat sejarah, cagar budaya dan pengembangan permuseuman.",
+    "misi5"=> "Menjadikan Riau sebagai pengumpul, perawat serta penyaji warisan benda dan takbenda seni budaya melayu.",
     "visitor"=> "Pengunjung Hari Ini",
 ];
