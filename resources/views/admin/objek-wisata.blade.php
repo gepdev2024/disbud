@@ -183,12 +183,12 @@ $isNavbar = false;
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Latitude</label>
-                            <input onchange="setMarker()" name="latitude" required type="text" id="latitude"
+                            <input onchange="setMarker()" name="latitude" type="text" id="latitude"
                                 class="form-control" placeholder="Latitude">
                         </div>
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Longitude</label>
-                            <input onchange="setMarker()" name="longitude" required type="text" id="longitude"
+                            <input onchange="setMarker()" name="longitude" type="text" id="longitude"
                                 class="form-control" placeholder="Longitude">
                         </div>
                         <div id="mapAddBenda" style="height: 300px"></div>
@@ -290,12 +290,12 @@ $isNavbar = false;
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="latitude" class="form-label">Latitude</label>
-                            <input onchange="setMarkerEdit()" name="latitude" required type="text" id="latitude"
+                            <input onchange="setMarkerEdit()" name="latitude" type="text" id="latitude"
                                 class="form-control" placeholder="Latitude">
                         </div>
                         <div class="col mb-3">
                             <label for="longitude" class="form-label">Longitude</label>
-                            <input onchange="setMarkerEdit()" name="longitude" required type="text" id="longitude"
+                            <input onchange="setMarkerEdit()" name="longitude" type="text" id="longitude"
                                 class="form-control" placeholder="Longitude">
                         </div>
                         <div id="mapEditBenda" class="mb-4" style="height: 300px"></div>
