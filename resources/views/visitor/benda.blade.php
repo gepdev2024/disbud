@@ -143,7 +143,6 @@
 
     data.forEach(function(item) {
         var svgCol = '';
-        console.log(item);
 
         if(item.latitude.length > 0 && item.longitude.length > 0){
             switch (item.sub_kategori.nama){
@@ -209,7 +208,6 @@
 
     const geojsonLayer = L.geoJSON(null, {
         filter: (feature) => {
-            console.log(checkboxStates)
             const isKabChecked = checkboxStates.kabupaten.includes(feature.properties.kabupaten_id.toString());
             const isCatChecked = checkboxStates.kategori.includes(feature.properties.sub_kategori_id.toString());
             const isStatChecked = checkboxStates.kategori.includes(feature.properties.status);
@@ -277,7 +275,7 @@
     geojsonLayer.addData(objWisata);
 
     function markerOnClick(data) {
-        let link360 = '';
+        let link360 = ' ';
         let fotosHtml = ''
         let carouselIndex = '';
         let carouselFull = '';
