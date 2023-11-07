@@ -144,7 +144,7 @@
     data.forEach(function(item) {
         var svgCol = '';
 
-        if(item.latitude.length > 0 && item.longitude.length > 0){
+        if((item.latitude != null && item.longitude != null)){
             switch (item.sub_kategori.nama){
                 case 'Bangunan':
                     svgCol = '#0073e6'
