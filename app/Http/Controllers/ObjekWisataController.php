@@ -30,7 +30,7 @@ class ObjekWisataController extends Controller
             ->join('kategori', 'kategori.id', '=', 'sub_kategori.kategori_id')
             ->join('kabupaten', 'kabupaten.id', '=', 'objek_wisata.kabupaten_id')
             ->where('kategori.nama', 'Benda')
-            ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.deskripsi', 'objek_wisata.description', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'objek_wisata.status', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
+            ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.no_sk', 'objek_wisata.deskripsi', 'objek_wisata.description', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'objek_wisata.status', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
             ->get();
         $kategoriBenda = SubKategori::where('kategori_id', '1')->get();
         // $kategoriTakbenda=SubKategori::where('kategori_id','2')->get();
@@ -62,6 +62,7 @@ class ObjekWisataController extends Controller
         $objekWisata = ObjekWisata::create([
             'gambar_popup' => $gambar->hashName(),
             'nama' => $request->nama,
+            'no_sk' => $request->no_sk,
             'deskripsi' => $request->deskripsi,
             'description' => $request->description,
             'status' => $request->status,
@@ -113,6 +114,7 @@ class ObjekWisataController extends Controller
         if ($request->file('foto') == "") {
             $objekWisata->update([
                 'nama' => $request->nama,
+                'no_sk' => $request->no_sk,
                 'deskripsi' => $request->deskripsi,
                 'description' => $request->description,
                 'latitude' => $request->latitude,
@@ -129,6 +131,7 @@ class ObjekWisataController extends Controller
             $objekWisata->update([
                 'gambar_popup' => $gambar->hashName(),
                 'nama' => $request->nama,
+                'no_sk' => $request->no_sk,
                 'deskripsi' => $request->deskripsi,
                 'description' => $request->description,
                 'latitude' => $request->latitude,

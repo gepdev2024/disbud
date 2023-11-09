@@ -42,16 +42,16 @@ $isNavbar = false;
             <div class="card-body">
 
                 @if (sizeof($benda) > 0)
-                <div class="">
+                <div class="table-responsive">
                     <table id="dataTable" class="display" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nama</th>
+                                <th>Nomor SK</th>
                                 <th>Lokasi</th>
                                 <th>Klasifikasi</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
-                                <th>Kategori</th>
                                 <th>gambar popup</th>
                                 <th>Aksi</th>
                             </tr>
@@ -60,17 +60,11 @@ $isNavbar = false;
                             @foreach ($benda as $item)
                             <tr>
                                 <td>{{$item->nama}}</td>
+                                <td>{{$item->no_sk}}</td>
                                 <td>{{$item->kabupaten}}</td>
                                 <td>{{$item->sub_kategori}}</td>
                                 <td>{{$item->latitude}}</td>
                                 <td>{{$item->longitude}}</td>
-                                <td>
-                                    @if ($item->status=="Terima")
-                                    Cagar Budaya
-                                    @else
-                                    Objek Diduga Cagar Budaya
-                                    @endif
-                                </td>
                                 <td>
                                     <ul class="list-unstyled align-items-center">
                                         <li class="avatar avatar-xs">
@@ -84,6 +78,7 @@ $isNavbar = false;
                                         <a class="text-primary" href="" data-bs-toggle="modal"
                                             data-bs-target="#editForm" data-bs-id="{{$item->id}}"
                                             data-bs-nama="{{$item->nama}}" data-bs-deskripsi="{{$item->deskripsi}}"
+                                            data-bs-noSk="{{$item->no_sk}}"
                                             data-bs-status="{{$item->status}}"
                                             data-bs-description="{{$item->description}}"
                                             data-bs-kategori="{{$item->idS}}" data-bs-lokasi="{{$item->idK}}"
@@ -126,6 +121,12 @@ $isNavbar = false;
                             <label for="nameBasic" class="form-label">Nama</label>
                             <input required type="text" name="nama" id="nameBasic" class="form-control"
                                 placeholder="Nama">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameBasic" class="form-label">Nomor SK</label>
+                            <input type="text" name="no_sk" id="nameBasic" class="form-control" placeholder="Nomor SK">
                         </div>
                     </div>
                     <div class="row">
@@ -183,8 +184,8 @@ $isNavbar = false;
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Latitude</label>
-                            <input onchange="setMarker()" name="latitude" type="text" id="latitude"
-                                class="form-control" placeholder="Latitude">
+                            <input onchange="setMarker()" name="latitude" type="text" id="latitude" class="form-control"
+                                placeholder="Latitude">
                         </div>
                         <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Longitude</label>
@@ -206,7 +207,7 @@ $isNavbar = false;
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">Link 360</label>
-                            <input name="link" required type="text" id="nameBasic" class="form-control"
+                            <input name="link" type="text" id="nameBasic" class="form-control"
                                 placeholder="Link">
                         </div>
                     </div>
@@ -235,6 +236,12 @@ $isNavbar = false;
                         <div class="col mb-3">
                             <label for="nama" class="form-label">Nama</label>
                             <input required type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="no_sk" class="form-label">Nomor SK</label>
+                            <input type="text" name="no_sk" id="no_sk" class="form-control" placeholder="Nomor SK">
                         </div>
                     </div>
                     <div class="row">
@@ -311,7 +318,7 @@ $isNavbar = false;
                     <div class="row">
                         <div class="col mb-3">
                             <label for="link" class="form-label">Link 360</label>
-                            <input name="link" required type="text" id="link" class="form-control" placeholder="Link">
+                            <input name="link" type="text" id="link" class="form-control" placeholder="Link">
                         </div>
                     </div>
                 </div>
@@ -443,6 +450,7 @@ $isNavbar = false;
             // data-data yang disimpan pada tombol edit dimasukkan ke dalam variabelnya masing-masing 
             const id = button.getAttribute('data-bs-id')
             const nama = button.getAttribute('data-bs-nama')
+            const no_sk = button.getAttribute('data-bs-noSk')
             const deskripsi = button.getAttribute('data-bs-deskripsi')
             const description = button.getAttribute('data-bs-description')
             const lokasi = button.getAttribute('data-bs-lokasi')
@@ -454,6 +462,7 @@ $isNavbar = false;
             //variabel di atas dimasukkan ke dalam element yang sesuai dengan idnya masing-masing
             editModal.querySelector('#id').value=id
             editModal.querySelector('#nama').value=nama
+            editModal.querySelector('#no_sk').value=no_sk
             editModal.querySelector('#deskripsi').value=deskripsi
             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js', function () 
             {

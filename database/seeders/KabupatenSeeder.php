@@ -73,7 +73,7 @@ class KabupatenSeeder extends Seeder
         ]);
         Kabupaten::create([
             'id' =>472,
-            'nama' => 'Kabupaten Ingragiri Hilir',
+            'nama' => 'Kabupaten Indragiri Hilir',
             
         ]);
     }
