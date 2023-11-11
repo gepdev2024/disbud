@@ -16,7 +16,7 @@
                             src="{{asset('assets/img/id.png')}}" /></a>
                 </li>
                 <li class="nav-item rounded-circle">
-                    <a class=" rounded-circle" href="locale/en"><img width="30" class="d-block  object-fit-cover"
+                    <a class=" rounded-circle" href="locale/en"><img width="28" class="d-block  object-fit-cover"
                             src="{{asset('assets/img/en.png')}}" /></a>
                 </li>
                 @else
@@ -25,7 +25,7 @@
                             src="{{asset('assets/img/id.png')}}" /></a>
                 </li>
                 <li class="nav-item rounded-circle">
-                    <a class="rounded-circle active" href="locale/en"><img width="30" class="d-block  object-fit-cover"
+                    <a class="rounded-circle active" href="locale/en"><img width="28" class="d-block  object-fit-cover"
                             src="{{asset('assets/img/en.png')}}" /></a>
                 </li>
                 @endif

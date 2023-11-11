@@ -78,8 +78,8 @@ $isNavbar = false;
                                         <a class="text-primary" href="" data-bs-toggle="modal"
                                             data-bs-target="#editForm" data-bs-id="{{$item->id}}"
                                             data-bs-nama="{{$item->nama}}" data-bs-deskripsi="{{$item->deskripsi}}"
-                                            data-bs-noSk="{{$item->no_sk}}"
-                                            data-bs-status="{{$item->status}}"
+                                            data-bs-noSk="{{$item->no_sk}}" data-bs-status="{{$item->status}}"
+                                            data-bs-levelSk="{{$item->level_sk}}" data-bs-tglSk="{{$item->tgl_sk}}"
                                             data-bs-description="{{$item->description}}"
                                             data-bs-kategori="{{$item->idS}}" data-bs-lokasi="{{$item->idK}}"
                                             data-bs-latitude="{{$item->latitude}}"
@@ -125,12 +125,6 @@ $isNavbar = false;
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Nomor SK</label>
-                            <input type="text" name="no_sk" id="nameBasic" class="form-control" placeholder="Nomor SK">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
                             <label for="emailBasic" class="form-label">Deskripsi</label>
                             <textarea name="deskripsi" required type="text" id="emailBasic"
                                 class="form-control summernote" placeholder="Deskripsi"></textarea>
@@ -143,16 +137,39 @@ $isNavbar = false;
                                 class="form-control summernote" placeholder="Description"></textarea>
                         </div>
                     </div>
-                    {{-- Ganti jadi radio button --}}
                     <div class="row">
                         <div class="col mb-3">
                             <label for="status" class="form-label">Kategori</label>
-                            <select name="status" required class="form-select" id="lokasi"
+                            <select name="status" required class="form-select" id="status" onchange="showSk()"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="Terima">Cagar budaya</option>
                                 <option value="Belum">Objek Diduga Cagar Budaya</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row sk">
+                        <div class="col mb-3">
+                            <label for="sklevel" class="form-label">Level SK</label>
+                            <select name="level_sk" required class="form-select" id="sklevel"
+                                aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="SK Nasional">SK Nasional</option>
+                                <option value="SK Provinsi">SK Provinsi</option>
+                                <option value="SK Kabupaten/Kota">SK Kabupaten/Kota</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row sk">
+                        <div class="col mb-3">
+                            <label for="sktgl" class="form-label">Tanggal SK</label>
+                            <input type="date" name="tgl_sk" id="sktgl" class="form-control" placeholder="Nomor SK">
+                        </div>
+                    </div>
+                    <div class="row sk">
+                        <div class="col mb-3">
+                            <label for="skno" class="form-label">Nomor SK</label>
+                            <input type="text" name="no_sk" id="skno" class="form-control" placeholder="Nomor SK">
                         </div>
                     </div>
                     <div class="row">
@@ -207,8 +224,7 @@ $isNavbar = false;
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">Link 360</label>
-                            <input name="link" type="text" id="nameBasic" class="form-control"
-                                placeholder="Link">
+                            <input name="link" type="text" id="nameBasic" class="form-control" placeholder="Link">
                         </div>
                     </div>
                 </div>
@@ -240,12 +256,6 @@ $isNavbar = false;
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="no_sk" class="form-label">Nomor SK</label>
-                            <input type="text" name="no_sk" id="no_sk" class="form-control" placeholder="Nomor SK">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
                             <textarea name="deskripsi" required type="text" id="deskripsi" class="form-control"
                                 placeholder="Deskripsi"></textarea>
@@ -258,16 +268,40 @@ $isNavbar = false;
                                 placeholder="Description"></textarea>
                         </div>
                     </div>
-                    {{-- ganti jadi radio button --}}
                     <div class="row">
                         <div class="col mb-3">
                             <label for="status" class="form-label">Kategori</label>
-                            <select name="status" required class="form-select" id="status"
+                            <select name="status" required class="form-select" id="status" onchange="showSK()"
                                 aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="Terima">Cagar budaya</option>
                                 <option value="Belum">Objek Diduga Cagar Budaya</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="row skEdit">
+                        <div class="col mb-3">
+                            <label for="level_sk" class="form-label">Level SK</label>
+                            <select name="level_sk" required class="form-select" id="level_sk"
+                                aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="SK Nasional">SK Nasional</option>
+                                <option value="SK Provinsi">SK Provinsi</option>
+                                <option value="SK Kabupaten/Kota">SK Kabupaten/Kota</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row skEdit">
+                        <div class="col mb-3">
+                            <label for="tgl_sk" class="form-label">Tanggal SK</label>
+                            <input type="date" name="tgl_sk" id="tgl_sk" class="form-control" placeholder="Nomor SK">
+                        </div>
+                    </div>
+                    <div class="row skEdit">
+                        <div class="col mb-3">
+                            <label for="no_sk" class="form-label">Nomor SK</label>
+                            <input type="text" name="no_sk" id="no_sk" class="form-control" placeholder="Nomor SK">
                         </div>
                     </div>
                     <div class="row">
@@ -384,6 +418,7 @@ $isNavbar = false;
     }).addTo(mapAddBenda);
 
     $(document).ready(function(){
+        $(".sk").hide();
         $('#addForm').on('shown.bs.modal', function(){
             setTimeout(function() {
                 mapAddBenda.invalidateSize();
@@ -393,6 +428,13 @@ $isNavbar = false;
 </script>
 
 <script>
+    function showSk(){
+        if($('#status').val() == 'Terima'){
+            $('.sk').show();
+        }else{
+            $('.sk').hide();
+        }
+    }
     var mapEditBenda = L.map('mapEditBenda',{
             zoomControl: false,
         }).setView([0.5933, 101.7068], 8, false);
@@ -427,59 +469,70 @@ $isNavbar = false;
 
     const editModal = document.getElementById('editForm')
             if (editModal) {
+               
                 editModal.addEventListener('show.bs.modal', event => {
+                    
 
-                mapEditBenda.on('click', function(event){
-                    const lat = mapEditBenda.mouseEventToLatLng(event.originalEvent).lat
-                    const lng = mapEditBenda.mouseEventToLatLng(event.originalEvent).lng
-                    markerEditBenda.setLatLng([lat, lng])
-                    editModal.querySelector('#latitude').value=lat
-                    editModal.querySelector('#longitude').value=lng
-                })
+                    mapEditBenda.on('click', function(event){
+                        const lat = mapEditBenda.mouseEventToLatLng(event.originalEvent).lat
+                        const lng = mapEditBenda.mouseEventToLatLng(event.originalEvent).lng
+                        markerEditBenda.setLatLng([lat, lng])
+                        editModal.querySelector('#latitude').value=lat
+                        editModal.querySelector('#longitude').value=lng
+                    })
 
-                $("#latitude").val(0.5933);
-                $("#longitude").val(101.7068);
+                    $("#latitude").val(0.5933);
+                    $("#longitude").val(101.7068);
 
-                markerEditBenda.on('dragend', function(e) {
-                    var position = markerBenda.getLatLng();
-                    editModal.querySelector('#latitude').value=lat
-                    editModal.querySelector('#longitude').value=lng
-                })
-            // event.relatedtarget menampilkan elemen mana yang digunakan saat diklik.
-            const button = event.relatedTarget
-            // data-data yang disimpan pada tombol edit dimasukkan ke dalam variabelnya masing-masing 
-            const id = button.getAttribute('data-bs-id')
-            const nama = button.getAttribute('data-bs-nama')
-            const no_sk = button.getAttribute('data-bs-noSk')
-            const deskripsi = button.getAttribute('data-bs-deskripsi')
-            const description = button.getAttribute('data-bs-description')
-            const lokasi = button.getAttribute('data-bs-lokasi')
-            const kategori = button.getAttribute('data-bs-kategori')
-            const status = button.getAttribute('data-bs-status')
-            const latitude = button.getAttribute('data-bs-latitude')
-            const longitude = button.getAttribute('data-bs-longitude')
-            const link = button.getAttribute('data-bs-link')
-            //variabel di atas dimasukkan ke dalam element yang sesuai dengan idnya masing-masing
-            editModal.querySelector('#id').value=id
-            editModal.querySelector('#nama').value=nama
-            editModal.querySelector('#no_sk').value=no_sk
-            editModal.querySelector('#deskripsi').value=deskripsi
-            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js', function () 
-            {
-                    $('#deskripsi').summernote("code", deskripsi);
-                    $('#description').summernote("code", description);
+                    markerEditBenda.on('dragend', function(e) {
+                        var position = markerBenda.getLatLng();
+                        editModal.querySelector('#latitude').value=lat
+                        editModal.querySelector('#longitude').value=lng
+                    })
+                    // event.relatedtarget menampilkan elemen mana yang digunakan saat diklik.
+                    const button = event.relatedTarget
+                    // data-data yang disimpan pada tombol edit dimasukkan ke dalam variabelnya masing-masing 
+                    if(button.getAttribute('data-bs-status')==="Terima"){
+                        $(".skEdit").show();
+                    }else{
+                        $(".skEdit").show();
+                    }
+                    const id = button.getAttribute('data-bs-id')
+                    const nama = button.getAttribute('data-bs-nama')
+                    const no_sk = button.getAttribute('data-bs-noSk')
+                    const tgl_sk = button.getAttribute('data-bs-tglSk')
+                    const level_sk = button.getAttribute('data-bs-levelSk')
+                    const deskripsi = button.getAttribute('data-bs-deskripsi')
+                    const description = button.getAttribute('data-bs-description')
+                    const lokasi = button.getAttribute('data-bs-lokasi')
+                    const kategori = button.getAttribute('data-bs-kategori')
+                    const status = button.getAttribute('data-bs-status')
+                    const latitude = button.getAttribute('data-bs-latitude')
+                    const longitude = button.getAttribute('data-bs-longitude')
+                    const link = button.getAttribute('data-bs-link')
+                    //variabel di atas dimasukkan ke dalam element yang sesuai dengan idnya masing-masing
+                    editModal.querySelector('#id').value=id
+                    editModal.querySelector('#nama').value=nama
+                    editModal.querySelector('#no_sk').value=no_sk
+                    editModal.querySelector('#tgl_sk').value=tgl_sk
+                    editModal.querySelector('#level_sk').value=level_sk
+                    editModal.querySelector('#deskripsi').value=deskripsi
+                    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js', function () 
+                    {
+                            $('#deskripsi').summernote("code", deskripsi);
+                            $('#description').summernote("code", description);
+                    })
+                    editModal.querySelector('#description').value=description
+                    editModal.querySelector('#lokasi').value=lokasi
+                    editModal.querySelector('#kategori').value=kategori
+                    editModal.querySelector('#status').value=status
+                    editModal.querySelector('#latitude').value=latitude
+                    editModal.querySelector('#longitude').value=longitude
+                    editModal.querySelector('#link').value=link
+
+                    markerEditBenda.setLatLng([ latitude, longitude ]);
             })
-            editModal.querySelector('#description').value=description
-            editModal.querySelector('#lokasi').value=lokasi
-            editModal.querySelector('#kategori').value=kategori
-            editModal.querySelector('#status').value=status
-            editModal.querySelector('#latitude').value=latitude
-            editModal.querySelector('#longitude').value=longitude
-            editModal.querySelector('#link').value=link
-
-            markerEditBenda.setLatLng([ latitude, longitude ]);
-        })
-    }
+        }
 </script>
 
 

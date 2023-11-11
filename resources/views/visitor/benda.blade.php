@@ -13,6 +13,7 @@
         width: 1000px;
         overflow-y: scroll;
     }
+
     p {
         text-align: justify;
     }
@@ -180,6 +181,9 @@
                     "link_360": item.link_360,
                     "sub_kategori": item.sub_kategori,
                     "sub_kategori_id": item.sub_kategori_id,
+                    "level_sk": item.level_sk,
+                    "no_sk": item.no_sk,
+                    "tgl_sk": item.tgl_sk,
                     "status": item.status,
                     "warna_kategori": svgCol,
                 }
@@ -280,6 +284,23 @@
         let carouselIndex = '';
         let carouselFull = '';
         let deskripsi = '';
+        let level_sk='-'
+        let no_sk='-'
+        let tgl_sk='-'
+       
+
+        if(data.level_sk){
+            level_sk = data.level_sk;
+        }
+        if(data.no_sk){
+            no_sk = data.no_sk;
+        }
+        if(data.tgl_sk){
+            var mydate = new Date(data.tgl_sk);
+            var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "December"][mydate.getMonth()];
+            tgl_sk = mydate.getDate()+' '+month + ' ' + mydate.getFullYear();
+        }
 
         if(data.link_360.length > 2){
             link360 ='<a href='+data.link_360+' target="_blank" type="button" class=""><u>Link Website Virtual Tour 360</u></a>';
@@ -347,6 +368,13 @@
             '<div class="card">'+
                 '<div class="card-body">'+
                     carouselFull+
+                    '<div class="mb-2">'+
+                    '<table style="font-size: 12px;">'+
+                    '<tr><td>Data SK Objek Cagar Budaya<td/><td>:</td><td>'+level_sk+'</td></tr>'+
+                    '<tr><td>Tanggal<td/><td>:</td><td>'+tgl_sk+'</td></tr>'+
+                    '<tr><td>No SK<td/><td>:</td><td>'+no_sk+'</td></tr>'+
+                    '</table>'+
+                    '</div>'+
                     deskripsi+
                 '</div>'+
             '</div>'

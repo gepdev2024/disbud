@@ -9,9 +9,9 @@ class ObjekWisata extends Model
 {
     use HasFactory;
 
-    protected $table = 'objek_wisata';
+protected $table = 'objek_wisata';
 
-    protected $fillable = ['nama', 'no_sk', 'deskripsi', 'description', 'latitude', 'longitude', 'gambar_popup', 'link_360', 'status', 'kabupaten_id', 'sub_kategori_id', 'created_at', 'updated_at'];
+    protected $fillable = ['nama', 'level_sk', 'tgl_sk', 'no_sk', 'deskripsi', 'description', 'latitude', 'longitude', 'gambar_popup', 'link_360', 'status', 'kabupaten_id', 'sub_kategori_id', 'created_at', 'updated_at'];
 
     public function kabupaten(){
         return $this->belongsTo('App\Models\Kabupaten');
