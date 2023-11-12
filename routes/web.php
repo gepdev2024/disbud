@@ -31,9 +31,10 @@ Route::get('objekWisata/{kota}', function($kota){
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Main Page Route
-    Route::get('/', 'VisitorController@index')->name('VisitorPage');
-    Route::get('/cagarBudaya', 'VisitorController@benda')->name('VisitorPage');
-    Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
+    Route::get('/', 'VisitorController@index')->name('landingPage');
+    Route::get('/cagarBudaya', 'VisitorController@benda')->name('peta');
+    Route::get('/data', 'VisitorController@data')->name('data');
+    // Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
     // Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
 
     // auth

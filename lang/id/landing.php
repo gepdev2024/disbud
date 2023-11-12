@@ -19,4 +19,7 @@ return [
     "misi4"=> "Menjadikan Riau sebagai pusat sejarah, cagar budaya dan pengembangan permuseuman.",
     "misi5"=> "Menjadikan Riau sebagai pengumpul, perawat serta penyaji warisan benda dan takbenda seni budaya melayu.",
     "visitor"=> "Pengunjung Hari Ini",
+    "sosmed"=> "Media Sosial",
+    "sosmed1" => "Kunjungi media sosial kami untuk info lebih lanjut",
+    "beranda" => "Beranda"
 ];

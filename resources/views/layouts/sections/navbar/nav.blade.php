@@ -1,4 +1,8 @@
+<!-- Template Main CSS File -->
+<link href={{asset("assets/landingPage/css/style.css")}} rel="stylesheet">
+
 <!-- ======= Header ======= -->
+
 <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
@@ -10,8 +14,9 @@
             <ul>
                 <li><a class="nav-link " href="/">{{__("nav.Beranda")}}</a></li>
                 <li><a class="nav-link" href="/cagarBudaya">{{__("nav.cagarBudaya")}}</a></li>
+                <li><a class="nav-link" href="/data">Data</a></li>
                 @if ( App::getlocale()== 'id')
-                <li class="nav-item  rounded-circle d-flex justify-content-center align-items-center">
+                <li class="nav-item  rounded-circle d-flex align-items-center">
                     <a class="rounded-circle active" href="locale/id"><img width="28" class="d-block  object-fit-cover"
                             src="{{asset('assets/img/id.png')}}" /></a>
                 </li>
@@ -20,7 +25,7 @@
                             src="{{asset('assets/img/en.png')}}" /></a>
                 </li>
                 @else
-                <li class="nav-item rounded-circle d-flex justify-content-center align-items-center">
+                <li class="nav-item rounded-circle d-flex align-items-center">
                     <a class="rounded-circle" href="locale/id"><img width="28" class="d-block  object-fit-cover"
                             src="{{asset('assets/img/id.png')}}" /></a>
                 </li>
@@ -35,3 +40,6 @@
 
     </div>
 </header><!-- End Header -->
+
+<!-- Template Main JS File -->
+<script src={{asset("assets/landingPage/js/main.js")}}></script>

@@ -12,6 +12,7 @@ use Gtmassey\LaravelAnalytics\Request\Metrics;
 use Gtmassey\Period\Period;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Sarfraznawaz2005\VisitLog\Facades\VisitLog;
 use Sarfraznawaz2005\VisitLog\Models\VisitLog as VisitLogModel;
 
@@ -27,8 +28,27 @@ class VisitorController extends Controller
         VisitLog::save();
 
         $visitor = VisitLogModel::whereDate('updated_at', Carbon::now()->toDateString())->count();
-        
+
         return view('index', compact('visitor'));
+    }
+
+    public function data()
+    {
+        VisitLog::save();
+
+        $visitor = VisitLogModel::whereDate('updated_at', Carbon::now()->toDateString())->count();
+        $kabupaten = Kabupaten::all();
+
+        $data = DB::table('objek_wisata')
+            ->join('kabupaten', 'objek_wisata.kabupaten_id', '=', 'kabupaten.id')
+            ->join('sub_kategori', 'objek_wisata.sub_kategori_id', '=', 'sub_kategori.id')
+            ->groupBy('kabupaten.id')
+            ->groupBy('sub_kategori.id')
+            ->select('kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori', DB::raw('count(objek_wisata.id) as jumlah'))
+            ->get();
+
+
+        return view('visitor.data', compact(['visitor', 'data','kabupaten']));
     }
 
     public function benda()

@@ -19,4 +19,7 @@ return[
     "misi4"=> "Making Riau a center for history, cultural heritage, and museum development.",
     "misi5"=> "Making Riau a collector, curator, and presenter of tangible and intangible cultural art heritage.",
     "visitor"=> "Today's Visitor",
+    "sosmed"=> "Social Media",
+    "sosmed1" => "Visit our social media for further information",
+    "beranda" => "Home"
 ];
