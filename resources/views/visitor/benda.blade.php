@@ -41,7 +41,7 @@
 
 
 
-    <div class="h-100 position-relative">
+    <div class="h-100 position-relative" style="padding-top: 70">
         <div style="z-index: 10;" class="border mh-100 m-2 bg-light d-flex flex-column position-absolute overflow-auto">
             <div class="inputs py-2">
                 @foreach ($kabupaten as $item)

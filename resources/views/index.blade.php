@@ -34,7 +34,7 @@
 @endsection
 
 @section('content')
-<div class="position-relative">
+<div class="position-relative pt-8">
     @include('layouts/sections/navbar/nav')
 
     <button style="z-index: 5000" type="button" class="btn btn-light text-nowrap position-fixed border bottom-0 end-0 "
@@ -44,7 +44,7 @@
     </button>
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex     align-items-center">
+    <section id="hero" class="d-flex align-items-center">
         <div class="container" data-aos="zoom-out">
             <h1>{{__("landing.judul")}}</h1>
             <h2>{{__("landing.deskripsi")}}</h2>
