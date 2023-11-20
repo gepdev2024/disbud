@@ -1,8 +1,15 @@
 <?php
 
 return [
-    'judul' => 'Nama Website',
-    'deskripsi' => 'Infografis Objek Wisata Provinsi Riau',
+    'welcome' => 'Selamat Datang di Situs Resmi',
+    'judul' => 'Peta Interaktif 360 Virtual Tour Cagar Budaya Provinsi Riau',
+    'deskripsi' => 'Jelajahi Berbagai macam Cagar Budaya dan Warisan Budaya yang tersebar di Riau',
+    'kategori' => "Kategori Cagar Budaya",
+    'bangunan' => "Bangunan",
+    'benda' => "Benda",
+    'struktur' => "Struktur",
+    'situs' => "Situs",
+    'kawasan' => "Kawasan",
     'kabkot' => 'Kabupaten / Kota',
     'kabkot1' => 'Daftar Kabupaten / Kota',
     'lanjut' => 'Pelajari Lebih Lanjut',

@@ -287,6 +287,9 @@
         let level_sk='-'
         let no_sk='-'
         let tgl_sk='-'
+        let sk_desc='';
+        let sk_desc1='';
+        let sk_desc2='';
        
 
         if(data.level_sk){
@@ -352,8 +355,14 @@
 
         if(lang === 'en'){
             deskripsi = data.description;
+            sk_desc = "Cultural Heritage Decree Data"
+            sk_desc1 = "Date"
+            sk_desc2 = "Decree Number"
         }else{
             deskripsi = data.deskripsi;
+            sk_desc = "Data Sk Cagar Budaya"
+            sk_desc1 = "Tanggal"
+            sk_desc2 = "Nomor SK"
         }
 
 
@@ -370,9 +379,9 @@
                     carouselFull+
                     '<div class="mb-2">'+
                     '<table style="font-size: 12px;">'+
-                    '<tr><td>Data SK Objek Cagar Budaya<td/><td>:</td><td>'+level_sk+'</td></tr>'+
-                    '<tr><td>Tanggal<td/><td>:</td><td>'+tgl_sk+'</td></tr>'+
-                    '<tr><td>No SK<td/><td>:</td><td>'+no_sk+'</td></tr>'+
+                    '<tr><td>'+sk_desc+'<td/><td>:</td><td>'+level_sk+'</td></tr>'+
+                    '<tr><td>'+sk_desc1+'<td/><td>:</td><td>'+tgl_sk+'</td></tr>'+
+                    '<tr><td>'+sk_desc2+'<td/><td>:</td><td>'+no_sk+'</td></tr>'+
                     '</table>'+
                     '</div>'+
                     deskripsi+

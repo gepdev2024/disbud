@@ -68,30 +68,27 @@
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex">
             <div class="container text-center" data-aos="zoom-out" style="margin-top:80px">
-                <h6 st>Selamat Datang di Situs Resmi</h6>
-                <h2 style="color: #FF9209;font-size: 40px;font-weight: bold">Peta Interaktif 360 Virtual Tour Cagar
-                    Budaya
-                    Provinsi Riau
+                <h6 st>{{__('landing.welcome')}}</h6>
+                <h2 style="color: #FF9209;font-size: 40px;font-weight: bold">{{__('landing.judul')}}
                 </h2>
                 <div class="d-inline"
                     style="font-size: 20px; background-color:#2B3499; padding: 16px; color: white;border-radius: 8px">
-                    Jelajahi Berbagai macam Cagar Budaya dan Warisan Budaya
-                    yang tersebar di Riau
+                    {{__('landing.deskripsi')}}
                 </div>
 
             </div>
         </section><!-- End Hero -->
         <section>
             <div class="section-title">
-                <h2>Kategori Cagar Budaya</h2>
+                <h2>{{__('landing.kategori')}}</h2>
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-2">
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-bank" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">Bangunan</div>
-                            <span class="badge bg-secondary">{{ $bangunan }}</badge>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.bangunan')}}</div>
+                            <span class="badge bg-secondary">{{ $bangunan }}</span>
                         </div>
                     </div>
                 </div>
@@ -99,8 +96,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-coins" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">Benda</div>
-                            <span class="badge bg-secondary">{{ $benda }}</badge>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.benda')}}</div>
+                            <span class="badge bg-secondary">{{ $benda }}</span>
                         </div>
                     </div>
                 </div>
@@ -108,8 +105,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-layers" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">Struktur</div>
-                            <span class="badge bg-secondary">{{ $struktur }}</badge>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.struktur')}}</div>
+                            <span class="badge bg-secondary">{{ $struktur }}</span>
                         </div>
                     </div>
                 </div>
@@ -117,8 +114,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-home-location-alt" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">Situs</div>
-                            <span class="badge bg-secondary">{{ $situs }}</badge>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.situs')}}</div>
+                            <span class="badge bg-secondary">{{ $situs }}</span>
                         </div>
                     </div>
                 </div>
@@ -126,8 +123,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-school" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">Kawasan</div>
-                            <span class="badge bg-secondary">{{ $kawasan }}</badge>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.kawasan')}}</div>
+                            <span class="badge bg-secondary">{{ $kawasan }}</span>
                         </div>
                     </div>
                 </div>

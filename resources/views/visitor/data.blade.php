@@ -66,6 +66,7 @@
         <!-- ======= About Section ======= -->
         <section id="about" class="about section-bg" style="margin-top: 32">
             <div class="container" data-aos="fade-up">
+                <input type="hidden" name="" id="lang" value={{Session::get('locale')}}>
 
                 <div class="section-title">
                     <h2>{{__('data.visualisasi')}}</h2>
@@ -120,6 +121,15 @@
     let jlh = []; 
     let title; 
     let kabkot = $('input[name = "kabkot"]:checked').val();
+    const lang = $("#lang").val();
+    let lab;
+
+    if(lang === 'en'){
+            lab = "Numbers of tourist attractions in ";
+        }else{
+            lab = "Jumlah Objek Wisata "
+        }
+
 
     const datas =  {{ Js::from($data) }};
 
@@ -144,7 +154,7 @@
         data = {
         labels: labels,
         datasets: [{
-            label: 'Jumlah Objek Wisata '+ title,
+            label: lab+ title,
             backgroundColor: 'rgb(16, 110, 234)',
             borderColor: 'rgb(16, 110, 234)',
             data: jlh,
@@ -201,7 +211,7 @@
     let data = {
       labels: labels,
       datasets: [{
-        label: 'Jumlah Objek Wisata ' + title,
+        label: lab+ title,
         backgroundColor: 'rgb(16, 110, 234)',
         borderColor: 'rgb(16, 110, 234)',
         data: jlh,

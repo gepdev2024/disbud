@@ -1,8 +1,15 @@
 <?php
 
 return[
-    'judul' => 'Website Name',
-    'deskripsi' => 'Riau province tourist attraction infographics',
+    'welcome' => 'Welcome to',
+    'judul' => 'Interactive Map 360 Virtual Tour Cultural Reserve of Riau Province',
+    'deskripsi' => 'Explore the variety of cultural reserves and cultural heritage scattered in Riau',
+    'kategori' => "Cultural Heritage Categories",
+    'bangunan' => "Buildings",
+    'benda' => "Items",
+    'struktur' => "Structures",
+    'situs' => "Sites",
+    'kawasan' => "Areas",
     'kabkot' => 'Cities / Regencies',
     'kabkot1' => 'Cities / Regencies List',
     'lanjut' => 'Learn More',
