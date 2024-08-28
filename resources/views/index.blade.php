@@ -40,6 +40,43 @@
         transition: background-color 0.3s ease;
         /* Add a smooth transition effect */
     }
+
+    #hero2 {
+        width: 100%;
+    }
+
+    #hero2:before {
+        content: "";
+        background: rgba(255, 255, 255, 0.0);
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    #hero2.container {
+        position: relative;
+    }
+
+    @media (max-width: 767px) {
+        h2 {
+            font-size: 18px !important;
+            /* Gunakan !important untuk memastikan aturan ini memiliki prioritas */
+        }
+
+        #deskripsi_header {
+            font-size: 8px !important;
+            padding: 8px;
+            background-color: "";
+        }
+
+        #hero2 {
+            display: none;
+            /* Atur ulang posisi latar belakang untuk perangkat mobile */
+            /* Tambahkan properti lain sesuai kebutuhan untuk tampilan mobile */
+        }
+    }
 </style>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -65,29 +102,58 @@
             {{ $visitor }}<i class="bx bx-user"></i>
         </button>
 
+
+        <?php
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        if (strpos($userAgent, 'Mobile') !== false) {
+            // User is using a mobile device
+           ?>
         <!-- ======= Hero Section ======= -->
-        <section id="hero" class="d-flex">
+        <section id="hero2" class="d-flex">
             <div class="container text-center" data-aos="zoom-out" style="margin-top:80px">
-                <h6 st>{{__('landing.welcome')}}</h6>
-                <h2 style="color: #FF9209;font-size: 40px;font-weight: bold">{{__('landing.judul')}}
+                <h6 style="color: #00000050">{{ __('landing.welcome') }}</h6>
+                <h2 style="color: #FF9209;font-size: 40px;font-weight: bold">{{ __('landing.judul') }}
                 </h2>
-                <div class="d-inline"
-                    style="font-size: 20px; background-color:#2B3499; padding: 16px; color: white;border-radius: 8px">
-                    {{__('landing.deskripsi')}}
-                </div>
+                <p id="deskripsi_header" class="d-inline"
+                    style="font-size: 20px; padding: 16px; color: black;border-radius: 8px; background-color: #fff  ">
+                    {{ __('landing.deskripsi') }}
+                </p>
 
             </div>
         </section><!-- End Hero -->
+
+        <?php
+        } else {
+            // User is using a desktop device
+           ?>
+        <!-- ======= Hero Section ======= -->
+        <section id="hero" class="d-flex">
+            <div class="container text-center" data-aos="zoom-out" style="margin-top:80px">
+                <h6 style="color: #00000050">{{ __('landing.welcome') }}</h6>
+                <h2 style="color: #FF9209;font-size: 40px;font-weight: bold">{{ __('landing.judul') }}
+                </h2>
+                <p id="deskripsi_header" class="d-inline"
+                    style="font-size: 20px; padding: 16px; color: black;border-radius: 8px; background-color: #fff  ">
+                    {{ __('landing.deskripsi') }}
+                </p>
+
+            </div>
+        </section><!-- End Hero -->
+        <?php
+        }
+        ?>
         <section>
             <div class="section-title">
-                <h2>{{__('landing.kategori')}}</h2>
+                <h2>{{ __('landing.kategori') }}</h2>
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-2">
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-bank" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.bangunan')}}</div>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{ __('landing.bangunan') }}
+                            </div>
                             <span class="badge bg-secondary">{{ $bangunan }}</span>
                         </div>
                     </div>
@@ -96,7 +162,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-coins" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.benda')}}</div>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{ __('landing.benda') }}
+                            </div>
                             <span class="badge bg-secondary">{{ $benda }}</span>
                         </div>
                     </div>
@@ -105,7 +172,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-layers" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.struktur')}}</div>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{ __('landing.struktur') }}
+                            </div>
                             <span class="badge bg-secondary">{{ $struktur }}</span>
                         </div>
                     </div>
@@ -114,7 +182,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-home-location-alt" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.situs')}}</div>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{ __('landing.situs') }}
+                            </div>
                             <span class="badge bg-secondary">{{ $situs }}</span>
                         </div>
                     </div>
@@ -123,7 +192,8 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fi fi-rr-school" style="font-size: 32px; color: #FF9209; "></i>
-                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{__('landing.kawasan')}}</div>
+                            <div style="font-size: 16px;margin-top: 10px;margin-bottom: 10px">{{ __('landing.kawasan') }}
+                            </div>
                             <span class="badge bg-secondary">{{ $kawasan }}</span>
                         </div>
                     </div>

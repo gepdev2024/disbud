@@ -142,4 +142,15 @@ mix.version();
  | Refer official documentation for more information: https://laravel.com/docs/9.x/mix#browsersync-reloading
  */
 
+
 mix.browserSync('http://127.0.0.1:8000/');
+
+// mix.browserSync({
+//   proxy: 'http://127.0.0.1:8000', // Update this with your local development URL
+//   files: [
+//     'app/**/*.php',
+//     'resources/views/**/*.blade.php',
+//     'public/js/**/*.js',
+//     'public/css/**/*.css'
+//   ]
+// });

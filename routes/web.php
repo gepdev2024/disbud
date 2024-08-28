@@ -34,6 +34,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'VisitorController@index')->name('landingPage');
     Route::get('/cagarBudaya', 'VisitorController@benda')->name('peta');
     Route::get('/data', 'VisitorController@data')->name('data');
+    Route::get('/laporTemuan', 'VisitorController@laporTemuan');
     // Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
     // Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
 

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Gtmassey\LaravelAnalytics\Analytics;
 use Gtmassey\LaravelAnalytics\Request\Metrics;
 use Gtmassey\Period\Period;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -28,35 +29,29 @@ class VisitorController extends Controller
         VisitLog::save();
 
         $visitor = VisitLogModel::whereDate('updated_at', Carbon::now()->toDateString())->count();
-        $data = DB::table('objek_wisata')
-            ->join('kabupaten', 'objek_wisata.kabupaten_id', '=', 'kabupaten.id')
-            ->join('sub_kategori', 'objek_wisata.sub_kategori_id', '=', 'sub_kategori.id')
-            ->groupBy('kabupaten.id')
-            ->groupBy('sub_kategori.id')
-            ->select('kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori', DB::raw('count(objek_wisata.id) as jumlah'))
-            ->get();
+        $data = DB::table('objek_wisata')->join('kabupaten', 'objek_wisata.kabupaten_id', '=', 'kabupaten.id')->join('sub_kategori', 'objek_wisata.sub_kategori_id', '=', 'sub_kategori.id')->groupBy('kabupaten.id')->groupBy('sub_kategori.id')->select('kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori', DB::raw('count(objek_wisata.id) as jumlah'))->get();
         $situs = 0;
         $benda = 0;
         $struktur = 0;
         $kawasan = 0;
         $bangunan = 0;
         foreach ($data as $key => $value) {
-            if ($value->sub_kategori == "Bangunan") {
+            if ($value->sub_kategori == 'Bangunan') {
                 $bangunan += $value->jumlah;
             }
 
-            if ($value->sub_kategori == "Benda") {
+            if ($value->sub_kategori == 'Benda') {
                 $benda += $value->jumlah;
             }
-            if ($value->sub_kategori == "Struktur") {
+            if ($value->sub_kategori == 'Struktur') {
                 $struktur += $value->jumlah;
             }
 
-            if ($value->sub_kategori == "Kawasan") {
+            if ($value->sub_kategori == 'Kawasan') {
                 $kawasan += $value->jumlah;
             }
 
-            if ($value->sub_kategori == "Bangunan") {
+            if ($value->sub_kategori == 'Bangunan') {
                 $bangunan += $value->jumlah;
             }
         }
@@ -70,14 +65,7 @@ class VisitorController extends Controller
         $visitor = VisitLogModel::whereDate('updated_at', Carbon::now()->toDateString())->count();
         $kabupaten = Kabupaten::all();
 
-        $data = DB::table('objek_wisata')
-            ->join('kabupaten', 'objek_wisata.kabupaten_id', '=', 'kabupaten.id')
-            ->join('sub_kategori', 'objek_wisata.sub_kategori_id', '=', 'sub_kategori.id')
-            ->groupBy('kabupaten.id')
-            ->groupBy('sub_kategori.id')
-            ->select('kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori', DB::raw('count(objek_wisata.id) as jumlah'))
-            ->get();
-
+        $data = DB::table('objek_wisata')->join('kabupaten', 'objek_wisata.kabupaten_id', '=', 'kabupaten.id')->join('sub_kategori', 'objek_wisata.sub_kategori_id', '=', 'sub_kategori.id')->groupBy('kabupaten.id')->groupBy('sub_kategori.id')->select('kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori', DB::raw('count(objek_wisata.id) as jumlah'))->get();
 
         return view('visitor.data', compact(['visitor', 'data', 'kabupaten']));
     }
@@ -86,8 +74,7 @@ class VisitorController extends Controller
     {
         VisitLog::save();
 
-        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])
-            ->get();
+        $data = ObjekWisata::with(['fotos', 'subKategori:id,nama,kategori_id', 'subKategori.kategori:id,nama', 'kabupaten:id,nama'])->get();
 
         $kabupaten = Kabupaten::all();
         $sub_kategori = SubKategori::all();
@@ -102,5 +89,10 @@ class VisitorController extends Controller
             ->get();
 
         return view('visitor.takBenda', compact('data'));
+    }
+
+    public function laporTemuan(): View
+    {
+        return view('visitor.laporTemuan');
     }
 }

@@ -22,6 +22,7 @@
                 <li><a class="nav-link " href="/">{{ __('nav.Beranda') }}</a></li>
                 <li><a class="nav-link" href="/cagarBudaya">{{ __('nav.cagarBudaya') }}</a></li>
                 <li><a class="nav-link" href="/data">Data</a></li>
+                <li><a class="nav-link" href="/laporTemuan">{{ __('nav.laporTemuan') }}</a></li>
                 @if (App::getlocale() == 'id')
                     <li class="nav-item  rounded-circle d-flex align-items-center">
                         <a class="rounded-circle active" href="locale/id"><img width="28"

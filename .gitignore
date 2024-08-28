@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
+.env
+config/service-account-credentials.json
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml

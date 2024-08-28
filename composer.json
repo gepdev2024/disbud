@@ -12,6 +12,7 @@
     "fruitcake/laravel-cors": "^2.0.5",
     "gtmassey/laravel-analytics": "^2.3",
     "guzzlehttp/guzzle": "^7.2",
+    "jenssegers/agent": "^2.6",
     "laravel/framework": "^9.0",
     "laravel/sanctum": "^2.14",
     "laravel/tinker": "^2.7",
