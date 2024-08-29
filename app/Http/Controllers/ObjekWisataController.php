@@ -39,6 +39,23 @@ class ObjekWisataController extends Controller
         return view('admin.objek-wisata', compact(['kabupaten', 'benda', 'kategoriBenda']));
     }
 
+    public function kotaIndex()
+    {
+        $benda = DB::table('objek_wisata')
+            ->join('sub_kategori', 'sub_kategori.id', '=', 'objek_wisata.sub_kategori_id')
+            ->join('kategori', 'kategori.id', '=', 'sub_kategori.kategori_id')
+            ->join('kabupaten', 'kabupaten.id', '=', 'objek_wisata.kabupaten_id')
+            ->where('kategori.nama', 'Benda')
+            ->select('objek_wisata.id', 'objek_wisata.nama', 'objek_wisata.tgl_sk', 'objek_wisata.level_sk', 'objek_wisata.no_sk', 'objek_wisata.deskripsi', 'objek_wisata.description', 'objek_wisata.latitude', 'objek_wisata.longitude', 'objek_wisata.link_360', 'objek_wisata.gambar_popup', 'objek_wisata.status', 'kabupaten.id as idK', 'kabupaten.nama as kabupaten', 'sub_kategori.id as idS', 'sub_kategori.nama as sub_kategori')
+            ->get();
+
+        $kategoriBenda = SubKategori::where('kategori_id', '1')->get();
+        $kabupaten = Kabupaten::get(['id', 'nama']);
+
+        return view('kota.objek-wisata', compact(['kabupaten', 'benda', 'kategoriBenda']));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

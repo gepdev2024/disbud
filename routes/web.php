@@ -18,43 +18,48 @@ use Illuminate\Support\Facades\Session;
 
 $controller_path = 'App\Http\Controllers';
 
-Route::get('locale/{locale}', function($locale){
-    Session::put('locale', $locale);
-    return redirect()->back();
+Route::get('locale/{locale}', function ($locale) {
+  Session::put('locale', $locale);
+  return redirect()->back();
 });
 
-Route::get('objekWisata/{kota}', function($kota){
-    Session::put('kota', $kota);
-    return redirect('/cagarBudaya');
+Route::get('objekWisata/{kota}', function ($kota) {
+  Session::put('kota', $kota);
+  return redirect('/cagarBudaya');
 });
 
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    // Main Page Route
-    Route::get('/', 'VisitorController@index')->name('landingPage');
-    Route::get('/cagarBudaya', 'VisitorController@benda')->name('peta');
-    Route::get('/data', 'VisitorController@data')->name('data');
-    Route::get('/laporTemuan', 'VisitorController@laporTemuan');
-    // Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
-    // Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
+  // Main Page Route
+  Route::get('/', 'VisitorController@index')->name('landingPage');
+  Route::get('/cagarBudaya', 'VisitorController@benda')->name('peta');
+  Route::get('/data', 'VisitorController@data')->name('data');
+  Route::get('/laporTemuan', 'VisitorController@laporTemuan');
+  // Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
+  // Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
 
-    // auth
-    Route::get('login',  'LoginController@show');
-    Route::post('login',  'LoginController@login');
+  // auth
+  Route::get('login', 'LoginController@show')->name('login');
+  Route::post('login', 'LoginController@login');
 
-    Route::group(['middleware' => ['auth']], function () {
-        // admin
-        Route::get('objek-wisata', 'ObjekWisataController@index')->name('data-objek-wisata');
-        Route::post('objek-wisata', 'ObjekWisataController@store');
-        Route::get('objek-wisata/{id}/delete', 'ObjekWisataController@destroy');
-        Route::post('objek-wisata/update', 'ObjekWisataController@update');
+  Route::group(['middleware' => ['auth']], function () {
+    // Admin Routes (provinsi)
+    Route::get('objek-wisata', 'ObjekWisataController@index')->name('admin.objek-wisata');
+    Route::post('objek-wisata', 'ObjekWisataController@store');
+    Route::get('objek-wisata/{id}/delete', 'ObjekWisataController@destroy');
+    Route::post('objek-wisata/update', 'ObjekWisataController@update');
 
-        Route::get('foto', 'FotoController@index')->name('data-foto');;
-        Route::post('foto', 'FotoController@store');
-        Route::get('foto/{id}/delete', 'FotoController@destroy');
+    Route::get('foto', 'FotoController@index')->name('data-foto');
+    Route::post('foto', 'FotoController@store');
+    Route::get('foto/{id}/delete', 'FotoController@destroy');
 
-        Route::get('logout', 'LogoutController@perform');
-    });
+    Route::get('logout', 'LogoutController@perform');
+  });
+
+  Route::group(['middleware' => ['auth'], 'prefix' => 'kota'], function () {
+    // Kota Routes
+    Route::get('objek-wisata', 'ObjekWisataController@kotaIndex')->name('kota.objek-wisata');
+  });
 });
 
 // // layout

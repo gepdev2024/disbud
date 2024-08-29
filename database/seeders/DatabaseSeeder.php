@@ -15,10 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // User::create([
+        //     'name' => 'admin',
+        //     'email' => 'admin@example.com',
+        //     'password' => 'admin123',
+        //     'role' => 'provinsi'
+        // ]);
+
         User::create([
-            'name' => 'admin',
-            'email' => 'admin@example.com',
-            'password' => 'admin123',
-        ]);
+          'name' => 'pekanbaru',
+          'email' => 'pekanbaru@gmail.com',
+          'password' => 'pekanbaru123',
+          'role' => 'kota'
+      ]);
     }
 }
