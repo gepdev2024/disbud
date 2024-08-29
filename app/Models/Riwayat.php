@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Riwayat extends Model
 {
   protected $table = 'riwayat';
-  protected $primaryKey = 'id_riwayat';
-  public $incrementing = false;
-  protected $keyType = 'string';
+
 
   protected $fillable = [
     'tanggal',
@@ -19,6 +17,6 @@ class Riwayat extends Model
 
   public function temuan()
   {
-    return $this->hasMany(Temuan::class, 'id_riwayat');
+    return $this->hasOne(Temuan::class, 'id_riwayat');
   }
 }

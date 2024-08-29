@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataFisik extends Model
 {
   protected $table = 'data_fisik';
-  protected $primaryKey = 'id_fisik';
-  public $incrementing = false;
-  protected $keyType = 'string';
+
 
   protected $fillable = [
     'bahan',
@@ -21,6 +19,6 @@ class DataFisik extends Model
 
   public function temuan()
   {
-    return $this->hasMany(Temuan::class, 'id_fisik');
+    return $this->hasOne(Temuan::class, 'id_fisik');
   }
 }

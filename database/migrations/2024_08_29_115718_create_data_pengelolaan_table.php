@@ -15,6 +15,7 @@ return new class extends Migration
   {
     Schema::create('data_pengelolaan', function (Blueprint $table) {
       $table->id();
+      $table->string('status_pengelola');
       $table->string('nama_pengelola');
       $table->string('provinsi');
       $table->string('kota');
