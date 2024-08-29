@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class DataDimensi extends Model
 {
   protected $table = 'data_dimensi';
-  protected $primaryKey = 'id_dimensi';
-  public $incrementing = false;
-  protected $keyType = 'string';
 
   protected $fillable = [
     'panjang',
@@ -24,6 +21,6 @@ class DataDimensi extends Model
 
   public function temuan()
   {
-    return $this->hasMany(Temuan::class, 'id_dimensi');
+    return $this->hasOne(Temuan::class, 'id_dimensi');
   }
 }

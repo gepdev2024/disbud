@@ -1,11 +1,11 @@
+{{-- resources/views/temuan/show.blade.php --}}
 @php
   $isNavbar = false;
 @endphp
 
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Data User')
-
+@section('title', 'Detail Temuan')
 
 <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -15,208 +15,70 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
-
 @section('content')
 
   <h4 class="fw-bold py-3 mb-4">
-    Data User
+    Detail Temuan
   </h4>
 
   <div class="mb-4">
     <div class="">
 
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-center flex-grow-1">
+            <h5 class="mb-0">{{ $temuan->dataStruktur->nama_odcb }}</h5>
+          </div>
+          <button type="button" class="btn btn-primary">
+            <i class="bx bx-show me-2"></i> View
+          </button>
+        </div>
+      </div>
+
       <div class="card">
-        @if (session()->has('success'))
-          <div class="alert alert-primary">
-            {{ session()->get('success') }}
-          </div>
-        @endif
-        <div class="row card-header">
-          <h5 class="col-9">Data Pengguna</h5>
-          <div class="col-3 d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserForm">
-              Tambah User
-            </button>
-          </div>
-        </div>
+
         <div class="card-body">
-
-          {{-- @if (sizeof($users) > 0) --}}
-          <div class="table-responsive">
-            <table id="dataTable" class="display" style="width:100%">
-              <thead>
-                <tr>
-                  <th>Nama</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($users as $user)
+          <h4 class="card-title">Riwayat Verifikasi & Validasi</h4>
+          @if ($temuan->count() > 0)
+            <div class="table-responsive">
+              <table id="dataTable" class="display" style="width:100%">
+                <thead>
                   <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td>
-                      <div class="d-flex">
-                        <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#editUserForm"
-                          data-bs-id="{{ $user->id }}" data-bs-name="{{ $user->name }}"
-                          data-bs-email="{{ $user->email }}" data-bs-role="{{ $user->role }}"><i
-                            class="bx bx-edit-alt me-2"></i></a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                          onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-link text-danger"><i
-                              class="bx bx-trash me-2"></i></button>
-                        </form>
-                      </div>
-                    </td>
+                    <th>Tanggal</th>
+                    <th>Catatan</th>
+                    <th>Status</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-          {{-- @else
-            <h6 class="card-text">Data User Masih Kosong</h6>
-          @endif --}}
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ $temuan->tanggal }}</td>
+                    <td>{{ $temuan->catatan }}</td>
+                    <td>{{ $temuan->status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          @else
+            <h6 class="card-text">Data Temuan masih kosong</h6>
+          @endif
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Add User Modal -->
-  <div class="modal fade" id="addUserForm" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel1">Tambah User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('users.store') }}" method="POST">
-          @csrf
-          <div class="modal-body">
-            <div class="row">
-              <div class="col mb-3">
-                <label for="name" class="form-label">Nama</label>
-                <input required type="text" name="name" id="name" class="form-control" placeholder="Nama">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input required type="email" name="email" id="email" class="form-control" placeholder="Email">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input required type="password" name="password" id="password" class="form-control"
-                  placeholder="Password">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="role" class="form-label">Role</label>
-                <select name="role" required class="form-select" id="role" aria-label="Default select example">
-                  <option selected>Pilih Role</option>
-                  <option value="provinsi">provinsi</option>
-                  <option value="kota">kota</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit User Modal -->
-  <div class="modal fade" id="editUserForm" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel1">Edit User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('users.update', 'id') }}" method="POST">
-          @csrf
-          @method('PUT')
-          <input required type="hidden" name="id" id="edit-id" class="form-control" placeholder="id">
-
-          <div class="modal-body">
-            <div class="row">
-              <div class="col mb-3">
-                <label for="edit-name" class="form-label">Nama</label>
-                <input required type="text" name="name" id="edit-name" class="form-control" placeholder="Nama">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="edit-email" class="form-label">Email</label>
-                <input required type="email" name="email" id="edit-email" class="form-control"
-                  placeholder="Email">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="edit-password" class="form-label">Password</label>
-                <input type="password" name="password" id="edit-password" class="form-control"
-                  placeholder="Password">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="edit-role" class="form-label">Role</label>
-                <select name="role" required class="form-select" id="edit-role"
-                  aria-label="Default select example">
-                  <option selected>Pilih Role</option>
-                  <option value="provinsi">provinsi</option>
-                  <option value="kota">kota</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </form>
       </div>
     </div>
   </div>
 
 @endsection
-
 <script src="{{ asset('leaflet/leaflet.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
-<!-- Summernote JS -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-@push('scripts')
-  <script>
-    $('#dataTable').DataTable({
-      responsive: true
-    });
-    $('#editUserForm').on('show.bs.modal', function(event) {
-      var button = $(event.relatedTarget);
-      var id = button.data('bs-id');
-      var name = button.data('bs-name');
-      var email = button.data('bs-email');
-      var role = button.data('bs-role');
-
-      var modal = $(this);
-      modal.find('.modal-body #edit-id').val(id);
-      modal.find('.modal-body #edit-name').val(name);
-      modal.find('.modal-body #edit-email').val(email);
-      modal.find('.modal-body #edit-role').val(role);
-    });
-  </script>
-@endpush
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script>
+  $('.summernote').summernote({
+    tabsize: 2,
+    height: 200
+  });
+  $('#dataTable').DataTable({
+    responsive: true
+  });
+</script>

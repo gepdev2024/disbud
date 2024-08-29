@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ObjekWisataController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TemuanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -34,15 +35,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/', 'VisitorController@index')->name('landingPage');
   Route::get('/cagarBudaya', 'VisitorController@benda')->name('peta');
   Route::get('/data', 'VisitorController@data')->name('data');
-  Route::get('/laporTemuan', 'VisitorController@laporTemuan');
+  Route::get('/laporTemuan', 'VisitorController@laporTemuan')->name('laporTemuan');
+  Route::post('/laporTemuan', 'VisitorController@kirimLaporTemuan');
+  Route::get('/berhasilKirimLapor/{token}', 'VisitorController@berhasilKirimLapor')->name('berhasilKirimLapor');
+  Route::get('/cekToken', 'VisitorController@cekToken')->name('cekToken');
+  Route::post('/cekHasilToken', 'VisitorController@cekHasilToken')->name('cekHasilToken');
   // Route::get('/nonCagarBudaya', 'VisitorController@takBenda')->name('VisitorPage');
   // Route::get('/WBTB', 'VisitorController@takBenda')->name('VisitorPage');
+
+
 
   // auth
   Route::get('login', 'LoginController@show')->name('login');
   Route::post('login', 'LoginController@login');
 
   Route::group(['middleware' => ['auth']], function () {
+    // temuan
+    Route::get('/temuan', [TemuanController::class, 'index'])->name('temuan.index');
+
     // Provinsi Routes
     Route::get('objek-wisata', 'ObjekWisataController@index')->name('provinsi.objek-wisata');
     Route::post('objek-wisata', 'ObjekWisataController@store');
@@ -60,16 +70,31 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('foto', 'FotoController@index')->name('data-foto');
     Route::post('foto', 'FotoController@store');
     Route::get('foto/{id}/delete', 'FotoController@destroy');
+    Route::group(['middleware' => ['auth']], function () {
+      // Admin Routes (provinsi)
+      Route::get('objek-wisata', 'ObjekWisataController@index')->name('provinsi.objek-wisata');
+      Route::post('objek-wisata', 'ObjekWisataController@store');
+      Route::get('objek-wisata/{id}/delete', 'ObjekWisataController@destroy');
+      Route::post('objek-wisata/update', 'ObjekWisataController@update');
 
-    Route::get('logout', 'LogoutController@perform');
-  });
+      Route::get('foto', 'FotoController@index')->name('data-foto');
+      Route::post('foto', 'FotoController@store');
+      Route::get('foto/{id}/delete', 'FotoController@destroy');
 
-  Route::group(['middleware' => ['auth'], 'prefix' => 'kota'], function () {
-    // Kota Routes
-    Route::get('objek-wisata', 'ObjekWisataController@kotaIndex')->name('kota.objek-wisata');
+      Route::get('logout', 'LogoutController@perform');
+    });
+
+    Route::group(['middleware' => ['auth'], 'prefix' => 'kota'], function () {
+
+      Route::get('/temuan', [TemuanController::class, 'index'])->name('kota.temuan');
+      Route::get('/temuan/{id}', [TemuanController::class, 'show'])->name('temuan.show');
+      Route::patch('/temuan/{temuan}/revisi', [TemuanController::class, 'revisi'])->name('temuan.revisi');
+      Route::patch('/temuan/{temuan}/valid', [TemuanController::class, 'valid'])->name('temuan.valid');
+
+      Route::get('objek-wisata', 'ObjekWisataController@kotaIndex')->name('kota.objek-wisata');
+    });
   });
 });
-
 
 // // layout
 // Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');

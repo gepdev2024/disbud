@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Temuan extends Model
 {
@@ -10,10 +12,22 @@ class Temuan extends Model
   protected $primaryKey = 'id';
   public $incrementing = false;
   protected $keyType = 'string';
+
   protected $fillable = [
-    'tanggal',
-    'catatan',
-    'status',
+    'id',             // UUID primary key, if you are setting it manually
+    'id_struktur',    // Foreign key
+    'id_lokasi',      // Foreign key
+    'id_fisik',       // Foreign key
+    'id_dimensi',     // Foreign key
+    'id_kondisi',     // Foreign key
+    'id_kepemilikan', // Foreign key
+    'id_pengelolaan', // Foreign key
+    'id_sejarah',     // Foreign key
+    'id_riwayat',     // Foreign key
+    'id_pengirim',    // Foreign key
+    'status',         // Status of the entry
+    'tanggal',        // Date column
+    'catatan'         // Optional text note column
   ];
   public function dataStruktur()
   {
@@ -58,5 +72,9 @@ class Temuan extends Model
   public function riwayat()
   {
     return $this->belongsTo(Riwayat::class, 'id_riwayat');
+  }
+  public function pengirim()
+  {
+    return $this->belongsTo(Pengirim::class, 'id_pengirim');
   }
 }

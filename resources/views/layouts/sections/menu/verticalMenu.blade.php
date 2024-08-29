@@ -22,12 +22,18 @@
           <div>Objek Wisata</div>
         </a>
       </li>
-      <li class="menu-item {{ request()->routeIs('data-foto') ? 'active' : '' }}">
+      <li class="menu-item {{ request()->routeIs('kota.temuan') ? 'active' : '' }}">
+        <a href="{{ url('kota/temuan') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-search"></i>
+          <div>Temuan</div>
+        </a>
+      </li>
+      {{-- <li class="menu-item {{ request()->routeIs('data-foto') ? 'active' : '' }}">
         <a href="{{ url('foto') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-photo"></i>
           <div>Foto</div>
         </a>
-      </li>
+      </li> --}}
     @endif
 
     <!-- Menu untuk role provinsi -->

@@ -19,8 +19,6 @@ return new class extends Migration
       $table->string('pemeliharaan');
       $table->string('pemugaran');
       $table->string('adaptasi');
-      $table->longText('riwayat_pemugaran')->nullable();
-      $table->longText('riwayat_adaptasi')->nullable();
       $table->timestamps();
     });
   }

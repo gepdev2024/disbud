@@ -39,7 +39,6 @@
           </div>
         </div>
         <div class="card-body">
-
           @if (sizeof($benda) > 0)
             <div class="table-responsive">
               <table id="dataTable" class="display" style="width:100%">

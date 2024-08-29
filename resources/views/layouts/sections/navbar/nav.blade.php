@@ -22,7 +22,17 @@
                 <li><a class="nav-link " href="/">{{ __('nav.Beranda') }}</a></li>
                 <li><a class="nav-link" href="/cagarBudaya">{{ __('nav.cagarBudaya') }}</a></li>
                 <li><a class="nav-link" href="/data">Data</a></li>
-                <li><a class="nav-link" href="/laporTemuan">{{ __('nav.laporTemuan') }}</a></li>
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ __('nav.temuan') }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/laporTemuan">{{ __('nav.laporTemuan') }}</a></li>
+                        <li><a class="dropdown-item" href="/cekToken">{{ __('nav.cekToken') }}</a></li>
+                        <!-- Replace href="/laporTemuan" with actual submenu links -->
+                    </ul>
+                </li>
                 @if (App::getlocale() == 'id')
                     <li class="nav-item  rounded-circle d-flex align-items-center">
                         <a class="rounded-circle active" href="locale/id"><img width="28"

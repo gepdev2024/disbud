@@ -21,6 +21,8 @@
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
   @include('layouts/sections/scriptsIncludes')
+
+  
 </head>
 
 <body>
