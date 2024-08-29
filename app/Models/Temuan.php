@@ -10,7 +10,11 @@ class Temuan extends Model
   protected $primaryKey = 'id';
   public $incrementing = false;
   protected $keyType = 'string';
-
+  protected $fillable = [
+    'tanggal',
+    'catatan',
+    'status',
+  ];
   public function dataStruktur()
   {
     return $this->belongsTo(DataStruktur::class, 'id_struktur');

@@ -8,25 +8,25 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        // User::create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@example.com',
-        //     'password' => 'admin123',
-        //     'role' => 'provinsi'
-        // ]);
+  /**
+   * Seed the application's database.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    // User::create([
+    //     'name' => 'admin',
+    //     'email' => 'admin@example.com',
+    //     'password' => 'admin123',
+    //     'role' => 'provinsi'
+    // ]);
 
-        User::create([
-          'name' => 'pekanbaru',
-          'email' => 'pekanbaru@gmail.com',
-          'password' => 'pekanbaru123',
-          'role' => 'kota'
-      ]);
-    }
+    User::create([
+      'name' => 'bengkalis',
+      'email' => 'bengkalis1@gmail.com',
+      'password' => 'bengkalis123',
+      'role' => 'kota'
+    ]);
+  }
 }

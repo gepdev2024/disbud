@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ObjekWisataController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -28,7 +29,6 @@ Route::get('objekWisata/{kota}', function ($kota) {
   return redirect('/cagarBudaya');
 });
 
-
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
   // Main Page Route
   Route::get('/', 'VisitorController@index')->name('landingPage');
@@ -43,11 +43,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::post('login', 'LoginController@login');
 
   Route::group(['middleware' => ['auth']], function () {
-    // Admin Routes (provinsi)
-    Route::get('objek-wisata', 'ObjekWisataController@index')->name('admin.objek-wisata');
+    // Provinsi Routes
+    Route::get('objek-wisata', 'ObjekWisataController@index')->name('provinsi.objek-wisata');
     Route::post('objek-wisata', 'ObjekWisataController@store');
     Route::get('objek-wisata/{id}/delete', 'ObjekWisataController@destroy');
     Route::post('objek-wisata/update', 'ObjekWisataController@update');
+
+    // Kelola user
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     Route::get('foto', 'FotoController@index')->name('data-foto');
     Route::post('foto', 'FotoController@store');
@@ -61,6 +69,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('objek-wisata', 'ObjekWisataController@kotaIndex')->name('kota.objek-wisata');
   });
 });
+
 
 // // layout
 // Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');
