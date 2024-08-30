@@ -44,6 +44,12 @@
           <div>Objek Wisata</div>
         </a>
       </li>
+      <li class="menu-item {{ request()->routeIs('prov.temuan') ? 'active' : '' }}">
+        <a href="{{ url('temuan') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-search"></i>
+          <div>Temuan</div>
+        </a>
+      </li>
       <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
         <a href="{{ url('users') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>

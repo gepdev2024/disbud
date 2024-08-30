@@ -40,7 +40,7 @@ class TemuanController extends Controller
       'riwayat',
       'pengirim'
     ])->get();
-    return view('kota.temuan', compact('temuans'));
+    return view('admin.temuan', compact('temuans'));
   }
 
   public function create()

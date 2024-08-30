@@ -51,7 +51,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
   Route::group(['middleware' => ['auth']], function () {
     // temuan
-    Route::get('/temuan', [TemuanController::class, 'index'])->name('temuan.index');
+    Route::get('/temuan', [TemuanController::class, 'temuanProv'])->name('prov.temuan');
 
     // Provinsi Routes
     Route::get('objek-wisata', 'ObjekWisataController@index')->name('provinsi.objek-wisata');

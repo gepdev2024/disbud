@@ -63,13 +63,13 @@
                           <button type="submit" class="btn btn-primary">
                             <i class="bx bx-show me-2"></i> View
                           </button>
-                          <form action="" method="POST" style="display: inline;">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="btn btn-info ms-2">
-                              <i class="bx bx-sync me-2"></i> Sinkron
-                            </button>
-                          </form>
+                        </form>
+                        <form action="" method="POST" style="display: inline;">
+                          @csrf
+                          @method('PATCH')
+                          <button type="submit" class="btn btn-info ms-2">
+                            <i class="bx bx-sync me-2"></i> Sinkron
+                          </button>
                         </form>
                       </td>
                     </tr>

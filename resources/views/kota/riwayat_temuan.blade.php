@@ -449,17 +449,20 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Tutup
           </button>
-          <button type="button" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#revisiModal">
-            <i class="bx bx-edit-alt me-1"></i> Revisi
-          </button>
-          <form action="{{ route('temuan.valid', $temuan->id) }}" method="POST" style="display: inline;">
-            @csrf
-            @method('PATCH')
-            <button type="submit" class="btn btn-success ms-2">
-              <i class="bx bx-check me-1"></i> Valid
+          @if (auth()->user()->role == 'kota')
+            <button type="button" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#revisiModal">
+              <i class="bx bx-edit-alt me-1"></i> Revisi
             </button>
-          </form>
+            <form action="{{ route('temuan.valid', $temuan->id) }}" method="POST" style="display: inline;">
+              @csrf
+              @method('PATCH')
+              <button type="submit" class="btn btn-success ms-2">
+                <i class="bx bx-check me-1"></i> Valid
+              </button>
+            </form>
+          @endif
         </div>
+
       </div>
     </div>
   </div>
