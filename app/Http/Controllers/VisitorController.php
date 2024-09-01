@@ -114,10 +114,20 @@ class VisitorController extends Controller
             'nama_lengkap' => 'required|string|max:255',
             'nik' => 'required|numeric',
             'foto_ktp' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validate as an image
+            // 'foto' => 'required',
+            // 'dokumen_kajian' => 'required',
+            // 'tautan_video' => 'required',
+            // 'berkas_vektor' => 'required',
+            // 'berkas_raster' => 'required',
         ];
-        $kosong = 'tidak boleh kosong';
+        $kosong = 'Tidak boleh kosong';
         $messages = [
             'nama_lengkap.required' => 'Nama ' . $kosong,
+            // 'foto.required' => 'Foto / Gambar ' . $kosong,
+            // 'dokumen_kajian.required' => 'Dokumen Kajian ' . $kosong,
+            // 'tautan_video.required' => 'Tautan Video ' . $kosong,
+            // 'berkas_vektor.required' => 'Bekas Vektor ' . $kosong,
+            // 'berkas_raster.required' => 'Berkas Raster ' . $kosong,
             'nik.required' => 'NIK ' . $kosong,
             'nik.numeric' => 'NIK hanya angka.',
             'foto_ktp.required' => 'Foto KTP  ' . $kosong,
@@ -127,17 +137,47 @@ class VisitorController extends Controller
         ];
 
         $validatedData = $request->validate($rules, $messages);
-
         if ($request->hasFile('foto_ktp')) {
             $file = $request->file('foto_ktp');
-            $filePath = $file->store('foto_ktp', 'public');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathFotoKTP = $file->storeAs('/Pengirim/FotoKTP', $filename, 'public');
+        }
+        if ($request->hasFile('foto_gambar')) {
+            $file = $request->file('foto_gambar');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathFoto = $file->storeAs('/DataSejarah/Foto', $filename,'public');
+        }
+        if ($request->hasFile('dokumen_kajian')) {
+            $file = $request->file('dokumen_kajian');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathDokumenKajian = $file->storeAs('/DataSejarah/DokumenKajian', $filename,'public');
+        }
+        if ($request->hasFile('tautan_video')) {
+            $file = $request->file('tautan_video');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathTautanVideo = $file->storeAs('/DataSejarah/TautanVideo', $filename, 'public');
+        }
+        if ($request->hasFile('dokumen_lainnya')) {
+            $file = $request->file('dokumen_lainnya');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathDokumenLainnya = $file->storeAs('/DataSejarah/DokumenLainnya', $filename, 'public');
+        }
+        if ($request->hasFile('berkas_vektor')) {
+            $file = $request->file('berkas_vektor');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathBerkasVektor = $file->storeAs('/DataSejarah/BerkasVektor', $filename, 'public');
+        }
+        if ($request->hasFile('berkas_raster')) {
+            $file = $request->file('berkas_raster');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filePathBerkasRaster = $file->storeAs('/DataSejarah/BerkasRaster', $filename,'public');
         }
 
         $pengirim = Pengirim::create([
             'nama' => $validatedData['nama_lengkap'],
             'nik' => $validatedData['nik'],
             'token' => Str::random(8),
-            'foto_ktp' => $filePath,
+            'foto_ktp' => $filePathFotoKTP,
         ]);
 
         $dataStruktur = DataStruktur::create([
@@ -167,14 +207,14 @@ class VisitorController extends Controller
         ]);
 
         $dataDimensi = DataDimensi::create([
-            'panjang' => $request['panjang'],
-            'tinggi' => $request['tinggi'],
-            'lebar' => $request['lebar'],
-            'dia_atas' => $request['diameter_atas'],
-            'dia_badan' => $request['diameter_bawah'],
-            'dia_kaki' => $request['diameter_kaki'],
-            'luas_tanah' => $request['luas_tanah'],
-            'luas_struktur' => $request['lulus_struktur'],
+            'panjang' => $request['panjang']. ' ' . $request['unit_panjang'],
+            'tinggi' => $request['tinggi']. ' ' . $request['unit_tinggi'],
+            'lebar' => $request['lebar']. ' ' . $request['unit_lebar'],
+            'dia_atas' => $request['diameter_atas']. ' ' . $request['unit_diameter_atas'],
+            'dia_badan' => $request['diameter_bawah']. ' ' . $request['unit_diameter_bawah'],
+            'dia_kaki' => $request['diameter_kaki']. ' ' . $request['unit_diameter_kaki'],
+            'luas_tanah' => $request['luas_tanah']. ' ' . $request['unit_luas_tanah'],
+            'luas_struktur' => $request['lulus_struktur']. ' ' . $request['unit_lulus_struktur'],
         ]);
         $kondisiTerkini = KondisiTerkini::create([
             'keutuhan' => $request['keutuhan'],
@@ -214,12 +254,12 @@ class VisitorController extends Controller
             'batas_barat' => $request['batas_zonasi_barat'],
             'batas_selatan' => $request['batas_zonasi_selatan'],
             'batas_timur' => $request['batas_zonasi_timur'],
-            'foto' => $request['foto'],
-            'dokumen_kajian' => $request['dokumen_kajian'],
-            'video' => $request['tautan_video'],
-            'dokumen_lainnya' => $request['dokumen_lainnya'],
-            'berkas_vektor' => $request['berkas_vektor'],
-            'berkas_raster' => $request['berkas_raster'],
+            'foto' => $filePathFoto,
+            'dokumen_kajian' => $filePathDokumenKajian,
+            'video' => $filePathTautanVideo,
+            'dokumen_lainnya' => $filePathDokumenLainnya,
+            'berkas_vektor' => $filePathBerkasVektor,
+            'berkas_raster' => $filePathBerkasRaster,
         ]);
 
         $riwayat = Riwayat::create([]);
