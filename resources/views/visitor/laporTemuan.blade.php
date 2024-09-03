@@ -792,8 +792,6 @@
             </div>
           </div>
         </div>
-
-
         <button type="submit" class="btn btn-primary d-block mx-auto mt-3">Kirim</button>
       </div>
 
