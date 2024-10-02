@@ -31,7 +31,7 @@
           </div>
         @endif
         <div class="row card-header">
-          <h5 class=" col-9">Data Cagar Budaya</h5>
+          <h5 class=" col-9">Data Cagar Budaya Kota</h5>
           <div class="col-3 d-flex justify-content-end">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addForm">
               Tambah Data
@@ -39,7 +39,6 @@
           </div>
         </div>
         <div class="card-body">
-
           @if (sizeof($benda) > 0)
             <div class="table-responsive">
               <table id="dataTable" class="display" style="width:100%">

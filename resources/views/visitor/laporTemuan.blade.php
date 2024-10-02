@@ -9,8 +9,8 @@
 
 <!-- Google Fonts -->
 <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+  href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+  rel="stylesheet">
 
 <!-- Vendor CSS Files -->
 <link href={{ asset('assets/landingPage/vendor/aos/aos.css') }} rel="stylesheet">
@@ -24,47 +24,47 @@
 <link href={{ asset('assets/landingPage/css/style.css') }} rel="stylesheet">
 
 <style>
-    .file-label {
-        display: inline-block;
-        padding: 6px 12px;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.5;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        cursor: pointer;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        background-color: #17a2b8;
-        color: #fff;
-    }
+  .file-label {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #17a2b8;
+    color: #fff;
+  }
 
-    .file-label:hover {
-        background-color: #138496;
-        /* Darker shade of Bootstrap info color */
-    }
+  .file-label:hover {
+    background-color: #138496;
+    /* Darker shade of Bootstrap info color */
+  }
 
-    .error {
-        color: red;
-    }
+  .error {
+    color: red;
+  }
 </style>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LD1NDKPRC"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
 
-    gtag('config', 'G-9LD1NDKPRC');
+  gtag('config', 'G-9LD1NDKPRC');
 </script>
 
 @section('page-script')
-    <script src="{{ asset('assets/js/ui-popover.js') }}"></script>
+  <script src="{{ asset('assets/js/ui-popover.js') }}"></script>
 @endsection
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -158,10 +158,8 @@
             'unit_diameter_kaki',
             'unit_lulus_struktur',
         ];
-
-        const validationRules = {};
-        const validationMessages = {};
-
+    const validationRules = {};
+    const validationMessages = {};
         requiredFields.forEach(field => {
             validationRules[field] = {
                 required: true
@@ -199,7 +197,34 @@
 
             },
         });
+
+
+    validationRules.nik = {
+      required: true,
+      digits: true
+    };
+    validationMessages.nik = {
+      required: "NIK tidak boleh kosong",
+      digits: "NIK hanya angka"
+    };
+
+    $('#myForm').validate({
+      rules: validationRules,
+      messages: validationMessages,
+      onkeyup: false,
+      onfocusout: false,
+      onkeypress: true,
+      onkeyup: function(element) {
+        $(element).valid();
+      },
+      highlight: function(element) {
+        $(element).addClass("is-invalid").removeClass("is-valid");
+      },
+      unhighlight: function(element) {
+        $(element).removeClass("is-invalid");
+      },
     });
+  });
 </script>
 
 @section('content')
@@ -455,6 +480,10 @@
                     </div>
                 </div>
             </div>
+          </div>
+        </div>
+      </div>
+
 
             <!-- Data Dimensi -->
             <div class="border border-secondary rounded border-1 py-4 mb-4">
@@ -1057,9 +1086,6 @@
             </div>
         </form>
     </section>
-
-
-
     {{-- image preview --}}
     <script type="text/javascript">
         document.querySelector('#foto_ktp').addEventListener('change', function(event) {
@@ -1153,6 +1179,7 @@
             }
         });
     </script>
+
 
     <!-- End About Section -->
     <!-- Vendor JS Files -->

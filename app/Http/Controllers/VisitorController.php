@@ -309,7 +309,8 @@ class VisitorController extends Controller
 
         if ($pengirim) {
             $temuan = Temuan::where('id_pengirim', $pengirim->id)->first();
-            return redirect()->route('cekToken')->with('message', 'Laporan ditemukan!')->with('pengirim', $pengirim)->with('temuan', $temuan);
+            // return response('tes');
+            return redirect()->route('cekToken')->with('message', 'Laporan ditemukan!')->with(compact('pengirim', 'temuan'));
         } else {
             return redirect()->route('cekToken')->with('error', 'Laporan tidak ditemukan. Silahkan cek NIK atau token anda.');
         }

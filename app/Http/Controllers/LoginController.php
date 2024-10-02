@@ -16,29 +16,22 @@ class LoginController extends Controller
     return view('admin.login');
   }
 
-  public function login(LoginRequest $request)
+  public function login(Request $request)
   {
-    $credentials = $request->getCredentials();
+    $credentials = $request->only('email', 'password');
 
-    if (!Auth::validate($credentials)) {
-      return redirect()->to('login')
-        ->withErrors(trans('auth.failed'));
+    if (!Auth::attempt($credentials)) {
+      return redirect()->route('login')
+        ->withErrors(['email' => trans('auth.failed')]);
     }
 
-    $user = Auth::getProvider()->retrieveByCredentials($credentials);
-    Auth::login($user);
+    $user = Auth::user();
 
-    return $this->authenticated($request, $user);
-  }
-
-  protected function authenticated(Request $request, $user)
-  {
+    // Redirect based on user role
     if ($user->role === 'provinsi') {
-      return redirect()->route('admin.objek-wisata');
-    } elseif ($user->role === 'kota') {
-      return redirect()->route('kota.objek-wisata');
+      return redirect()->route('provinsi.objek-wisata');
     } else {
-      return redirect()->intended();
+      return redirect()->route('kota.objek-wisata');
     }
   }
 }

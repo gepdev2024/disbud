@@ -1,0 +1,84 @@
+{{-- resources/views/temuan/show.blade.php --}}
+@php
+  $isNavbar = false;
+@endphp
+
+@extends('layouts/contentNavbarLayout')
+
+@section('title', 'Detail Temuan')
+
+<link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet">
+
+<script src="{{ asset('assets/js/ui-modals.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+@section('content')
+
+  <h4 class="fw-bold py-3 mb-4">
+    Detail Temuan
+  </h4>
+
+  <div class="mb-4">
+    <div class="">
+
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-center flex-grow-1">
+            <h5 class="mb-0">{{ $temuan->dataStruktur->nama_odcb }}</h5>
+          </div>
+          <button type="button" class="btn btn-primary">
+            <i class="bx bx-show me-2"></i> View
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-body">
+          <h4 class="card-title">Riwayat Verifikasi & Validasi</h4>
+          @if ($temuan->count() > 0)
+            <div class="table-responsive">
+              <table id="dataTable" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Catatan</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ $temuan->tanggal }}</td>
+                    <td>{{ $temuan->catatan }}</td>
+                    <td>{{ $temuan->status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          @else
+            <h6 class="card-text">Data Temuan masih kosong</h6>
+          @endif
+        </div>
+      </div>
+    </div>
+  </div>
+
+@endsection
+<script src="{{ asset('leaflet/leaflet.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script>
+  $('.summernote').summernote({
+    tabsize: 2,
+    height: 200
+  });
+  $('#dataTable').DataTable({
+    responsive: true
+  });
+</script>

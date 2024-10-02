@@ -77,32 +77,33 @@
 
         <!-- Display session message if available -->
         @if (session('message'))
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-8">
-                <div class="card text-center">
-                    <div class="card-header bg-info py-3">
-                        <h4 class="text-center fw-bold text-white m-0">Informasi Terkait Laporan Temuan Anda</h4>
-                    </div>
-                    @if (session('pengirim') && session('temuan'))
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div class="card text-center">
+                        <div class="card-header bg-info py-3">
+                            <h4 class="text-center fw-bold text-white m-0">Informasi Terkait Laporan Temuan Anda</h4>
+                        </div>
+                        @if (session('pengirim') && session('temuan'))
                             @php
                                 $pengirim = session('pengirim');
                                 $temuan = session('temuan');
                             @endphp
                         @endif
-                    <div class="card-body text-start mt-3">
-                        <h5>Nama pengirim: {{ $pengirim->nama }}</h5>
-                        <h5>Tanggal: {{ $temuan->created_at }}</h5>
-                        <h5>Status Lapor: <span class="bg-info rounded py-1 px-2 text-white">{{ $temuan->status }}</span> </h5>
-                        {{-- <h5>Nama pengirim:frans</h5>
+                        <div class="card-body text-start mt-3">
+                            <h5>Nama pengirim: {{ $pengirim->nama }}</h5>
+                            <h5>Tanggal: {{ $temuan->created_at }}</h5>
+                            <h5>Status Lapor: <span
+                                    class="bg-info rounded py-1 px-2 text-white">{{ $temuan->status }}</span> </h5>
+                            {{-- <h5>Nama pengirim:frans</h5>
                         <h5>Tanggal: tes</h5>
                         <h5>Status Lapor:  <span class="bg-info rounded py-1 px-2 text-white">sudah didaftar</span></h5> --}}
-                        <div class="d-block text-center">
-                            <button class="btn btn-primary">Download Sertifikat</button>
+                            <div class="d-block text-center">
+                                <button class="btn btn-primary">Download Sertifikat</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
     </section>
     <!-- Vendor JS Files -->
