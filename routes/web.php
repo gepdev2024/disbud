@@ -54,7 +54,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // temuan
     Route::get('/temuan', [TemuanController::class, 'temuanProv'])->name('prov.temuan');
 
-    // Provinsi Routes
+    // Provinsi Routessad
     Route::get('objek-wisata', 'ObjekWisataController@index')->name('provinsi.objek-wisata');
     Route::post('objek-wisata', 'ObjekWisataController@store');
     Route::get('objek-wisata/{id}/delete', 'ObjekWisataController@destroy');
