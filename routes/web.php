@@ -37,6 +37,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/data', 'VisitorController@data')->name('data');
   Route::get('/laporTemuan', 'VisitorController@laporTemuan')->name('laporTemuan');
   Route::post('/laporTemuan', 'VisitorController@kirimLaporTemuan');
+  Route::post('/praLaporTemuan', 'VisitorController@praKirimLaporTemuan');
   Route::get('/berhasilKirimLapor/{token}', 'VisitorController@berhasilKirimLapor')->name('berhasilKirimLapor');
   Route::get('/cekToken', 'VisitorController@cekToken')->name('cekToken');
   Route::post('/cekHasilToken', 'VisitorController@cekHasilToken')->name('cekHasilToken');

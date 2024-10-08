@@ -108,6 +108,57 @@ class VisitorController extends Controller
         return view('visitor.laporTemuan');
     }
 
+    public function praKirimLaporTemuan(Request $request)
+    {
+      $required = [
+        'nama_lengkap' => 'required|string|max:255',
+        'nik' => 'required|numeric',
+        'foto_ktp' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        'nama_odcb' => 'required|string|max:255',
+        'foto_temuan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+      ];
+
+      $validatedData = $request->validate($required);
+
+      if ($request->hasFile('foto_ktp')){
+        $file = $request->file('foto_ktp');
+        $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+        $filePathFotoKTP = $file->storeAs('/Pengirim/FotoKTP', $filename, 'public');
+      }
+      if ($request->hasFile('foto_temuan')){
+        $file = $request->file('foto_temuan');
+        $filename = Str::random(10). '.' . $file->getClientOriginalExtension();
+        $filePathFoto = $file->storeAs('/DataSejarah/Foto', $filename, 'public');
+      }
+
+      $pengirim = Pengirim::create([
+        'nama' => $validatedData['nama_lengkap'],
+        'nik' => $validatedData['nik'],
+        'foto_ktp' => $filePathFotoKTP,
+        'token' => Str::random(8),
+      ]);
+
+      $dataSejarah = DataSejarah::create([
+        'foto' => $filePathFoto,
+      ]);
+
+      $dataStruktur = DataStruktur::create([
+        'nama_odcb' => $validatedData['nama_odcb'],
+      ]);
+
+      $temuan = Temuan::create([
+        'id' => (string) Str::uuid(),
+        'id_sejarah' => $dataSejarah->id,
+        'id_struktur' => $dataStruktur->id,
+        'id_pengirim' => $pengirim->id,
+        'status' => 'Pra_Lapor',
+      ]);
+
+      return redirect()
+        ->route('berhasilKirimLapor', ['token' => $pengirim->token])
+        ->with('success', 'Laporan berhasil dikirim!')
+        ->with('pengirim', $pengirim);
+    }
     public function kirimLaporTemuan(Request $request)
     {
         $rules = [
