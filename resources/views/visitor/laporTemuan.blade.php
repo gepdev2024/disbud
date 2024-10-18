@@ -2,30 +2,21 @@
 
 @section('title', __('nav.judul') . ' - Lapor Temuan')
 
-<link href={{ asset('assets/landingPage/img/logo1.png') }} rel="icon">
-<link href={{ asset('assets/landingPage/img/apple-touch-icon.png') }} rel="apple-touch-icon">
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-  rel="stylesheet">
-<!-- Vendor CSS Files -->
-<link href={{ asset('assets/landingPage/vendor/aos/aos.css') }} rel="stylesheet">
-<link href={{ asset('assets/landingPage/vendor/bootstrap/css/bootstrap.min.css') }} rel="stylesheet">
-<link href={{ asset('assets/landingPage/vendor/bootstrap-icons/bootstrap-icons.css') }} rel="stylesheet">
-<link href={{ asset('assets/landingPage/vendor/boxicons/css/boxicons.min.css') }} rel="stylesheet">
-<link href={{ asset('assets/landingPage/vendor/glightbox/css/glightbox.min.css') }} rel="stylesheet">
-<link href={{ asset('assets/landingPage/vendor/swiper/swiper-bundle.min.css') }} rel="stylesheet">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9LD1NDKPRC"></script>
+<!-- Template Main CSS File -->
+<link href={{ asset('assets/landingPage/css/style.css') }} rel="stylesheet">
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- jQuery Validation Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
 <script>
   $(document).ready(function ($) {
     const requiredFields = [
       'nama_lengkap',
       'nik',
+      'nama_odcb',
+      'foto_ktp',
+      'foto_temuan'
     ];
 
     const validationRules = {};
@@ -45,7 +36,7 @@
       digits: true
     };
     validationMessages.nik = {
-      required: "NIK tidak boleh kosong",
+      required: "Tidak boleh kosong",
       digits: "NIK hanya angka"
     };
 
@@ -75,7 +66,7 @@
       <h1 class="">Lapor Temuan Cagar Budaya</h1>
       <div class="mx-auto border border-2 rounded mb-3 border-success" style="width: 25%; margin-top:-10px"></div>
     </div>
-    <form action="praLaporTemuan" method="POST" enctype="multipart/form-data" id="myForm">
+    <form action="{{route('praTemuan.kirim')}}" method="POST" enctype="multipart/form-data" id="myForm">
       @csrf
       <!-- Identitas Pengirim -->
       <div class="row">
@@ -151,78 +142,60 @@
       <button type="submit"
               class="btn btn-primary d-block mx-auto w-auto px-4 py-2 fw-bold rounded-pill">Kirim
       </button>
-      </div>
-      <script type="text/javascript">
-        document.querySelector('#foto_ktp').addEventListener('change', function (event) {
-          const file = event.target.files[0];
-          const fileDetails = document.querySelector('#fileDetailsKTP');
-          const previewImage = document.querySelector('#previewImage');
-          let labelInfo = document.querySelector('#labelFotoKtp');
-          if (file) {
-            fileDetails.textContent = `${file.name}`;
-            if (file.type.startsWith('image/')) {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                previewImage.src = e.target.result;
-                previewImage.classList.remove('d-none');
-              }
-              reader.readAsDataURL(file);
-            } else {
-              previewImage.classList.add('d-none');
-            }
-            labelInfo.textContent = "Ubah Foto KTP";
-          } else {
-            fileDetails.textContent = '';
-            previewImage.classList.add('d-none');
-            labelInfo.textContent = "+ Tambah Foto KTP";
-          }
-        });
-
-        document.querySelector('#foto_temuan').addEventListener('change', function (event) {
-          const file = event.target.files[0];
-          const fileDetails = document.querySelector('#fileDetailsTemuan');
-          const previewImage = document.querySelector('#previewTemuan');
-          let labelInfo = document.querySelector('#labelFotoTemuan');
-          if (file) {
-            fileDetails.textContent = `${file.name}`;
-            if (file.type.startsWith('image/')) {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                previewImage.src = e.target.result;
-                previewImage.classList.remove('d-none');
-              }
-              reader.readAsDataURL(file);
-            } else {
-              previewImage.classList.add('d-none');
-            }
-            labelInfo.textContent = "Ubah Foto Temuan";
-          } else {
-            fileDetails.textContent = '';
-            previewImage.classList.add('d-none');
-            labelInfo.textContent = "+ Tambah Foto Temuan";
-          }
-        });
-      </script>
-      </div>
     </form>
   </section>
 
-  <!-- Vendor JS Files -->
-  <script src={{ asset('assets/landingPage/vendor/purecounter/purecounter_vanilla.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/aos/aos.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/bootstrap/js/bootstrap.bundle.min.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/glightbox/js/glightbox.min.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/isotope-layout/isotope.pkgd.min.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/swiper/swiper-bundle.min.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/waypoints/noframework.waypoints.js') }}></script>
-  <script src={{ asset('assets/landingPage/vendor/php-email-form/validate.js') }}></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <script type="text/javascript">
+    document.querySelector('#foto_ktp').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      const fileDetails = document.querySelector('#fileDetailsKTP');
+      const previewImage = document.querySelector('#previewImage');
+      let labelInfo = document.querySelector('#labelFotoKtp');
+      if (file) {
+        fileDetails.textContent = `${file.name}`;
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewImage.classList.remove('d-none');
+          }
+          reader.readAsDataURL(file);
+        } else {
+          previewImage.classList.add('d-none');
+        }
+        labelInfo.textContent = "Ubah Foto KTP";
+      } else {
+        fileDetails.textContent = '';
+        previewImage.classList.add('d-none');
+        labelInfo.textContent = "+ Tambah Foto KTP";
+      }
+    });
 
-
-
+    document.querySelector('#foto_temuan').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      const fileDetails = document.querySelector('#fileDetailsTemuan');
+      const previewImage = document.querySelector('#previewTemuan');
+      let labelInfo = document.querySelector('#labelFotoTemuan');
+      if (file) {
+        fileDetails.textContent = `${file.name}`;
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewImage.classList.remove('d-none');
+          }
+          reader.readAsDataURL(file);
+        } else {
+          previewImage.classList.add('d-none');
+        }
+        labelInfo.textContent = "Ubah Foto Temuan";
+      } else {
+        fileDetails.textContent = '';
+        previewImage.classList.add('d-none');
+        labelInfo.textContent = "+ Tambah Foto Temuan";
+      }
+    });
+  </script>
 
   <!-- Template Main JS File -->
   <script src={{ asset('assets/landingPage/js/main.js') }}></script>

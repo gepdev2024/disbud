@@ -12,7 +12,7 @@
 
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
 @section('content')
 
@@ -39,41 +39,47 @@
             <div class="table-responsive">
               <table id="dataTable" class="display" style="width:100%">
                 <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
-                    <th>Status</th>
-                    <th>Periode</th>
-                    <th>Tanggal Penemuan</th>
-                    <th>Aksi</th>
-                  </tr>
+                <tr>
+                  <th class="text-center">No</th>
+                  <th class="text-center">ID Temuan</th>
+                  <th class="text-center">Judul</th>
+                  <th class="text-center">Waktu Dikirim</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
                 </thead>
                 <tbody>
-                  @foreach ($temuans as $index => $item)
-                    <tr>
-                      <td>{{ $index + 1 }}</td>
-                      <td>{{ $item->dataStruktur->nama_odcb }}</td>
-                      <td>{{ $item->dataStruktur->sifat }}</td>
-                      <td>{{ $item->status }}</td>
-                      <td>{{ $item->dataStruktur->periode }}</td>
-                      <td>{{ $item->created_at }}</td>
-                      <td>
-                        <form action="{{ route('temuan.show', $item->id) }}" method="GET" style="display: inline;">
-                          <button type="submit" class="btn btn-primary">
-                            <i class="bx bx-show me-2"></i> View
-                          </button>
-                          <form action="" method="POST" style="display: inline;">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="btn btn-info ms-2">
-                              <i class="bx bx-sync me-2"></i> Sinkron
-                            </button>
-                          </form>
-                        </form>
+                @foreach ($temuans as $index => $item)
+                  <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->dataStruktur->nama_odcb }}</td>
+                    <td>{{ $item->created_at }}</td>
+                    @if($item->status == 'revisi')
+                      <td class="text-center">
+                        <span class="badge bg-success">Revisi</span>
                       </td>
-                    </tr>
-                  @endforeach
+                    @else
+                      <td class="text-center">
+                        <span class="badge bg-info">Diproses</span>
+                      </td>
+                    @endif
+                    <td>
+                      <form action="{{ route('temuan.detail', $item->id) }}" method="GET" style="display: inline;">
+                        <button type="submit" class="btn btn-primary">
+                          <i class="bx bx-show me-2"></i> View
+                        </button>
+                        <form action="" method="POST" style="display: inline;">
+                          @csrf
+                          @method('PATCH')
+                          <button type="submit" class="btn btn-info ms-2">
+                            <i class="bx bx-sync me-2"></i> Sinkron
+                          </button>
+                        </form>
+                      </form>
+                    </td>
+                  </tr>
+                @endforeach
                 </tbody>
               </table>
             </div>

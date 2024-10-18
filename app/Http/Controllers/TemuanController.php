@@ -8,8 +8,80 @@ use Carbon\Carbon;
 
 class TemuanController extends Controller
 {
-
   public function index()
+  {
+    $temuans = Temuan::all();
+    return view('temuan.index', compact('temuans'));
+  }
+  public function PraTemuan()
+  {
+    $query = Temuan::with(['dataStruktur','dataSejarah','pengirim'])
+      ->where('status', 'pra_temuan');
+    $temuans = $query->get();
+    return view('kota.praTemuan', [
+      'temuans' => $temuans
+    ]);
+  }
+
+  public function RiwayatPraTemuan()
+  {
+    $query = Temuan::with([
+      'dataStruktur',
+      'dataSejarah',
+      'pengirim'
+    ])->whereIn('status', ['terima_pra_temuan', 'tolak_pra_temuan']);
+    $temuans = $query->get();
+    return view('kota.praTemuan', [
+      'temuans' => $temuans
+    ]);
+  }
+
+  public function KonfirmasiPraTemuan(Request $request, Temuan $temuan)
+  {
+    $temuan->update([
+      'status' => 'terima_pra_temuan'
+    ]);
+    $temuan->riwayat()->create([
+      'tanggal' => Carbon::now(),
+      'status' => 'valid',
+    ]);
+    return redirect()->route('pra-temuan')->with('success', 'Pra temuan telah dikonfirmasi');
+  }
+
+  public function TolakPraTemuan(Request $request, Temuan $temuan)
+  {
+    $temuan->update([
+      'status' => 'tolak_pra_temuan'
+    ]);
+
+    $temuan->riwayat()->create([
+      'tanggal' => Carbon::now(),
+      'status' => 'valid',
+    ]);
+    return redirect()->route('pra-temuan')->with('success', 'Pra temuan telah di tolak.');
+  }
+
+  public function ProsesTemuan(Request $request)
+  {
+    $query = Temuan::with([
+      'dataStruktur',
+      'lokasiPenemuan',
+      'dataFisik',
+      'dataDimensi',
+      'kondisiTerkini',
+      'dataKepemilikan',
+      'dataPengelolaan',
+      'dataSejarah',
+      'riwayat',
+      'pengirim'
+    ])->where('status', ['lengkapi_pra_temuan',]);
+    $temuans = $query->get();
+    return view('kota.temuan', [
+      'temuans' => $temuans
+    ]);
+  }
+
+  public function Temuan()
   {
     $temuans = Temuan::with([
       'dataStruktur',
@@ -22,34 +94,19 @@ class TemuanController extends Controller
       'dataSejarah',
       'riwayat',
       'pengirim'
-    ])->get();
+    ])->where('status', 'temuan')->get();
     return view('kota.temuan', compact('temuans'));
   }
 
-  public function temuanProv()
-  {
-    $temuans = Temuan::with([
-      'dataStruktur',
-      'lokasiPenemuan',
-      'dataFisik',
-      'dataDimensi',
-      'kondisiTerkini',
-      'dataKepemilikan',
-      'dataPengelolaan',
-      'dataSejarah',
-      'riwayat',
-      'pengirim'
-    ])->get();
-    return view('admin.temuan', compact('temuans'));
-  }
-
-  public function create()
+  public
+  function create()
   {
     return view('temuans.create');
   }
 
 
-  public function store(Request $request)
+  public
+  function store(Request $request)
   {
     $validatedData = $request->validate([
       'status' => 'required|string',
@@ -63,7 +120,7 @@ class TemuanController extends Controller
   }
 
 
-  public function show($id)
+  public function detailTemuan($id)
   {
 
     $temuan = Temuan::with([
@@ -82,13 +139,15 @@ class TemuanController extends Controller
     return view('kota.riwayat_temuan', compact('temuan'));
   }
 
-  public function edit(Temuan $temuan)
+  public
+  function edit(Temuan $temuan)
   {
     return view('temuans.edit', compact('temuan'));
   }
 
 
-  public function update(Request $request, Temuan $temuan)
+  public
+  function update(Request $request, Temuan $temuan)
   {
     $validatedData = $request->validate([
       'status' => 'required|string',
@@ -100,7 +159,9 @@ class TemuanController extends Controller
 
     return redirect()->route('temuans.index');
   }
-  public function revisi(Request $request, Temuan $temuan)
+
+  public
+  function revisi(Request $request, Temuan $temuan)
   {
     $request->validate([
       'catatan' => 'required|string',
@@ -120,7 +181,8 @@ class TemuanController extends Controller
     return redirect()->route('temuan.show', $temuan->id)->with('success', 'Catatan revisi berhasil disimpan.');
   }
 
-  public function valid(Temuan $temuan)
+  public
+  function valid(Temuan $temuan)
   {
     $temuan->update([
       'status' => 'valid',
@@ -135,7 +197,8 @@ class TemuanController extends Controller
   }
 
 
-  public function destroy(Temuan $temuan)
+  public
+  function destroy(Temuan $temuan)
   {
     $temuan->delete();
     return redirect()->route('temuans.index');
