@@ -22,6 +22,7 @@
     </h4>
 
     <div class="mb-4">
+
       <div class="">
         @if (session()->has('success'))
           <div class="alert alert-primary">
@@ -29,7 +30,6 @@
           </div>
         @endif
       </div>
-
 
       <!-- Data Pengirim -->
       <h6>Data Pengirim</h6>
@@ -73,7 +73,7 @@
           <td>{{ $temuan->dataStruktur->nama_odcb }}</td>
         </tr>
         <tr>
-          <td>Jenis</td>
+          <td>Sifat</td>
           <td>{{ $temuan->dataStruktur->sifat }}</td>
         </tr>
         <tr>
@@ -378,11 +378,119 @@
         </tr>
         <tr>
           <td>Video</td>
-          <td><a href="{{ asset('storage/' . $temuan->dataSejarah->video) }}">Tonton</a></td>
+          <td><a href="{{ asset('storage/' . $temuan->dataSejarah->video) }}">Unduh</a></td>
+        </tr>
+        <tr>
+          <td>Dokumen Lainnya</td>
+          <td><a href="{{ asset('storage/' . $temuan->dataSejarah->dokumen_lainnya) }}">Unduh</a></td>
+        </tr>
+        <tr>
+          <td>Berkas Vektor</td>
+          <td><a href="{{ asset('storage/' . $temuan->dataSejarah->berkas_vektor) }}">Unduh</a></td>
+        </tr>
+        <tr>
+          <td>Berkas Raster</td>
+          <td><a href="{{ asset('storage/' . $temuan->dataSejarah->berkas_raster) }}">Unduh</a></td>
         </tr>
         </tbody>
       </table>
+
+      <div class="d-inline-flex">
+        <form action="{{route('temuan.sinkron',$temuan->id)}}" method="POST">
+          @csrf
+          @method('PUT')
+          <button type="submit" class="btn btn-success ms-2">
+            <i class="bx bx-sync me-2"></i> Sinkron
+          </button>
+        </form>
+        <div>
+          <button type="button" class="btn btn-info ms-2" data-bs-toggle="modal"
+                  data-bs-target="#viewRevisiTemuanModal{{$temuan->id}}">
+            <i class="bx bx-edit me-2"></i> Revisi
+          </button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal"
+                  data-bs-target="#viewTolakTemuanModal{{$temuan->id}}">
+            <i class="bx bx-edit me-2"></i> Tolak
+          </button>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+
+  {{--  Modal Revisi--}}
+  <div class="modal fade" id="viewRevisiTemuanModal{{$temuan->id}}" tabindex="-1"
+       aria-labelledy="viewRevisiTemuanModalLabel" aria-hidden="true">
+    <form action="{{ route('temuan.revisi', $temuan->id) }}" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="modal-dialog px-5 modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row">
+              <div class="mb-3">
+                <label for="catatan_revisi" class="form-label text-center mx-auto d-flex justify-content-center">Catatan
+                  /
+                  Revisi</label>
+                <textarea class="form-control" id="catatan_revisi" name="catatan_revisi"
+                          rows="4">{{ old('catatan_revisi') }}</textarea>
+                @error('catatan_revisi')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-info ms-2 d-flex align-items-center">
+              <i class="bx bx-edit me-1"></i> Revisi
+            </button>
+            <div>
+              <button type="button" class="btn btn-secondary ms-2 d-flex align-items-center" data-bs-dismiss="modal">
+                <i class="bx bx-x me-1"></i> Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {{--  Modal Tolak--}}
+  <div class="modal fade" id="viewTolakTemuanModal{{$temuan->id}}" tabindex="-1"
+       aria-labelledy="viewTolakTemuanModalLabel" aria-hidden="true">
+    <form action="{{ route('temuan.tolak', $temuan->id) }}" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="modal-dialog px-5 modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row">
+              <div class="mb-3">
+                <label for="catatan_tolak" class="form-label text-center mx-auto d-flex justify-content-center">Catatan
+                  / Tolak</label>
+                <textarea class="form-control" id="catatan_tolak" name="catatan_tolak"
+                          rows="4">{{ old('catatan_tolak') }}</textarea>
+                @error('catatan_tolak')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger ms-2 d-flex align-items-center">
+              <i class="bx bx-x me-1"></i> Tolak
+            </button>
+            <div>
+              <button type="button" class="btn btn-secondary ms-2 d-flex align-items-center" data-bs-dismiss="modal">
+                <i class="bx bx-arrow-back me-1"></i> Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 
 @endsection

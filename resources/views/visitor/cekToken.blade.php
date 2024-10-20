@@ -78,13 +78,34 @@
                     class="badge bg-success text-capitalize">
                     Diterima
                     @break
+                    @case('revisi')
+                    class="badge bg-info text-capitalize">
+                    Revisi
+                    @break
+                    @case('tolak')
+                    class="badge bg-danger text-capitalize">
+                    Ditolak
+                    @break
+                    @case('sinkron')
+                    class="badge bg-success text-capitalize">
+                    Telah Dikonfirmasi
+                    @break
                     @default
                     class="badge bg-info text-capitalize">
                     Diproses
                   @endswitch
                 </span></h5>
-              @if($temuan->status == 'terima_pra_temuan')
+              @if($temuan->catatan)
+                <h5 class="mb-2">Catatan:</h5>
+                <div class="border border-2 w-50 p-2 rounded">
+                  <p class="mt-0">{{$temuan->catatan}}</p>
+                </div>
+              @endif
+              @if(in_array($temuan->status, ['terima_pra_temuan', 'revisi']))
                 <h5><a href="{{route('praTemuan.lengkapi', $pengirim->token)}}" class="text-decoration-underline">Klik Link Ini Untuk Melengkapi Laporan</a></h5>
+              @endif
+              @if($temuan->status == 'sinkron')
+                <h5 class="mt-3"><a href="{{ asset('storage/' . $temuan->pengirim->sertifikat) }}" class="btn btn-primary">Download Sertifikat</a></h5>
               @endif
             </div>
           </div>

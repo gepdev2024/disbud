@@ -249,7 +249,7 @@ class VisitorController extends Controller
       'penemuan_longitude' => 'required|numeric',
       'penemuan_ketinggian' => 'required|numeric',
       'periode_struktur' => 'required|string|max:255',
-      'staf_struktur' => 'required|string|max:255',
+      'sifat_struktur' => 'required|string|max:255',
       'nama_lengkap' => 'required|string|max:255',
       'fungsi_struktur' => 'required|string|max:255',
       'nama_struktur' => 'required|string|max:255',
@@ -304,7 +304,7 @@ class VisitorController extends Controller
     $pengirim = Pengirim::find($request['id_pengirim']);
 
     $dataStruktur = DataStruktur::where('id', $request['id_dataStruktur'])->update([
-      'sifat' => $request['nama_struktur'],
+      'sifat' => $request['sifat_struktur'],
       'fungsi' => $request['fungsi_struktur'],
       'periode' => $request['periode_struktur'],
     ]);

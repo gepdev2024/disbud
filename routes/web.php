@@ -55,7 +55,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::put('/kota/pra-temuan/konfirmasi/{temuan}', [TemuanController::class, 'konfirmasiPraTemuan'])->name('pra-temuan.konfirmasi');
     Route::put('/kota/pra-temuan/tolak/{temuan}', [TemuanController::class, 'TolakPraTemuan'])->name('pra-temuan.tolak');
     Route::get('/kota/temuan', [TemuanController::class, 'ProsesTemuan'])->name('kota.temuan');
-    Route::get('temuan/{id}', [TemuanController::class, 'detailTemuan'])->name('temuan.detail');
+    Route::get('/kota/temuan/{id}', [TemuanController::class, 'detailTemuan'])->name('temuan.detail');
+    Route::put('/kota/temuan/revisi/{id}', [TemuanController::class, 'RevisiTemuan'])->name('temuan.revisi');
+    Route::put('/kota/temuan/tolak/{id}', [TemuanController::class, 'TolakTemuan'])->name('temuan.tolak');
+    Route::put('/kota/temuan/sinkron/{id}', [TemuanController::class, 'SinkronTemuan'])->name('temuan.sinkron');
+    Route::post('generate-certificate', [TemuanController::class, 'generateCertificate'])->name('generate.certificate');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
@@ -80,9 +84,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::group(['middleware' => ['auth'], 'prefix' => 'kota'], function () {
 
-//    Route::get('/temuan', [TemuanController::class, 'index'])->name('kota.temuan');
-    Route::patch('/temuan/{temuan}/revisi', [TemuanController::class, 'revisi'])->name('temuan.revisi');
-    Route::patch('/temuan/{temuan}/valid', [TemuanController::class, 'valid'])->name('temuan.valid');
     Route::get('objek-wisata', 'ObjekWisataController@kotaIndex')->name('kota.objek-wisata');
     });
   });

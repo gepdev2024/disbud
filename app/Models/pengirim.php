@@ -9,7 +9,7 @@ class pengirim extends Model
 {
     use HasFactory;
     protected $table = 'pengirim';
-    protected $fillable = ['nama', 'foto_ktp', 'token', 'nik'];
+    protected $fillable = ['nama', 'foto_ktp', 'token', 'nik', 'sertifikat'];
 
     public function temuan()
     {

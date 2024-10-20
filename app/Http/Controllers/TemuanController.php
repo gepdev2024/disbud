@@ -5,9 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Temuan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Services\CertificateService;
 
 class TemuanController extends Controller
 {
+  protected $certificateService;
+
+  public function __construct(CertificateService $certificateService)
+  {
+    $this->certificateService = $certificateService;
+  }
+
+  public function generateCertificate(Request $request)
+  {
+    $data = [
+      'name' => $request->input('name'),
+      'date' => now()->format('Y-m-d'),
+      'filename' => 'certificate_' . time()
+    ];
+
+    $filePath = $this->certificateService->generateCertificate($data);
+
+    return response()->download($filePath);
+  }
   public function index()
   {
     $temuans = Temuan::all();
@@ -74,7 +94,8 @@ class TemuanController extends Controller
       'dataSejarah',
       'riwayat',
       'pengirim'
-    ])->where('status', ['lengkapi_pra_temuan',]);
+      ]);
+//    ])->where('status', ['lengkapi_pra_temuan',]);
     $temuans = $query->get();
     return view('kota.temuan', [
       'temuans' => $temuans
@@ -94,8 +115,74 @@ class TemuanController extends Controller
       'dataSejarah',
       'riwayat',
       'pengirim'
-    ])->where('status', 'temuan')->get();
+      ]);
+//    ])->where('status', 'temuan')->get();
     return view('kota.temuan', compact('temuans'));
+  }
+
+  public function RevisiTemuan(Request $request, $id){
+    $validate = $request->validate([
+      'catatan_revisi' => 'required|string',
+    ]);
+    $temuan = Temuan::findOrFail($id);
+    $temuan->update([
+      'status' => 'revisi',
+      'catatan' => $validate['catatan_revisi'],
+    ]);
+    return redirect()->route('kota.temuan')
+      ->with('success', 'Catatan / revisi berhasil dikirimkan!')
+      ->with(compact('temuan'));
+  }
+  public function TolakTemuan(Request $request, $id){
+    $validate = $request->validate([
+      'catatan_tolak' => 'required|string',
+    ]);
+    $temuan = Temuan::findOrFail($id);
+    $temuan->update([
+      'status' => 'tolak',
+      'catatan' => $validate['catatan_tolak'],
+    ]);
+    return redirect()->route('kota.temuan')
+      ->with('success', 'Catatan / tolak berhasil dikirimkan!')
+      ->with(compact('temuan'));
+  }
+
+//  public function SinkronTemuan($id){
+//    $temuan = Temuan::findOrFail($id);
+//    $temuan->update([
+//      'status' => 'sinkron',
+//      'catatan' => null
+//    ]);
+//    return redirect()->route('kota.temuan')
+//      ->with('success', 'berhasil disinkron!')
+//      ->with(compact('temuan'));
+//  }
+
+  public function SinkronTemuan($id)
+  {
+    $temuan = Temuan::findOrFail($id);
+
+    // Generate the certificate
+    $data = [
+      'name' => $temuan->pengirim->name,
+      'date' => now()->format('Y-m-d'),
+      'filename' => 'certificate_' . time()
+    ];
+    $filePath = $this->certificateService->generateCertificate($data);
+
+    // Update the temuan and pengirim
+    $temuan->update([
+      'status' => 'sinkron',
+      'catatan' => null,
+    ]);
+
+    $temuan->pengirim->update([
+      'sertifikat' => $filePath
+    ]);
+
+    return redirect()->route('kota.temuan')
+      ->with('success', 'berhasil disinkron!')
+      ->with(compact('temuan'));
   }
 
   public

@@ -6,13 +6,14 @@
 
 @section('title', 'Data Temuan')
 
-<link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
+<link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}"/>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet">
 
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
 
 @section('content')
 
@@ -59,23 +60,28 @@
                       <td class="text-center">
                         <span class="badge bg-success">Revisi</span>
                       </td>
+                    @elseif($item->status == 'tolak')
+                      <td class="text-center">
+                        <span class="badge bg-danger">Ditolak</span>
+                      </td>
                     @else
                       <td class="text-center">
                         <span class="badge bg-info">Diproses</span>
                       </td>
                     @endif
                     <td>
-                      <form action="{{ route('temuan.detail', $item->id) }}" method="GET" style="display: inline;">
+                      <form action="{{ route('temuan.detail', $item->id) }}"  style="display: inline;">
                         <button type="submit" class="btn btn-primary">
                           <i class="bx bx-show me-2"></i> View
                         </button>
-                        <form action="" method="POST" style="display: inline;">
-                          @csrf
-                          @method('PATCH')
-                          <button type="submit" class="btn btn-info ms-2">
-                            <i class="bx bx-sync me-2"></i> Sinkron
-                          </button>
-                        </form>
+                      </form>
+                      <form action="" method="POST" style="display: inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-info ms-2">
+                          <i class="bx bx-sync me-2"></i> Sinkron
+                        </button>
+                      </form>
                       </form>
                     </td>
                   </tr>
@@ -148,9 +154,9 @@
   </script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       var viewTemuanModal = document.getElementById('viewTemuanModal');
-      viewTemuanModal.addEventListener('show.bs.modal', function(event) {
+      viewTemuanModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget; // Button that triggered the modal
         var id = button.getAttribute('data-id');
         var nama = button.getAttribute('data-nama');
@@ -178,6 +184,5 @@
       });
     });
   </script>
-
 
 @endsection

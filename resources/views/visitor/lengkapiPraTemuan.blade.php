@@ -268,16 +268,16 @@
                 @enderror
               </div>
               <div class="col-md-4">
-                <label for="stafStruktur" class="form-label">Staf Struktur</label>
-                <select class="form-select" aria-label="Default select example" id="stafStruktur"
-                        name="staf_struktur">
-                  <option selected value="" {{ old('staf_struktur') == '' ? 'selected' : '' }}>Pilih
+                <label for="stafStruktur" class="form-label">Sifat Struktur</label>
+                <select class="form-select" aria-label="Default select example" id="sifatStruktur"
+                        name="sifat_struktur">
+                  <option selected value="" {{ old('sifat_struktur') == '' ? 'selected' : '' }}>Pilih
                   </option>
                   <option value="Campuran"
-                    {{ old('staf_struktur') == 'Campuran' ? 'selected' : '' }}>Campuran
+                    {{ old('sifat_struktur') == 'Campuran' ? 'selected' : '' }}>Campuran
                   </option>
                 </select>
-                @error('staf_struktur')
+                @error('sifat_struktur')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
               </div>
